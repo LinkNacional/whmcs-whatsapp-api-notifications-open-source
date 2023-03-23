@@ -1,0 +1,11 @@
+{
+    "name": "",
+    "host": "",
+    "protocol": "ftp",
+    "username": "",
+    "remotePath": "/",
+    "uploadOnSave": true,
+    "useTempFile": true,
+    "context": "src",
+    "password": ""
+}
