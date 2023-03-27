@@ -21,20 +21,18 @@ final class OrderPaid extends ChatwootHookFile
      */
     public function run(object $hookData): bool
     {
-        // Note: on free plan you can have only 3 total hook files under /Custom/Platforms/*/Hooks.
-        /**
-         * In short, you can call this method for sending a message template.
-         */
+        // Note: on free plan, you can have only 3 total hook files under /Custom/Platforms/*/Hooks.
+
+        // In short, you can call this method for sending a message template.
         // $response = $this->sendMessageToClient($hookData->clientId, 'Message');
 
         /**
          * For more custom things, you should read and use this.
          *
          * For sending a message to Chatwoot API, it requires a contact and a conversation
-         * So the code below searchs a contact, creates a conversation it there is not one
+         * So the code below searchs a contact, creates a conversation if there is not one
          * and send a message to the conversation.
          */
-
         $whatsappPhoneNumber = $this->getWhatsAppNumberForClient($hookData->clientId);
 
         $contact = $this->searchContact($whatsappPhoneNumber);
@@ -73,6 +71,9 @@ final class OrderPaid extends ChatwootHookFile
         $message = $this->sendMessage($conversation['id'], $message, true);
 
         /**
+        * To make your hook available for association with a WhatsApp message template,
+        * you need to put the name of the hook in /Custom/Config/hooks_labels.php
+        *
         * When you finish your implementation, you should see /Custom/hooks.php
         * and call this hook file there, using the Dispatcher.
         */
