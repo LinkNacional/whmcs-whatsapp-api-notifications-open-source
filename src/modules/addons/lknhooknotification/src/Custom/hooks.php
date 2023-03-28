@@ -2,17 +2,18 @@
 
 // Doc WHMCS Hook Reference: https://developers.whmcs.com/hooks/hook-index/
 
-use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\Platforms;
-use Lkn\HookNotification\Custom\HooksData\Factories\OrderFactory;
+use Lkn\HookNotification\Custom\HooksData\Factories\OrderPaidFactory;
 use Lkn\HookNotification\Dispatcher;
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 add_hook('OrderPaid', 1, function ($vars): void {
-    $hookData = OrderFactory::fromHook($vars);
+    $hookData = OrderPaidFactory::fromHook($vars);
 
     // You can execute the hook files for every platform.
-    Dispatcher::runHook(Hooks::ORDER_PAID, $hookData);
+    Dispatcher::runHook('OrderPaid', $hookData);
 
     // Or you can run the hook for only one platform.
-    // Dispatcher::runHookForPlatform(Hooks::ORDER_PAID, Platforms::WHATSAPP, $hookData);
+    // Dispatcher::runHookForPlatform('OrderPaid', Platforms::WHATSAPP, $hookData);
 });

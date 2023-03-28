@@ -12,20 +12,24 @@ If your feature is requested by many users, it can be adapted and integrated nat
 - The code should be compatible with PHP 8.1 and the latest version of WHMCS.
 
 ## How to contribute
-- Fork this repository.
-- Clone your forked repository to your machine.
-- To learn how to create a custom hook, refer to the template files:  [this for Chatwoot hooks](src/modules/addons/lknhooknotification/src/Custom/Platforms/Chatwoot/Hooks/OrderPaid.example.php) and [this for WhatsApp hooks](src/modules/addons/lknhooknotification/src/Custom/Platforms/WhatsApp/Hooks/OrderPaid.example.php).
+Take a look on the wiki about [How to create a customized hook](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-custom/wiki/How-to-create-a-customized-hook).
 
-These two template files contain comments that will guide you in creating a custom hook for your specific use case.
+## Development environment
 
-Please, read them carefully.
 
-- Once you've completed the above steps, please open a pull request to this repository targeting the`dev` branch.
+For fast setup, we strongly recommend the use of Docker, VS Code and Dev Container.
+The settings and extensions are defined on [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json) you do not need to edit it.
 
-You can find useful VS Code extensions in [extensions.json](.vscode/extensions.json).
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. Install [VS Code](https://code.visualstudio.com/download).
+3. Install the [Dev Container extensions](https://www.docker.com/products/docker-desktop/) for VS Code.
+4. Clone this repository and open it on VS Code.
+5. Make sure Docker is running.
+6. Then, press CTRL + Shift + P and type "Rebuild Without Cache" and press enter for Dev Container.
+7. Now, VS Code will automatically setup PHP 8.1 and the necessary extensions and you can start coding.
 
-For an improved development experience, we recommend using the following VS Code extensions:
-- [Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
-- [php cs fixer](https://marketplace.visualstudio.com/items?itemName=junstyle.php-cs-fixer)
+Optionally, you can setup [SFTP](https://marketplace.visualstudio.com/items?itemName=Natizyskunk.sftp) for uploading a file to your WHMCS when you make changes to it. Take a look at [.vscode/sftp.example.json](.vscode/sftp.example.json).
 
-These recommended VS Code extensions will optimize your workflow and help ensure your code follows our recommended style.
+Now, you must test your implementation and submit a pull request to the `dev` branch.
+
+Keep in mind that on free plan you will be able to have only 3 custom hook files. Otherwise, the module will not run any hook.

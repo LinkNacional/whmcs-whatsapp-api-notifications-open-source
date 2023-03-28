@@ -2,7 +2,6 @@
 
 namespace Lkn\HookNotification\Custom\Platforms\WhatsApp\Hooks;
 
-use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\Abstracts\WhatsappHookFile;
 
 /**
@@ -21,11 +20,12 @@ final class OrderPaid extends WhatsappHookFile
     public function run($hookData): bool
     {
         // Note: on free plan you can have only 3 total hook files under /Custom/Platforms/*/Hooks.
+
         /**
          * If you do not have any custom things to do, you can call this method
          * and it will send the message template.
          */
-        $this->sendMessageTemplate(Hooks::ORDER_PAID, $hookData);
+        $this->sendMessageTemplate('OrderCreated', $hookData);
 
         /**
          * For more custom things, you should read and use this.
@@ -35,14 +35,15 @@ final class OrderPaid extends WhatsappHookFile
          *
          * Each $hookData has a built-in parser that only supports the built-in hooks.
          * If you wish to add more param types, you can do so by adding them to the file
-         * whatsapp_message_template_params_labels.php and set the parser of
+         * /Custom/Config/whatsapp_message_template_params_labels.php and set the parser of
          * this parameter using a custom parser as shown below.
          *
-         * If you do not set the custom parser, the code you use the built-in parser and
+         * If you do not set the custom parser, the code will use the built-in parser and
          * it will throw a error in case your message template use a param that the parser cannot handle
          * (those that not came originally with the module).
+         *
          * So keep in mind to use the built-in parser only when you know it can fully support all params
-         * in whatsapp_message_template_params_labels.php.
+         * in used in your custom hook.
          */
         $this->setCustomParser(function ($paramLabel) use ($hookData): mixed {
             /**
@@ -58,6 +59,8 @@ final class OrderPaid extends WhatsappHookFile
              *
              * If you would like to access the invoice related to the order, you must
              * access it by $this->hookData->invoiceId.
+             *
+             * You can set parsers only for the parameters your custom hook is using.
              */
 
             return match ($paramLabel) {
@@ -74,9 +77,9 @@ final class OrderPaid extends WhatsappHookFile
         $targetPhone = self::getWhatsAppNumberForClient($hookData->clientId);
         /**
          * Getting the template associated to the OrderPaid hook. You defined this
-         * in the "Adicionar associação" page.
+         * in the "Associar message template" page.
          */
-        $templateData = $this->getTemplateForHook(Hooks::INVOICE_REMINDER);
+        $templateData = $this->getTemplateForHook('InvoiceReminder');
 
         /**
          * The name of the message template.
@@ -103,6 +106,9 @@ final class OrderPaid extends WhatsappHookFile
         $response = $this->apiRequest('POST', 'messages', $requestBody);
 
         /**
+         * To make your hook available for association with a WhatsApp message template,
+         * you need to put the name of the hook in /Custom/Config/hooks_labels.php
+         *
          * When you finish your implementation, you should see /Custom/hooks.php
          * and call this hook file there, using the Dispatcher.
          */
