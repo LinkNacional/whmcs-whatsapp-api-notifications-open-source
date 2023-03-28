@@ -4,7 +4,7 @@ namespace Lkn\HookNotification\Custom\HooksData\Factories;
 
 use Lkn\HookNotification\Custom\HooksData\Order;
 
-final class OrderFactory
+final class OrderPaidFactory
 {
     /**
      * You should call this method in the add_hook callback.
