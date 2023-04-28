@@ -16,5 +16,18 @@
  */
 
 return [
-    //
+    [
+        'value' => 'InvoiceLate6days',
+        'label' => 'Fatura atrasada 6 dias'
+    ],
+
+    [
+        'value' => 'TicketOpenNotification',
+        'label' => 'Ticket aberto'
+    ],
+
+    [
+        'value' => 'TicketAnsweredNotification',
+        'label' => 'Ticket respondido'
+    ]
 ];

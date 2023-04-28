@@ -9,12 +9,12 @@ use Lkn\HookNotification\Domains\Platform\Abstracts\HookDataParser;
  *
  * @since 2.0.0
  */
-final class Order extends HookDataParser
+final class Ticket extends HookDataParser
 {
     public function __construct(
         public readonly array $raw,
-        public readonly int $id,
-        public readonly int $invoiceId,
+        public readonly string $ticketId,
+        public readonly string $clientAccess,
         public readonly int $clientId
     ) {
         //
