@@ -19,6 +19,6 @@ return [
     [
         'value' => 'ticket_id',
         'label' => 'ID do ticket',
-        'for' => ['body']
+        'for' => ['body', 'button']
     ]
 ];

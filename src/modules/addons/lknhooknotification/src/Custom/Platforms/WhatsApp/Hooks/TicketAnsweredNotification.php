@@ -5,10 +5,6 @@ namespace Lkn\HookNotification\Custom\Platforms\WhatsApp\Hooks;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\Abstracts\WhatsappHookFile;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\Events\ChatwootSendMessageAsPrivate;
 
-/**
- * In order to have access to the message template parser, you must inherit the class
- * Lkn\HookNotification\Domains\Platforms\WhatsApp\Abstracts\WhatsappHookFile
- */
 final class TicketAnsweredNotification extends WhatsappHookFile
 {
     /**
@@ -20,42 +16,7 @@ final class TicketAnsweredNotification extends WhatsappHookFile
      */
     public function run($hookData): bool
     {
-        /**
-         * For more custom things, you should read and use this.
-         *
-         * Message template parsing: how the module replaces {{1}} and {{2}} from
-         * a message template with the real values.
-         *
-         * Each $hookData has a built-in parser that only supports the built-in hooks.
-         * If you wish to add more param types, you can do so by adding them to the file
-         * /Custom/Config/whatsapp_message_template_params_labels.php and set the parser of
-         * this parameter using a custom parser as shown below.
-         *
-         * If you do not set the custom parser, the code will use the built-in parser and
-         * it will throw a error in case your message template use a param that the parser cannot handle
-         * (those that not came originally with the module).
-         *
-         * So keep in mind to use the built-in parser only when you know it can fully support all params
-         * in used in your custom hook.
-         */
         $this->setCustomParser(function ($paramLabel) use ($hookData): mixed {
-            /**
-             * Here, you can use the built-in methods to fetch the info you need
-             * or make use of your own methods since you have access to $hookData
-             * with essential data like an ID of an invoice or an ID of an order.
-             *
-             * Or you can access $this->hookData->raw, that holds hook data coming directly from WHMCS
-             * and does not have any validation provided by the OrderFactory.
-             *
-             * This class is an example of an OrderPaid hook and the id of the order is $this->hookData->id
-             * not $this->hookData->orderId since the main domain of this hook is the Order.
-             *
-             * If you would like to access the invoice related to the order, you must
-             * access it by $this->hookData->invoiceId.
-             *
-             * You can set parsers only for the parameters your custom hook is using.
-             */
-
             return match ($paramLabel) {
                 'client_first_name' => $this->getClientFirstName($hookData->clientId ?? $hookData->id),
                 'client_full_name' => $this->getClientFullName($hookData->clientId ?? $hookData->id),
@@ -69,20 +30,11 @@ final class TicketAnsweredNotification extends WhatsappHookFile
         });
 
         $targetPhone = self::getWhatsAppNumberForClient($hookData->clientId);
-        /**
-         * Getting the template associated to the OrderPaid hook. You defined this
-         * in the "Associar message template" page.
-         */
+
         $templateData = $this->getTemplateForHook('TicketAnsweredNotification');
 
-        /**
-         * The name of the message template.
-         */
         $templateName = $templateData['template'];
 
-        /**
-         * If you are not using a custom parser, you must pass $hookData as parameter.
-         */
         $components = $this->parseMessageTemplateComponents($templateData['components'], $hookData);
 
         $requestBody = [
@@ -99,13 +51,6 @@ final class TicketAnsweredNotification extends WhatsappHookFile
 
         $response = $this->apiRequest('POST', 'messages', $requestBody);
 
-        /**
-         * To make your hook available for association with a WhatsApp message template,
-         * you need to put the name of the hook in /Custom/Config/hooks_labels.php
-         *
-         * When you finish your implementation, you should see /Custom/hooks.php
-         * and call this hook file there, using the Dispatcher.
-         */
         if ($response['success']) {
             (new ChatwootSendMessageAsPrivate())->run(
                 $hookData->clientId,

@@ -5,10 +5,6 @@ namespace Lkn\HookNotification\Custom\Platforms\WhatsApp\Hooks;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\Abstracts\WhatsappHookFile;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\Events\ChatwootSendMessageAsPrivate;
 
-/**
- * In order to have access to the message template parser, you must inherit the class
- * Lkn\HookNotification\Domains\Platforms\WhatsApp\Abstracts\WhatsappHookFile
- */
 final class InvoiceLate6days extends WhatsappHookFile
 {
     /**
