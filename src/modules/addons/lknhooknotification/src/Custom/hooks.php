@@ -51,6 +51,7 @@ add_hook('DailyCronJob', 1, function ($vars): void {
     }
 });
 
+// "TicketOpen" only runs when a client open a ticket, for admins use "TicketOpenAdmin".
 add_hook('TicketOpen', 1, function ($vars): void {
     $hookData = TicketOpenNotificationFactory::fromHook($vars);
     Dispatcher::runHook('TicketOpenNotification', $hookData);
