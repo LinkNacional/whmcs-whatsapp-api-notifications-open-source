@@ -42,7 +42,12 @@ add_hook('DailyCronJob', 1, function ($vars): void {
                     $clientId = $invoice['userid'];
                     $invoiceDueDate = $invoice['duedate'];
 
-                    $hookData = new Invoice($invoiceId, $clientId, $invoiceCurrencyPrefix, $invoiceTotal, $invoiceDueDate);
+                    $invoiceDatails = localAPI('GetInvoice', ['invoiceid' => $invoiceId]);
+
+                    $invoiceDesc = $invoiceDatails['items']['item'][0]['description'];
+                    $invoiceIdAndFirstItem = $invoiceId . ' ' . $invoiceDesc;
+
+                    $hookData = new Invoice($invoiceId, $invoiceIdAndFirstItem, $clientId, $invoiceCurrencyPrefix, $invoiceTotal, $invoiceDueDate);
 
                     Dispatcher::runHook('InvoiceLate6days', $hookData);
                 }

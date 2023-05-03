@@ -20,5 +20,11 @@ return [
         'value' => 'ticket_id',
         'label' => 'ID do ticket',
         'for' => ['body', 'button']
+    ],
+
+    [
+        'value' => 'invoice_id_invoice_first_item',
+        'label' => 'ID da fatura e primeiro item da fatura',
+        'for' => ['body', 'button']
     ]
 ];
