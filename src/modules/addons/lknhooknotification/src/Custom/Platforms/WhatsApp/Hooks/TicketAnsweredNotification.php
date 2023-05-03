@@ -26,6 +26,7 @@ final class TicketAnsweredNotification extends WhatsappHookFile
                 'order_items_descrip' => $hookData->lineItems ?? $this->getOrderItemsDescrip($hookData->orderId ?? $hookData->id),
                 'invoice_pdf_url' => $hookData->pdfUrl ?? $this->getInvoicePDFURL($hookData->invoiceId),
                 'ticket_id' => $hookData->ticketId,
+                'ticket_subject' => $hookData->ticketSubject,
             };
         });
 

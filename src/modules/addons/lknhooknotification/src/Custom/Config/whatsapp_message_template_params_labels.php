@@ -26,5 +26,11 @@ return [
         'value' => 'invoice_id_invoice_first_item',
         'label' => 'ID da fatura e primeiro item da fatura',
         'for' => ['body', 'button']
+    ],
+
+    [
+        'value' => 'ticket_subject',
+        'label' => 'Assunto do ticket',
+        'for' => ['body', 'button']
     ]
 ];
