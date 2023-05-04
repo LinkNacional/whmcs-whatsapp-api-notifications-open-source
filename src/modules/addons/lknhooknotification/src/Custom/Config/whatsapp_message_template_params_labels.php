@@ -32,5 +32,11 @@ return [
         'value' => 'ticket_subject',
         'label' => 'Assunto do ticket',
         'for' => ['body', 'button']
+    ],
+
+    [
+        'value' => 'order_id_and_product',
+        'label' => 'ID do pedido e produto',
+        'for' => ['body', 'button']
     ]
 ];

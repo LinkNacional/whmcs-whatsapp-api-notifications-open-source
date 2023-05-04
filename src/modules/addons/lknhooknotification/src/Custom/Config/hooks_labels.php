@@ -29,5 +29,10 @@ return [
     [
         'value' => 'TicketAnsweredNotification',
         'label' => 'Ticket respondido'
+    ],
+
+    [
+        'value' => 'OrderPending3days',
+        'label' => 'Pedido pendente 3 dias'
     ]
 ];
