@@ -15,7 +15,8 @@ final class Ticket extends HookDataParser
         public readonly array $raw,
         public readonly string $ticketId,
         public readonly string $clientAccess,
-        public readonly int $clientId
+        public readonly int $clientId,
+        public readonly string $ticketSubject
     ) {
         //
     }

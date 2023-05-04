@@ -24,7 +24,8 @@ final class TicketOpenNotificationFactory
         $tid = $ticketInfo['tid'];
         $clientAccess = $ticketInfo['c'];
         $clientId = $ticketInfo['userid'];
+        $ticketSubject = $ticketInfo['subject'];
 
-        return new Ticket($vars, $tid, $clientAccess, $clientId);
+        return new Ticket($vars, $tid, $clientAccess, $clientId, $ticketSubject);
     }
 }

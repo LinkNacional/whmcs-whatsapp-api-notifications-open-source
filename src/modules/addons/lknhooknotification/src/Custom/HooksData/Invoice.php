@@ -13,6 +13,7 @@ final class Invoice extends HookDataParser
 {
     public function __construct(
         public readonly int $invoiceId,
+        public readonly string $invoiceIdAndFirstItem,
         public readonly int $clientId,
         public readonly string $currencyPrefix,
         public readonly int $invoiceTotal,
