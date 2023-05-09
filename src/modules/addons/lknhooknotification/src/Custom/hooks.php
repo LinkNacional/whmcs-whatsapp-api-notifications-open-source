@@ -4,6 +4,8 @@
 
 use Lkn\HookNotification\Config\Platforms;
 use Lkn\HookNotification\Custom\HooksData\Factories\OrderPaidFactory;
+use Lkn\HookNotification\Custom\HooksData\Factories\QuoteChangedRegisteredFactory;
+use Lkn\HookNotification\Custom\HooksData\Factories\QuoteChangedUnregisteredFactory;
 use Lkn\HookNotification\Custom\HooksData\Factories\TicketAnsweredNotificationFactory;
 use Lkn\HookNotification\Custom\HooksData\Factories\TicketOpenNotificationFactory;
 use Lkn\HookNotification\Custom\HooksData\Invoice;
@@ -92,4 +94,19 @@ add_hook('DailyCronJob', 1, function ($vars): void {
             Dispatcher::runHook('OrderPending3days', $hookData);
         }
     }
+});
+
+add_hook('QuoteStatusChange', 1, function ($vars): void {
+    $quoteId = (int) $vars['quoteid'];
+    $quoteInfo = localAPI('GetQuotes', ['quoteid' => $quoteId]);
+    $quote = $quoteInfo['quotes']->{['quote'][0]}[0];
+    $clientId = $quote->{['userid'][0]};
+
+    if ($clientId === 0) {
+        $hookData = QuoteChangedUnregisteredFactory::fromHook($vars);
+        Dispatcher::runHook('QuoteChangedUnregistered', $hookData);
+    }
+
+    $hookData = QuoteChangedRegisteredFactory::fromHook($vars);
+    Dispatcher::runHook('QuoteChangedRegistered', $hookData);
 });

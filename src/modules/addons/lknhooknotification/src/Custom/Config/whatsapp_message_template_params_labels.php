@@ -38,5 +38,29 @@ return [
         'value' => 'order_id_and_product',
         'label' => 'ID do pedido e produto',
         'for' => ['body', 'button']
+    ],
+
+    [
+        'value' => 'quote_subject',
+        'label' => 'Assunto do orçamento',
+        'for' => ['body', 'button']
+    ],
+
+    [
+        'value' => 'quote_first_name',
+        'label' => 'Primeiro nome do cliente no orçamento (não cadastrado)',
+        'for' => ['body', 'button']
+    ],
+
+    [
+        'value' => 'quote_email',
+        'label' => 'Email do cliente no orçamento',
+        'for' => ['body', 'button']
+    ],
+
+    [
+        'value' => 'quote_id',
+        'label' => 'ID do orçamento',
+        'for' => ['body', 'button']
     ]
 ];
