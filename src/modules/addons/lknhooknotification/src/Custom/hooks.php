@@ -4,6 +4,8 @@
 
 use Lkn\HookNotification\Config\Platforms;
 use Lkn\HookNotification\Custom\HooksData\Factories\OrderPaidFactory;
+use Lkn\HookNotification\Custom\HooksData\Factories\QuoteChangedRegisteredFactory;
+use Lkn\HookNotification\Custom\HooksData\Factories\QuoteChangedUnregisteredFactory;
 use Lkn\HookNotification\Custom\HooksData\Factories\TicketAnsweredNotificationFactory;
 use Lkn\HookNotification\Custom\HooksData\Factories\TicketOpenNotificationFactory;
 use Lkn\HookNotification\Custom\HooksData\Invoice;
@@ -56,7 +58,6 @@ add_hook('DailyCronJob', 1, function ($vars): void {
     }
 });
 
-// "TicketOpen" only runs when a client open a ticket, for admins use "TicketOpenAdmin".
 add_hook('TicketOpen', 1, function ($vars): void {
     $hookData = TicketOpenNotificationFactory::fromHook($vars);
     Dispatcher::runHook('TicketOpenNotification', $hookData);
@@ -65,4 +66,47 @@ add_hook('TicketOpen', 1, function ($vars): void {
 add_hook('TicketAdminReply', 1, function ($vars): void {
     $hookData = TicketAnsweredNotificationFactory::fromHook($vars);
     Dispatcher::runHook('TicketAnsweredNotification', $hookData);
+});
+
+add_hook('DailyCronJob', 1, function ($vars): void {
+    $postData = [
+        'limitnum' => '100',
+        'status' => 'Pending',
+    ];
+
+    $orders = localAPI('GetOrders', $postData);
+
+    foreach ($orders['orders']['order'] as $key => $row) {
+        $dt = new DateTime($row['date']);
+        if (strtotime($dt->format('Y-m-d')) === strtotime(date('Y-m-d', strtotime('-3 day')))) {
+            $clientId = $row['userid'];
+            $orderId = $row['id'];
+            $invoiceId = $row['invoiceid'];
+            $product = $row['lineitems']['lineitem'][0]['product'];
+            $orderIdAndProduct = $orderId . ' ' . $product;
+
+            $invoiceDatails = localAPI('GetInvoice', ['invoiceid' => $invoiceId]);
+
+            $invoiceDesc = $invoiceDatails['items']['item'][0]['description'];
+            $invoiceIdAndFirstItem = $invoiceId . ' ' . $invoiceDesc;
+
+            $hookData = new OrderPending($clientId, $orderId, $invoiceId, $orderIdAndProduct, $invoiceIdAndFirstItem);
+            Dispatcher::runHook('OrderPending3days', $hookData);
+        }
+    }
+});
+
+add_hook('QuoteStatusChange', 1, function ($vars): void {
+    $quoteId = (int) $vars['quoteid'];
+    $quoteInfo = localAPI('GetQuotes', ['quoteid' => $quoteId]);
+    $quote = $quoteInfo['quotes']->{['quote'][0]}[0];
+    $clientId = $quote->{['userid'][0]};
+
+    if ($clientId === 0) {
+        $hookData = QuoteChangedUnregisteredFactory::fromHook($vars);
+        Dispatcher::runHook('QuoteChangedUnregistered', $hookData);
+    }
+
+    $hookData = QuoteChangedRegisteredFactory::fromHook($vars);
+    Dispatcher::runHook('QuoteChangedRegistered', $hookData);
 });

@@ -29,5 +29,20 @@ return [
     [
         'value' => 'TicketAnsweredNotification',
         'label' => 'Ticket respondido'
+    ],
+
+    [
+        'value' => 'OrderPending3days',
+        'label' => 'Pedido pendente 3 dias'
+    ],
+
+    [
+        'value' => 'QuoteChangedUnregistered',
+        'label' => 'Orçamento de cliente não registrado alterado'
+    ],
+
+    [
+        'value' => 'QuoteChangedRegistered',
+        'label' => 'Orçamento de cliente registrado alterado'
     ]
 ];
