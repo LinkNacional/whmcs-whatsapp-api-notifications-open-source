@@ -51,7 +51,7 @@ final class InvoiceLate6days extends WhatsappHookFile
 
         $response = $this->apiRequest('POST', 'messages', $requestBody);
 
-        if ($response['success']) {
+        if (isset($response['messages'][0]['id'])) {
             (new ChatwootSendMessageAsPrivate())->run(
                 $hookData->clientId,
                 'Mensagem sobre fatura #' . $hookData->invoiceIdAndFirstItem . ' atrasada há 6 dias foi enviada para este cliente.'

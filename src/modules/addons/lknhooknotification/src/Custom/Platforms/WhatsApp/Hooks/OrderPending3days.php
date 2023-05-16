@@ -53,7 +53,7 @@ final class OrderPending3days extends WhatsappHookFile
 
         $response = $this->apiRequest('POST', 'messages', $requestBody);
 
-        if ($response['success']) {
+        if (isset($response['messages'][0]['id'])) {
             (new ChatwootSendMessageAsPrivate())->run(
                 $hookData->clientId,
                 'Mensagem sobre pedido #' . $hookData->orderId . ' pendente há 3 dias foi enviada para este cliente.'

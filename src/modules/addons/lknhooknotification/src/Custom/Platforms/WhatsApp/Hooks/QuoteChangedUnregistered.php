@@ -55,7 +55,7 @@ final class QuoteChangedUnregistered extends WhatsappHookFile
 
         $response = $this->apiRequest('POST', 'messages', $requestBody);
 
-        if ($response['success']) {
+        if (isset($response['messages'][0]['id'])) {
             (new ChatwootSendMessageAsPrivate())->run(
                 $hookData->firstName,
                 'Mensagem sobre orçamento #' . $hookData->quoteId . ' alterado foi enviada para este cliente não registrado.'

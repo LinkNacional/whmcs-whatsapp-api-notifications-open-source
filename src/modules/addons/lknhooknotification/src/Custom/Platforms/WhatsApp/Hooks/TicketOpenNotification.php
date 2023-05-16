@@ -51,7 +51,7 @@ final class TicketOpenNotification extends WhatsappHookFile
 
         $response = $this->apiRequest('POST', 'messages', $requestBody);
 
-        if ($response['success']) {
+        if (isset($response['messages'][0]['id'])) {
             (new ChatwootSendMessageAsPrivate())->run(
                 $hookData->clientId,
                 'Mensagem sobre ticket #' . $hookData->ticketId . ' aberto foi enviada para este cliente.'
