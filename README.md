@@ -32,4 +32,4 @@ Optionally, you can setup [SFTP](https://marketplace.visualstudio.com/items?item
 
 Now, you must test your implementation and submit a pull request to the `dev` branch.
 
-Keep in mind that on free plan you will be able to have only 3 custom hook files. Otherwise, the module will not run any hook.
+Keep in mind that on free plan you will be able to have only 3 custom hook files. Otherwise, the module will not run any hook..
