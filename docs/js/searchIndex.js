@@ -481,10 +481,10 @@ Search.appendIndex(
             "summary": "Line\u0020items\u0020\u0022type\u0022\u0020and\u0020\u0022domain\u0022.",
             "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderItemsDescripByOrderId"
         },                {
-            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceItemsByInvoiceId\u0028\u0029",
-            "name": "getInvoiceItemsByInvoiceId",
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceItemsDescriptionsByInvoiceId\u0028\u0029",
+            "name": "getInvoiceItemsDescriptionsByInvoiceId",
             "summary": "",
-            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsByInvoiceId"
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsDescriptionsByInvoiceId"
         },                {
             "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceDueDateByInvoiceId\u0028\u0029",
             "name": "getInvoiceDueDateByInvoiceId",
