@@ -1,0 +1,43 @@
+name: Generate notifications release
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+env:
+  RELEASE_NAME: notifications
+  WORK_DIR: src
+
+jobs:
+  encode-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Make plugin root directory
+        working-directory: ${{env.WORK_DIR}}
+        run: "mkdir $RELEASE_NAME && mv -t ./$RELEASE_NAME ./modules/addons/lknhooknotification/src/Notifications && ls -lah"
+
+      - name: Generate release .zip
+        uses: thedoctor0/zip-release@master
+        with:
+          type: "zip"
+          path: ${{ env.RELEASE_NAME }}
+          directory: ${{env.WORK_DIR}}
+          filename: ${{ env.RELEASE_NAME }}.zip
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Finish release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{env.WORK_DIR}}/${{ env.RELEASE_NAME }}.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit: "main"
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}

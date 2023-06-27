@@ -1,0 +1,16 @@
+{
+    "name": "linknacional/hooknotification",
+    "version": "3.0.0",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Lkn\\HookNotification\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Link Nacional",
+            "email": "ticket@linknacinal.com"
+        }
+    ]
+}

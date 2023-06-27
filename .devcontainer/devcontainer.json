@@ -18,7 +18,8 @@
                 "bmewburn.vscode-intelephense-client",
                 "neilbrayfield.php-docblocker",
                 "dbaeumer.vscode-eslint",
-                "aswinkumar863.smarty-template-support"
+                "aswinkumar863.smarty-template-support",
+                "MehediDracula.php-namespace-resolver"
             ],
             "settings": {
                 "[html]": {
