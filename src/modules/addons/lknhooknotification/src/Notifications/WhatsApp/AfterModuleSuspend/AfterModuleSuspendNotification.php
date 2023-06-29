@@ -25,12 +25,12 @@ final class AfterModuleSuspendNotification extends AbstractWhatsAppNotifcation
 
         $success = isset($response['messages'][0]['id']);
 
-        $this->report($response, 'invoice', $this->hookParams['invoiceId']);
+        $this->report($response, 'service', $this->hookParams['params']['serviceid']);
 
         if ($success) {
             $this->events->sendMsgToChatwootAsPrivateNote(
                 $this->clientId,
-                "Notificação: serviço suspenso #{$this->hookParams['invoiceId']}"
+                "Notificação: serviço suspenso #{$this->hookParams['params']['serviceid']}"
             );
         }
     }
