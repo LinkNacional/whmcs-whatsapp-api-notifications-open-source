@@ -15,11 +15,3 @@ A clear and concise description of what you want to happen.
 
 ## Describe alternatives you've considered
 A clear and concise description of any alternative solutions or features you've considered.
-
-## Acceptance Criteria
-
-<!-- Define conditions that must be true in order to close the issue. -->
-
--   [ ] Something happens when an action is taken.
--   [ ] Something does not happen when an action is taken.
--   [ ] Fixing behavior in Component A does not affect existing behavior in Component B.
