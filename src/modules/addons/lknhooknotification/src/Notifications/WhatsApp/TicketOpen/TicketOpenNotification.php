@@ -11,17 +11,17 @@ namespace Lkn\HookNotification\Notifications\WhatsApp\TicketOpen;
 
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\Platforms;
+use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Config\Settings;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
 use Lkn\HookNotification\Helpers\Config;
-use Lkn\HookNotification\Helpers\Logger;
 
 final class TicketOpenNotification extends AbstractWhatsAppNotifcation
 {
     public string $notificationCode = 'TicketOpen';
-    public Hooks $hook = Hooks::TICKET_OPEN;
+    public ?Hooks $hook = Hooks::TICKET_OPEN;
 
-    public function run(): void
+    public function run(): bool
     {
         $useTicketWhatsAppCf = Config::get(Platforms::WHATSAPP, Settings::WP_USE_TICKET_WHATSAPP_CF_WHEN_SET);
 
@@ -29,92 +29,75 @@ final class TicketOpenNotification extends AbstractWhatsAppNotifcation
             $this->sendMessageForRegisteredClient();
         } else {
             if ($this->getTicketWhatsAppCfValue($this->hookParams['ticketid']) === null) {
-                $this->sendMessageForRegisteredClient();
+                return $this->sendMessageForRegisteredClient();
             } else {
-                $this->sendMessageForUnregisteredClient($useTicketWhatsAppCf);
+                return $this->sendMessageForUnregisteredClient($useTicketWhatsAppCf);
             }
         }
     }
 
-    private function sendMessageForRegisteredClient()
+    private function sendMessageForRegisteredClient(): bool
     {
+        // Setup properties for reporting purposes (not required).
+        $this->setReportCategory(ReportCategory::TICKET);
+        $this->setReportCategoryId($this->hookParams['ticketid']);
+
+        // Setup client ID for getting its WhatsApp number (required).
         $clientId = $this->getClientIdByTicketId($this->hookParams['ticketid']);
 
         $this->setClientId($clientId);
+        // Send the message and get the raw response (converted to array) from WhatsApp API.
+        // $response = $this->sendMessage();
 
-        $response = $this->sendMessage();
+        // Defines if response tells if the message was sent successfully.
+        $success = isset($response['messages'][0]['id']);
+        $success = true;
 
-        $status = is_bool($response) ? ($response ? 'sent' : 'error') : (isset($response['messages'][0]['id']) ? 'sent' : 'error');
-
-        Logger::report(
-            $status,
-            $this->platform,
-            $this->notificationCode,
-            $this->clientId,
-            'ticket',
-            $this->hookParams['ticketid']
-        );
-
-        if ($status === 'sent') {
-            $this->events->sendMsgToChatwootAsPrivateNote(
-                $this->clientId,
-                "Notificação: ticket respondido #{$this->hookParams['ticketid']}"
-            );
-        }
+        return $success;
     }
 
-    private function sendMessageForUnregisteredClient()
+    private function sendMessageForUnregisteredClient(): bool
     {
         $whatsAppNumber = $this->getTicketWhatsAppCfValue($this->hookParams['ticketid']);
 
         $response = $this->sendMessage($whatsAppNumber);
 
-        $status = is_bool($response) ? ($response ? 'sent' : 'error') : (isset($response['messages'][0]['id']) ? 'sent' : 'error');
+        $success = isset($response['messages'][0]['id']);
 
-        Logger::report(
-            $status,
-            $this->platform,
-            $this->notificationCode,
-            null,
-            'ticket',
-            $this->hookParams['ticketid']
-        );
+        // Disable the event of sending a private note to Chatwoot, which is by default for registered clients.
+        $this->events = [];
 
-        if ($status === 'sent') {
-            $whatsAppInboxId = Config::get(Platforms::CHATWOOT, Settings::CW_WHATSAPP_INBOX_ID);
-
-            $this->events->sendMsgToChatwootAsPrivateNoteForUnregisteredClient(
+        if ($success) {
+            $this->eventsInstance->sendMsgToChatwootAsPrivateNoteForUnregisteredClient(
                 $whatsAppNumber,
                 "Notificação: ticket respondido #{$this->hookParams['ticketid']}",
                 $this->parameters['client_full_name']['parser'](),
                 $this->getTicketEmail($this->hookParams['ticketid']),
-                $whatsAppInboxId
+                Config::get(Platforms::CHATWOOT, Settings::CW_WHATSAPP_INBOX_ID)
             );
         }
+
+        return $success;
     }
 
     public function defineParameters(): void
     {
         $this->parameters = [
             'ticket_id' => [
-                'label' => 'ID do ticket',
+                'label' => $this->lang['ticket_id'],
                 'parser' => fn () => $this->hookParams['ticketid']
             ],
-            'ticket_mask' => [
-                'label' => 'Número do ticket',
-                'parser' => fn () => $this->hookParams['ticketmask']
-            ],
             'ticket_subject' => [
-                'label' => 'Assunto do ticket',
+                'label' => $this->lang['ticket_subject'],
                 'parser' => fn () => $this->hookParams['subject']
             ],
             'client_first_name' => [
-                'label' => 'Primeiro nome do cliente',
-                'parser' => fn () => $this->getClientFirstNameByClientId($this->clientId)
+                'label' => $this->lang['client_first_name'],
+                'parser' => fn () => empty($this->clientId) ? $this->getTicketNameColumn($this->hookParams['ticketid']) : $this->getClientFirstNameByClientId($this->clientId)
             ],
             'client_full_name' => [
-                'label' => 'Nome completo do cliente',
-                'parser' => fn () => $this->getClientFullNameByClientId($this->clientId)
+                'label' => $this->lang['client_full_name'],
+                'parser' => fn () => empty($this->clientId) ? $this->getTicketNameColumn($this->hookParams['ticketid']) : $this->getClientFullNameByClientId($this->clientId)
             ]
         ];
     }

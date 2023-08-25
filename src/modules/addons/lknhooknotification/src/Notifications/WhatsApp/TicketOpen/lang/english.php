@@ -1,0 +1,13 @@
+<?php
+
+$lang['notification_title'] = 'Ticket opened';
+$lang['notification_description'] = '';
+
+// Parameters labels
+
+$lang['ticket_id'] = 'Ticket ID';
+$lang['ticket_subject'] = 'Ticket subject';
+$lang['client_first_name'] = 'Client first name';
+$lang['client_full_name'] = 'Customer Full Name';
+
+return $lang;
