@@ -1,6 +1,6 @@
 <?php
 
-$lang['notification_title'] = 'Ticket opened';
+$lang['notification_title'] = 'Ticket answered';
 $lang['notification_description'] = '';
 
 // Parameters labels

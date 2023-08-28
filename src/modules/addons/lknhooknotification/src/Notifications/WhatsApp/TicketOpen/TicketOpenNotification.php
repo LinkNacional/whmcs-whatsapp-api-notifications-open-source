@@ -1,10 +1,6 @@
 <?php
 /**
- * Name: Ticket aberto
  * Code: TicketOpen
- * Platform: WhatsApp
- * Version: 1.0.0
- * Author: Link Nacional
  */
 
 namespace Lkn\HookNotification\Notifications\WhatsApp\TicketOpen;
@@ -23,6 +19,10 @@ final class TicketOpenNotification extends AbstractWhatsAppNotifcation
 
     public function run(): bool
     {
+        // Setup properties for reporting purposes (not required).
+        $this->setReportCategory(ReportCategory::TICKET);
+        $this->setReportCategoryId($this->hookParams['ticketid']);
+
         $useTicketWhatsAppCf = Config::get(Platforms::WHATSAPP, Settings::WP_USE_TICKET_WHATSAPP_CF_WHEN_SET);
 
         if ($useTicketWhatsAppCf === 'disabled') {
@@ -38,20 +38,15 @@ final class TicketOpenNotification extends AbstractWhatsAppNotifcation
 
     private function sendMessageForRegisteredClient(): bool
     {
-        // Setup properties for reporting purposes (not required).
-        $this->setReportCategory(ReportCategory::TICKET);
-        $this->setReportCategoryId($this->hookParams['ticketid']);
-
         // Setup client ID for getting its WhatsApp number (required).
         $clientId = $this->getClientIdByTicketId($this->hookParams['ticketid']);
 
         $this->setClientId($clientId);
         // Send the message and get the raw response (converted to array) from WhatsApp API.
-        // $response = $this->sendMessage();
+        $response = $this->sendMessage();
 
         // Defines if response tells if the message was sent successfully.
         $success = isset($response['messages'][0]['id']);
-        $success = true;
 
         return $success;
     }
@@ -59,6 +54,10 @@ final class TicketOpenNotification extends AbstractWhatsAppNotifcation
     private function sendMessageForUnregisteredClient(): bool
     {
         $whatsAppNumber = $this->getTicketWhatsAppCfValue($this->hookParams['ticketid']);
+
+        if (is_null($whatsAppNumber)) {
+            return false;
+        }
 
         $response = $this->sendMessage($whatsAppNumber);
 
@@ -86,6 +85,10 @@ final class TicketOpenNotification extends AbstractWhatsAppNotifcation
             'ticket_id' => [
                 'label' => $this->lang['ticket_id'],
                 'parser' => fn () => $this->hookParams['ticketid']
+            ],
+            'ticket_mask' => [
+                'label' => $this->lang['ticket_mask'],
+                'parser' => fn () => $this->getTicketMask($this->hookParams['ticketid'])
             ],
             'ticket_subject' => [
                 'label' => $this->lang['ticket_subject'],

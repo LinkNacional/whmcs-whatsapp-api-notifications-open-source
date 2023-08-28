@@ -1,23 +1,16 @@
 <?php
 /**
- * Name: Lembrete de fatura
  * Code: InvoiceReminder
- * Platform: WhatsApp
- * Version: 1.0.0
- * Author: Link Nacional
- * Description: Essa notificação consiste em disparo manual do envio da message template ao clicar no botão que fica dentro da visualização administrativa da fatura.
  */
 
 namespace Lkn\HookNotification\Notifications\WhatsApp\InvoiceReminder;
 
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
-use Lkn\HookNotification\Helpers\Response;
 
 final class InvoiceReminderNotification extends AbstractWhatsAppNotifcation
 {
     public string $notificationCode = 'InvoiceReminder';
-    protected ReportCategory $object = ReportCategory::INVOICE;
 
     public function run(): bool
     {
