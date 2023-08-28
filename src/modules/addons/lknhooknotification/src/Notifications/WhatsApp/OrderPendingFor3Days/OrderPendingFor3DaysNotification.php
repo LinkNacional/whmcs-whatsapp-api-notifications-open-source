@@ -30,7 +30,7 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
         // You have to manually figure out the client id using the data provided
         // by WHMCS in the add_hook function.
 
-        $orders = localAPI('GetOrders', ['limitnum' => 100, 'status' => 'Pending']);
+        $orders = localAPI('GetOrders', ['limitnum' => 1000, 'status' => 'Pending']);
 
         foreach ($orders['orders']['order'] as $order) {
             $clientId = $order['userid'];
@@ -43,7 +43,7 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
             $interval = $currentDateTime->diff($givenDateTime);
 
             try {
-                if ($interval->days === 23) {
+                if ($interval->days === 3) {
                     $this->setReportCategoryId($orderId);
 
                     $this->setClientId($clientId);
@@ -58,7 +58,6 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
 
                     if ($success && class_exists('Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPrivateNoteNotification')) {
                         (new WhatsAppPrivateNoteNotification(['instance' => $this]))->run();
-                        echo 'hey';
                     }
                 }
             } catch (Throwable $th) {

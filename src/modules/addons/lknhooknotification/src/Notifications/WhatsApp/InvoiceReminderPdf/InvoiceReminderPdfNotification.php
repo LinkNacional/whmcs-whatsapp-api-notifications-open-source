@@ -1,11 +1,7 @@
 <?php
+
 /**
- * Name: Lembrete de fatura com PDF
  * Code: InvoiceReminderPdf
- * Platform: WhatsApp
- * Version: 1.0.0
- * Author: Link Nacional
- * Description: Essa notificação consiste em disparo manual do envio da message template ao clicar no botão que fica dentro da visualização administrativa da fatura e suporta o envio do PDF da fatura.
  */
 
 namespace Lkn\HookNotification\Notifications\WhatsApp\InvoiceReminderPdf;
@@ -17,59 +13,53 @@ final class InvoiceReminderPdfNotification extends AbstractWhatsAppNotifcation
 {
     public string $notificationCode = 'InvoiceReminderPdf';
 
-    public function run(): void
+    public function run(): bool
     {
-        $clientId = $this->getClientIdByInvoiceId($this->hookParams['invoiceId']);
+        // Setup client ID for getting its WhatsApp number (required).
+        $this->setClientId($this->getClientIdByInvoiceId($this->hookParams['invoiceId']));
 
-        $this->setClientId($clientId);
-
+        // Send the message and get the raw response (converted to array) from WhatsApp API.
         $response = $this->sendMessage();
+
+        // Defines if response tells if the message was sent successfully.
+        $success = isset($response['messages'][0]['id']);
 
         $this->report($response, 'invoice', $this->hookParams['invoiceId']);
 
-        if (isset($response['messages'][0]['id'])) {
-            $this->events->sendMsgToChatwootAsPrivateNote(
-                $this->clientId,
-                "Notificação: lembrete de fatura com PDF #{$this->hookParams['invoiceId']}"
-            );
-        }
-
         Response::api(true, ['msg' => $this->notificationCode]);
+
+        return $success;
     }
 
     public function defineParameters(): void
     {
         $this->parameters = [
             'invoice_id' => [
-                'label' => 'ID da fatura',
+                'label' => $this->lang['invoice_id'],
                 'parser' => fn () => $this->hookParams['invoiceId'],
             ],
             'invoice_items' => [
-                'label' => 'Items da fatura',
-                'parser' => fn () => self::getOrderItemsDescripByOrderId(
-                    $this->hookParams['invoiceId']
-                )
+                'label' => $this->lang['invoice_items'],
+                'parser' => fn () => self::getOrderItemsDescripByOrderId($this->hookParams['invoiceId'])
             ],
             'invoice_due_date' => [
-                'label' => 'Data de vencimento da fatura',
-                'parser' => fn () => self::getInvoiceDueDateByInvoiceId(
-                    $this->hookParams['invoiceId']
-                )
+                'label' => $this->lang['invoice_due_date'],
+                'parser' => fn () => self::getInvoiceDueDateByInvoiceId($this->hookParams['invoiceId'])
             ],
             'invoice_pdf_url' => [
-                'label' => 'PDF da fatura',
+                'label' => $this->lang['invoice_pdf_url'],
                 'parser' => fn () => self::getInvoicePdfUrlByInvocieId($this->hookParams['invoiceId'])
             ],
             'client_id' => [
-                'label' => 'ID do cliente',
+                'label' => $this->lang['client_id'],
                 'parser' => fn () => $this->clientId,
             ],
             'client_first_name' => [
-                'label' => 'Primeiro nome do cliente',
+                'label' => $this->lang['client_first_name'],
                 'parser' => fn () => $this->getClientFirstNameByClientId($this->clientId)
             ],
             'client_full_name' => [
-                'label' => 'Nome completo do cliente',
+                'label' => $this->lang['client_full_name'],
                 'parser' => fn () => $this->getClientFullNameByClientId($this->clientId)
             ]
         ];
