@@ -7,6 +7,7 @@
 namespace Lkn\HookNotification\Notifications\WhatsApp\OrderCreated;
 
 use Lkn\HookNotification\Config\Hooks;
+use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
 
 final class OrderCreatedNotification extends AbstractWhatsAppNotifcation
@@ -16,6 +17,10 @@ final class OrderCreatedNotification extends AbstractWhatsAppNotifcation
 
     public function run(): bool
     {
+        // Setup properties for reporting purposes (not required).
+        $this->setReportCategory(ReportCategory::ORDER);
+        $this->setReportCategoryId($this->hookParams['OrderID']);
+
         // Setup client ID for getting its WhatsApp number (required).
         $this->setClientId($this->getClientIdByInvoiceId($this->hookParams['InvoiceID']));
 

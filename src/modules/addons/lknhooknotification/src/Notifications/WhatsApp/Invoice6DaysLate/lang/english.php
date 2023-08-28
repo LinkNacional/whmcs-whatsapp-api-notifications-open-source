@@ -1,6 +1,6 @@
 <?php
 
-$lang['notification_title'] = 'Invoice 6 days late';
+$lang['notification_title'] = 'Invoice seis days late';
 $lang['notification_description'] = 'Runs on DailyCronJob hook and send the notification for every client that has an invoice 6 days late.';
 
 // Parameters labels

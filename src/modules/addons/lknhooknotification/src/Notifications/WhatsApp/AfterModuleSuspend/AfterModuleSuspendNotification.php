@@ -7,6 +7,7 @@
 namespace Lkn\HookNotification\Notifications\WhatsApp\AfterModuleSuspend;
 
 use Lkn\HookNotification\Config\Hooks;
+use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
 
 final class AfterModuleSuspendNotification extends AbstractWhatsAppNotifcation
@@ -16,6 +17,10 @@ final class AfterModuleSuspendNotification extends AbstractWhatsAppNotifcation
 
     public function run(): bool
     {
+        // Setup properties for reporting purposes (not required).
+        $this->setReportCategory(ReportCategory::SERVICE);
+        $this->setReportCategoryId($this->hookParams['params']['serviceid']);
+
         // Setup client ID for getting its WhatsApp number (required).
         $this->setClientId($this->hookParams['params']['userid']);
 

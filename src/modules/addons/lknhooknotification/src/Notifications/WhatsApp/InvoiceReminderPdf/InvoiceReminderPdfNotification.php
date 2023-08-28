@@ -6,6 +6,7 @@
 
 namespace Lkn\HookNotification\Notifications\WhatsApp\InvoiceReminderPdf;
 
+use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
 use Lkn\HookNotification\Helpers\Response;
 
@@ -15,6 +16,10 @@ final class InvoiceReminderPdfNotification extends AbstractWhatsAppNotifcation
 
     public function run(): bool
     {
+        // Setup properties for reporting purposes (not required).
+        $this->setReportCategory(ReportCategory::INVOICE);
+        $this->setReportCategoryId($this->hookParams['invoiceId']);
+
         // Setup client ID for getting its WhatsApp number (required).
         $this->setClientId($this->getClientIdByInvoiceId($this->hookParams['invoiceId']));
 
@@ -23,10 +28,6 @@ final class InvoiceReminderPdfNotification extends AbstractWhatsAppNotifcation
 
         // Defines if response tells if the message was sent successfully.
         $success = isset($response['messages'][0]['id']);
-
-        $this->report($response, 'invoice', $this->hookParams['invoiceId']);
-
-        Response::api(true, ['msg' => $this->notificationCode]);
 
         return $success;
     }

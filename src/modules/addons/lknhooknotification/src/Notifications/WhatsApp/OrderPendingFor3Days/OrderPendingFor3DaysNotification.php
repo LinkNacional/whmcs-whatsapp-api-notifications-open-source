@@ -8,8 +8,11 @@ namespace Lkn\HookNotification\Notifications\WhatsApp\OrderPendingFor3Days;
 
 use DateTime;
 use Lkn\HookNotification\Config\Hooks;
+use Lkn\HookNotification\Config\Platforms;
 use Lkn\HookNotification\Config\ReportCategory;
+use Lkn\HookNotification\Config\Settings;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
+use Lkn\HookNotification\Helpers\Config;
 use Lkn\HookNotification\Helpers\Logger;
 use Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPrivateNoteNotification;
 use Throwable;
@@ -56,7 +59,11 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
 
                     $this->report($success);
 
-                    if ($success && class_exists('Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPrivateNoteNotification')) {
+                    if (
+                        $success
+                        && class_exists('Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPrivateNoteNotification')
+                        && Config::get(Platforms::CHATWOOT, Settings::CW_LISTEN_WHATSAPP)
+                    ) {
                         (new WhatsAppPrivateNoteNotification(['instance' => $this]))->run();
                     }
                 }

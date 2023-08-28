@@ -21,6 +21,9 @@ final class Invoice6DaysLateNotification extends AbstractWhatsAppNotifcation
 
     public function run(): bool
     {
+        $this->events = [];
+        $this->enableAutoReport = false;
+
         $this->setReportCategory(ReportCategory::INVOICE);
 
         $invoices = localAPI('GetInvoices', [
