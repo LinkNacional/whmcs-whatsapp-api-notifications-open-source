@@ -94,6 +94,7 @@ final class WhatsAppPrivateNoteNotification extends AbstractChatwootNotification
             ReportCategory::SERVICE => 'clientsservices.php?userid=:clientId&id=:objectId',
             ReportCategory::INVOICE => 'invoices.php?action=edit&id=:objectId',
             ReportCategory::ORDER => 'orders.php?action=view&id=:objectId',
+            ReportCategory::DOMAIN => 'clientsdomains.php?userid=:clientId&id=:objectId'
         };
 
         $objectUrlPath = str_replace(':objectId', $objectId, $objectUrlPath);

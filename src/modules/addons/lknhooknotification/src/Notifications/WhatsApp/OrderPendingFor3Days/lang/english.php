@@ -1,7 +1,7 @@
 <?php
 
 $lang['notification_title'] = 'Order pending for three days';
-$lang['notification_description'] = 'Runs on DailyCronJob hook and send the notification for every client that has a order pending for three days.';
+$lang['notification_description'] = 'Runs on DailyCronJob hook and send the notification for every client that has an order pending for three days.';
 
 // Parameters labels
 

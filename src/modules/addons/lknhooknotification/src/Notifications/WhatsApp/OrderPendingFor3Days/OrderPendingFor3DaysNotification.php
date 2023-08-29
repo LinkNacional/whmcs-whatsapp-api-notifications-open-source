@@ -30,8 +30,6 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
         $this->events = [];
         $this->enableAutoReport = false;
 
-        // You have to manually figure out the client id using the data provided
-        // by WHMCS in the add_hook function.
 
         $orders = localAPI('GetOrders', ['limitnum' => 1000, 'status' => 'Pending']);
 
@@ -73,7 +71,7 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
                 Logger::log(
                     "{$this->getNotificationLogName()} error for order {$orderId}",
                     [
-                        'msg' => 'Unable to send notification for this order..',
+                        'msg' => 'Unable to send notification for this order.',
                         'context' => ['order' => $order]
                     ],
                     [
