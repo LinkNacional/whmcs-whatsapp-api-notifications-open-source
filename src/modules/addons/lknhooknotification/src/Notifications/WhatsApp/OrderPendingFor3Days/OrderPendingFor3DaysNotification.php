@@ -20,7 +20,7 @@ use Throwable;
 final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
 {
     public string $notificationCode = 'OrderPendingFor3Days';
-    public ?Hooks $hook = Hooks::DAILY_CRON_JOB;
+    public Hooks|array|null $hook = Hooks::DAILY_CRON_JOB;
 
     public function run(): bool
     {

@@ -17,7 +17,7 @@ use Throwable;
 final class Invoice6DaysLateNotification extends AbstractWhatsAppNotifcation
 {
     public string $notificationCode = 'Invoice6DaysLate';
-    public ?Hooks $hook = Hooks::DAILY_CRON_JOB;
+    public Hooks|array|null $hook = Hooks::DAILY_CRON_JOB;
 
     public function run(): bool
     {

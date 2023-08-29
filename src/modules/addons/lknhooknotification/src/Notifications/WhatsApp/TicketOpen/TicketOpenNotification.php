@@ -15,7 +15,7 @@ use Lkn\HookNotification\Helpers\Config;
 final class TicketOpenNotification extends AbstractWhatsAppNotifcation
 {
     public string $notificationCode = 'TicketOpen';
-    public ?Hooks $hook = Hooks::TICKET_OPEN;
+    public Hooks|array|null $hook = Hooks::TICKET_OPEN;
 
     public function run(): bool
     {

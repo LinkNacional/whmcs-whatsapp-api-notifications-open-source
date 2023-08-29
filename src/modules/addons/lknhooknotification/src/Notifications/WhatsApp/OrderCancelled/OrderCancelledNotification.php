@@ -1,28 +1,28 @@
 <?php
 
 /**
- * Code: OrderCreated
+ * Code: OrderCancelled
  */
 
-namespace Lkn\HookNotification\Notifications\WhatsApp\OrderCreated;
+namespace Lkn\HookNotification\Notifications\WhatsApp\OrderCancelled;
 
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
 
-final class OrderCreatedNotification extends AbstractWhatsAppNotifcation
+final class OrderCancelledNotification extends AbstractWhatsAppNotifcation
 {
-    public string $notificationCode = 'OrderCreated';
-    public Hooks|array|null $hook = Hooks::AFTER_SHOPPING_CART_CHECKOUT;
+    public string $notificationCode = 'OrderCancelled';
+    public Hooks|array|null $hook = [Hooks::CANCEL_ORDER, Hooks::CANCEL_AND_REFUND_ORDER];
 
     public function run(): bool
     {
         // Setup properties for reporting purposes (not required).
         $this->setReportCategory(ReportCategory::ORDER);
-        $this->setReportCategoryId($this->hookParams['OrderID']);
+        $this->setReportCategoryId($this->hookParams['orderid']);
 
         // Setup client ID for getting its WhatsApp number (required).
-        $this->setClientId($this->getClientIdByInvoiceId($this->hookParams['InvoiceID']));
+        $this->setClientId($this->getClientIdByOrderId($this->hookParams['orderid']));
 
         // Send the message and get the raw response (converted to array) from WhatsApp API.
         $response = $this->sendMessage();
@@ -38,11 +38,11 @@ final class OrderCreatedNotification extends AbstractWhatsAppNotifcation
         $this->parameters = [
             'order_id' => [
                 'label' => $this->lang['order_id'],
-                'parser' => fn () => $this->hookParams['OrderID'],
+                'parser' => fn () => $this->hookParams['orderid'],
             ],
             'order_items_descrip' => [
                 'label' => $this->lang['order_items_descrip'],
-                'parser' => fn () => self::getOrderItemsDescripByOrderId($this->hookParams['OrderID'])
+                'parser' => fn () => self::getOrderItemsDescripByOrderId($this->hookParams['orderid'])
             ],
             'client_first_name' => [
                 'label' => $this->lang['client_first_name'],

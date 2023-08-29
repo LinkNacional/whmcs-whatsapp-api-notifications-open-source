@@ -13,7 +13,7 @@ use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
 final class AfterModuleSuspendNotification extends AbstractWhatsAppNotifcation
 {
     public string $notificationCode = 'AfterModuleSuspend';
-    public ?Hooks $hook = Hooks::AFTER_MODULE_SUSPEND;
+    public Hooks|array|null $hook = Hooks::AFTER_MODULE_SUSPEND;
 
     public function run(): bool
     {
