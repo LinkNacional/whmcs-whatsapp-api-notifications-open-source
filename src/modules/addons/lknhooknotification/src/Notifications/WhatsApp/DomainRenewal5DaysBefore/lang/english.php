@@ -1,7 +1,7 @@
 <?php
 
-$lang['notification_title'] = 'Domain renewal 3 days early';
-$lang['notification_description'] = 'Runs after the DailyCronJob and sends a notification to each customer that has a domain to be renewed in the next three days.';
+$lang['notification_title'] = 'Domain renewal 5 days early';
+$lang['notification_description'] = 'Runs after the DailyCronJob and sends a notification to each customer that has a domain to be renewed in the next five days.';
 
 $lang['domain_id'] = 'Domain ID';
 $lang['domain_url'] = 'Domain URL';
