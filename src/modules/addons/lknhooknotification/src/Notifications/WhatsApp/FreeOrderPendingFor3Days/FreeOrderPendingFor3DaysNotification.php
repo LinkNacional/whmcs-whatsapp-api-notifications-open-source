@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Code: OrderPendingFor3Days
+ * Code: FreeOrderPendingFor3Days
  */
 
-namespace Lkn\HookNotification\Notifications\WhatsApp\OrderPendingFor3Days;
+namespace Lkn\HookNotification\Notifications\WhatsApp\FreeOrderPendingFor3Days;
 
 use DateTime;
 use Lkn\HookNotification\Config\Hooks;
@@ -18,9 +18,9 @@ use Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPriv
 use Throwable;
 use WHMCS\Database\Capsule;
 
-final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
+final class FreeOrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
 {
-    public string $notificationCode = 'OrderPendingFor3Days';
+    public string $notificationCode = 'FreeOrderPendingFor3Days';
     public Hooks|array|null $hook = Hooks::DAILY_CRON_JOB;
 
     public function run(): bool
@@ -35,7 +35,7 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
 
         $orders = Capsule::table('tblorders')
             ->where('status', 'Pending')
-            ->where('amount', '>', '0.00')
+            ->where('amount', '0.00')
             ->whereDate('date', $threeDaysAgo)
             ->get(['id', 'userid'])
             ->toArray();
@@ -79,8 +79,6 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
                     ]
                 );
             }
-
-            exit;
         }
 
         return true;
