@@ -9,6 +9,8 @@ namespace Lkn\HookNotification\Notifications\WhatsApp\OrderCancelled;
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
+use Lkn\HookNotification\Helpers\Logger;
+use WHMCS\Database\Capsule;
 
 final class OrderCancelledNotification extends AbstractWhatsAppNotifcation
 {
@@ -17,12 +19,37 @@ final class OrderCancelledNotification extends AbstractWhatsAppNotifcation
 
     public function run(): bool
     {
+        $orderId = $this->hookParams['orderid'];
         // Setup properties for reporting purposes (not required).
         $this->setReportCategory(ReportCategory::ORDER);
-        $this->setReportCategoryId($this->hookParams['orderid']);
+        $this->setReportCategoryId($orderId);
+
+        $clientId = $this->getClientIdByOrderId($orderId);
 
         // Setup client ID for getting its WhatsApp number (required).
-        $this->setClientId($this->getClientIdByOrderId($this->hookParams['orderid']));
+        $this->setClientId($clientId);
+
+        // CancelOrder hook is also called when a order is deleted.
+        // An admin may have cancelled the order before deleting it, so this checks if a notification was already sent.
+        $wasAlreadySent = Capsule::table('mod_lkn_hook_notification_reports')
+            ->where('client_id', $clientId)
+            ->where('category_id', $this->reportCategoryId)
+            ->where('category', $this->reportCategory->value)
+            ->where('platform', $this->platform->value)
+            ->where('notification', $this->notificationCode)
+            ->exists();
+
+        if ($wasAlreadySent) {
+            Logger::log(
+                "{$this->getNotificationLogName()} abort",
+                [
+                    'msg' => 'Notification about cancelled order was previously sent.',
+                    'context' => ['instance' => $this]
+                ]
+            );
+
+            return false;
+        }
 
         // Send the message and get the raw response (converted to array) from WhatsApp API.
         $response = $this->sendMessage();
