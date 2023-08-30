@@ -25,7 +25,7 @@ final class OrderCreatedNotification extends AbstractWhatsAppNotifcation
         $this->setReportCategoryId($orderId);
 
         // Setup client ID for getting its WhatsApp number (required).
-        $this->setClientId($this->getClientIdByInvoiceId($this->hookParams['InvoiceID']));
+        $this->setClientId($this->getClientIdByOrderId($this->hookParams['OrderID']));
 
         $fraudCheckResponse = localAPI('OrderFraudCheck', ['orderid' => $orderId]);
 

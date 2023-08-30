@@ -12,6 +12,8 @@ use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Config\Settings;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
 use Lkn\HookNotification\Helpers\Config;
+use Lkn\HookNotification\Helpers\Lang;
+use Lkn\HookNotification\Helpers\WhmcsApi;
 
 final class TicketAnsweredNotification extends AbstractWhatsAppNotifcation
 {
@@ -54,6 +56,14 @@ final class TicketAnsweredNotification extends AbstractWhatsAppNotifcation
 
     private function sendMessageForUnregisteredClient(): bool
     {
+        if (!empty($this->hookParams['ticketid'])) {
+            $clientId = $this->getClientIdByTicketId($this->hookParams['ticketid']);
+
+            if (!is_null($clientId)) {
+                $this->setClientId($clientId);
+            }
+        }
+
         $whatsAppNumber = $this->getTicketWhatsAppCfValue($this->hookParams['ticketid']);
 
         $response = $this->sendMessage($whatsAppNumber);
@@ -64,9 +74,12 @@ final class TicketAnsweredNotification extends AbstractWhatsAppNotifcation
         $this->events = [];
 
         if ($success) {
+            $ticketUrl = WhmcsApi::getAdminRootUrl("supporttickets.php?action=view&id={$this->reportCategoryId}");
+            $msg = Lang::text('notification') . ": {$this->lang['notification_title']} [#{$this->reportCategoryId}]({$ticketUrl})";
+
             $this->eventsInstance->sendMsgToChatwootAsPrivateNoteForUnregisteredClient(
                 $whatsAppNumber,
-                "Notificação: ticket respondido #{$this->hookParams['ticketid']}",
+                $msg,
                 $this->parameters['client_full_name']['parser'](),
                 $this->getTicketEmail($this->hookParams['ticketid']),
                 Config::get(Platforms::CHATWOOT, Settings::CW_WHATSAPP_INBOX_ID)

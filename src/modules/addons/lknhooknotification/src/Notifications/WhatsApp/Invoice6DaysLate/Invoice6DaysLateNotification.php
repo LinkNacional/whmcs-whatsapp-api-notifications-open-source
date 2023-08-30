@@ -67,7 +67,7 @@ final class Invoice6DaysLateNotification extends AbstractWhatsAppNotifcation
                 Logger::log(
                     "{$this->getNotificationLogName()} error for invoice {$invoiceId}",
                     [
-                        'msg' => 'Unable to send notification for this order..',
+                        'msg' => 'Unable to send notification for this invoice.',
                         'context' => ['invoice' => $invoice]
                     ],
                     [
