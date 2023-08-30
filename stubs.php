@@ -1,984 +1,1320 @@
 <?php
 
-namespace Lkn\HookNotification\Domains\Notifications;
+namespace Lkn\HookNotification\Domains\Notifications {
+    interface NotificationInterface
+    {
+        public function run(): bool;
 
-interface NotificationInterface
-{
-    public function run() : void;
-    public function sendMessage() : array|false;
-}
-/**
- * @since 3.0.0
- */
-abstract class AbstractNotification implements \Lkn\HookNotification\Domains\Notifications\NotificationInterface
-{
-    /**
-     * Must be the name of the notification folder.
-     *
-     * It is unique and has the purpose of identifying the notification.
-     *
-     * Sometimes may be equal to the $hook property, but it is has not the
-     * meaning.
-     *
-     * @since 3.0.0
-     * @var string
-     */
-    public string $notificationCode;
-    /**
-     * Must be the abbreviation of the platform for which the notification
-     * was made.
-     *
-     * Must be 'cw' or 'wp'.
-     *
-     * @since 3.0.0
-     * @var \Lkn\HookNotification\Config\Platforms
-     */
-    public \Lkn\HookNotification\Config\Platforms $platform;
-    /**
-     * The WHMCS hook name by which the notification is fired.
-     *
-     * Sometimes may be equal to the $notificationCode property, but it is not
-     * the same.
-     *
-     * @since 3.0.0
-     * @var \Lkn\HookNotification\Config\Hooks
-     * @link https://developers.whmcs.com/hooks/hook-index/
-     */
-    public \Lkn\HookNotification\Config\Hooks $hook;
-    /**
-     * The raw data that WHMCS passes to the notifications' hook.
-     *
-     * It is automatically filled when using the Messenger class.
-     *
-     * @since 3.0.0
-     * @var array
-     * @link https://developers.whmcs.com/hooks/hook-index/
-     */
-    protected array $hookParams;
-    /**
-     * For logs purposes.
-     *
-     * @since 3.0.0
-     *
-     * @return string "{$this->platform}:{$this->notificationCode}"
-     */
-    protected function getNotificationLogName() : string
-    {
+        public function sendMessage(): array|bool;
     }
     /**
      * @since 3.0.0
-     *
-     * @param array $hookParams the parameters provided by WHMCS. Each WHMCS hook
-     *                          has its parameters: take a look at:
-     *                          https://developers.whmcs.com/hooks/hook-index/
      */
-    public final function setHookParams(array $hookParams) : void
+    abstract class AbstractNotification implements \Lkn\HookNotification\Domains\Notifications\NotificationInterface
     {
-    }
-}
-namespace Lkn\HookNotification\Helpers;
+        /**
+         * Must be the name of the notification folder.
+         *
+         * It is unique and has the purpose of identifying the notification.
+         *
+         * Sometimes may be equal to the $hook property, but it is has not the
+         * meaning.
+         *
+         * @since 3.0.0
+         * @var string
+         */
+        public string $notificationCode;
+        /**
+         * Must be the abbreviation of the platform for which the notification
+         * was made.
+         *
+         * Must be 'cw' or 'wp'.
+         *
+         * @since 3.0.0
+         * @var \Lkn\HookNotification\Config\Platforms
+         */
+        public \Lkn\HookNotification\Config\Platforms $platform;
+        /**
+         * If $platform is multi-channel like Chatwoot, then the channel can be specified here.
+         *
+         * @since 3.2.0
+         * @var ?string
+         */
+        public ?string $channel = null;
+        /**
+         * The WHMCS hook name by which the notification is fired.
+         *
+         * Sometimes may be equal to the $notificationCode property, but it is not
+         * the same.
+         *
+         * Provide a array of Hooks[] if the notification is needed to run on multiple hooks.
+         *
+         * @since 3.0.0
+         * @var Hooks|Hooks[]|null
+         * @link https://developers.whmcs.com/hooks/hook-index/
+         */
+        public \Lkn\HookNotification\Config\Hooks|array|null $hook = null;
+        /**
+         * The raw data that WHMCS passes to the notifications' hook.
+         *
+         * It is automatically filled when using the Messenger class.
+         *
+         * @since 3.0.0
+         * @var array
+         * @link https://developers.whmcs.com/hooks/hook-index/
+         */
+        public array $hookParams;
+        /**
+         * The translations for the current module language.
+         *
+         * The translations file is automatically loaded from the folder lang inside the notification's folder.
+         *
+         * @since 3.2.0
+         * @var array
+         */
+        public array $lang;
+        public string $notificationFolderPath;
+        /**
+         * The domain of the notification.
+         *
+         * This will be sent to the report.
+         *
+         * @since 3.2.0
+         * @var ReportCategory
+         */
+        public \Lkn\HookNotification\Config\ReportCategory $reportCategory;
+        /**
+         * The unique ID of the notification domain.
+         *
+         * This may be a invoice id, a ticket id or a service id.
+         *
+         * @since 3.2.0
+         * @var ?string
+         */
+        public ?int $reportCategoryId;
+        /**
+         * The client ID, if any, related to the notification.
+         *
+         * This ID is sent to the report.
+         *
+         * @since 3.2.0
+         * @var int
+         */
+        public int $clientId;
+        /**
+         * If true, the Messenger class will automatically call $this->report() on success or on error.
+         *
+         * @since 3.2.0
+         * @var bool
+         */
+        public bool $enableAutoReport = true;
 
-trait NotificationParamParseTrait
-{
-    public static function getClientWhatsAppNumber(int $clientId) : ?string
-    {
+        public function setReportCategoryId(int $reportCategoryId): void
+        {
+        }
+
+        public function setReportCategory(\Lkn\HookNotification\Config\ReportCategory $reportCategory): void
+        {
+        }
+
+        public function __construct()
+        {
+        }
+
+        /**
+         * Saves the notification sent or error status in the database
+         *
+         * Automatically saves the following properties:
+         *
+         * $this->platform
+         *
+         * $this->notificationCode
+         *
+         * $this->clientId
+         *
+         * $this->reportCategory
+         *
+         * $this->reportCategoryId
+         *
+         * $this->hook
+         *
+         * $this->channel
+         *
+         * These properties will appear in the Reports page.
+         *
+         * @since 3.2.0
+         *
+         * @param bool $success tells if the notification was sent or not.
+         *
+         * @return void
+         */
+        public function report(bool $success): void
+        {
+        }
+
+        /**
+         * For logs purposes.
+         *
+         * @since 3.0.0
+         *
+         * @return string "{$this->platform}:{$this->notificationCode}"
+         */
+        protected function getNotificationLogName(): string
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param array $hookParams the parameters provided by WHMCS. Each WHMCS hook
+         *                          has its parameters: take a look at:
+         *                          https://developers.whmcs.com/hooks/hook-index/
+         */
+        final public function setHookParams(array $hookParams): void
+        {
+        }
+
+        protected function loadTranslations()
+        {
+        }
     }
-    public static function getClientFullNameByClientId(int $id) : string
+}
+
+namespace Lkn\HookNotification\Helpers {
+    trait NotificationParamParseTrait
     {
+        public static function getClientWhatsAppNumber(int $clientId): ?string
+        {
+        }
+
+        public static function getClientFullNameByClientId(int $id): string
+        {
+        }
+
+        public static function getClientFirstTwoNamesByClientId(int $id): string
+        {
+        }
+
+        public static function getClientFirstNameByClientId(int $id): string
+        {
+        }
+
+        public static function getClientEmailByClientId(int $clientId): string
+        {
+        }
+
+        public static function getInvoicePdfUrlByInvocieId(int $id, bool $returnNullOtherwise = false): ?string
+        {
+        }
+
+        /**
+         * Line items "type" and "domain".
+         *
+         * @since 2.0.0
+         *
+         * @param int $orderId
+         *
+         * @return string
+         */
+        public static function getOrderItemsDescripByOrderId(int $orderId): string
+        {
+        }
+
+        /**
+         * @since 3.0.1
+         *
+         * @param int $invoiceId
+         *
+         * @return array [0 => Description 1, 1 => Description 2]
+         */
+        public static function getInvoiceItemsDescriptionsByInvoiceId(int $invoiceId): array
+        {
+        }
+
+        public static function getInvoiceDueDateByInvoiceId(int $invoiceId): string
+        {
+        }
+
+        public static function getServiceProductNameByProductId(int $productId): string
+        {
+        }
+
+        public function getHostDomainByHostId(int $hostId): string
+        {
+        }
+
+        public function getClientIdByInvoiceId(int $invoiceId): int
+        {
+        }
+
+        public function getClientIdByOrderId(int $orderId): int
+        {
+        }
+
+        public function getClientIdByTicketId(int $ticketId): int
+        {
+        }
+
+        public function getTicket(int $ticketId, string $column): string
+        {
+        }
+
+        public function getTicketMask(int $ticketId): string
+        {
+        }
+
+        public function getTicketSubject(int $ticketId): string
+        {
+        }
+
+        public function getTicketEmail(int $ticketId): string
+        {
+        }
+
+        public function getTicketNameColumn(int $ticketId): string
+        {
+        }
+
+        public function getTicketWhatsAppCfValue(int $ticketId): ?int
+        {
+        }
     }
-    public static function getClientFirstTwoNamesByClientId(int $id) : string
+}
+
+namespace Lkn\HookNotification\Domains\Platforms\Chatwoot {
+    /**
+     * Provides the basic implementation a Chatwoot notification must have.
+     *
+     * @since 3.0.0
+     */
+    abstract class AbstractChatwootNotification extends \Lkn\HookNotification\Domains\Notifications\AbstractNotification
     {
+        use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
+        /**
+         * Notification's name.
+         *
+         * @since 3.0.0
+         * @var string
+         */
+        public string $name;
+        /**
+         * @since 3.0.0
+         * @var \Lkn\HookNotification\Domains\Shared\Repositories\ChatwootApiRepository
+         */
+        public readonly \Lkn\HookNotification\Domains\Shared\Repositories\ChatwootApiRepository $api;
+        /**
+         * @since 3.0.0
+         * @var int
+         */
+        public int $clientId;
+        public array $hookParams;
+
+        public function __construct(array $hookParams = [])
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param int $clientId
+         *
+         * @return void
+         */
+        final public function setClientId(int $clientId): void
+        {
+        }
     }
-    public static function getClientFirstNameByClientId(int $id) : string
+}
+
+namespace Lkn\HookNotification\Domains\Shared\Abstracts {
+    /**
+     * Provides a raw curl request method.
+     *
+     * @since 3.0.0
+     */
+    abstract class AbstractHttpRequest
     {
+        /**
+         * @since 3.0.0
+         *
+         * @param string $method
+         * @param string $baseUrl
+         * @param string $endpoint
+         * @param array  $body
+         * @param array  $headers
+         *
+         * @return false|null|array false may be returned also due to license problems.
+         */
+        protected function httpRequest(string $method, string $baseUrl, string $endpoint, array $body = [], array $headers = []): false|null|array
+        {
+        }
     }
-    public static function getClientEmailByClientId(int $clientId) : string
+}
+
+namespace Lkn\HookNotification\Domains\Platforms\Chatwoot {
+    /**
+     * Implements raw methods for communicating with the API.
+     *
+     * Must only contain http requests to the API. Should not process the responses.
+     *
+     * @link https://www.chatwoot.com/developers/api/
+     *
+     * @since 3.0.0
+     */
+    abstract class AbstractChatwootApi extends \Lkn\HookNotification\Domains\Shared\Abstracts\AbstractHttpRequest
     {
+        /**
+         * Provides a standardized way to return API responses to notifications.
+         *
+         * @since 3.0.0
+         *
+         * @param bool  $success
+         * @param array $data
+         *
+         * @return array
+         */
+        protected function response(bool $success, array $data = []): array
+        {
+        }
+
+        /**
+         * Performs a request to Chatwoot's API.
+         *
+         * @since 3.0.0
+         *
+         * @param string $method
+         * @param string $endpoint
+         * @param array  $body
+         * @param array  $headers
+         *
+         * @return array raw API response converted to array or an empty array on failure.
+         */
+        final public function request(string $method, string $endpoint, array $body = [], array $headers = []): false|null|array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param int    $conversationId
+         * @param string $content
+         * @param string $contentType
+         * @param string $msgType        outgoing or incoming
+         * @param bool   $private
+         * @param array  $contentAttrs
+         *
+         * @link https://www.chatwoot.com/developers/api/#tag/Messages/operation/create-a-new-message-in-a-conversation
+         *
+         * @return array returns the message ID.
+         */
+        final public function sendMessageToConversation(int $conversationId, string $content, string $contentType = 'text', string $msgType = 'outgoing', bool $private = false, array $contentAttrs = []): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @link https://www.chatwoot.com/developers/api/#tag/Contacts/operation/contactSearch
+         *
+         * @param string $searchQuery
+         *
+         * @return array
+         */
+        final public function searchContact(string $searchQuery): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @link https://www.chatwoot.com/developers/api/#tag/Contacts/operation/contactConversations
+         *
+         * @param int $contactId
+         *
+         * @return array
+         */
+        final public function getContactConversations(int $contactId): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param int      $contactId
+         * @param int|null $contactSourceId
+         * @param int      $inboxId
+         *
+         * @return void
+         */
+        final public function createConversation(int $contactId, int|null $contactSourceId, int $inboxId)
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @link https://www.chatwoot.com/developers/api/#tag/Contacts/operation/contactCreate
+         *
+         * @param int    $inboxId
+         * @param string $name
+         * @param string $email
+         * @param string $phone
+         *
+         * @return array
+         */
+        final public function createContact(int $inboxId, string $name = '', string $email = '', string $phone = ''): array
+        {
+        }
     }
-    public static function getInvoicePdfUrlByInvocieId(int $id, bool $returnNullOtherwise = false) : ?string
+}
+
+namespace Lkn\HookNotification\Domains\Platforms\WhatsApp {
+    /**
+     * @since 3.0.0
+     */
+    final class WhatsAppNotificationsEvents
     {
+        use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
+
+        /**
+         * @since 3.0.0
+         */
+        public function __construct()
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param int    $clientId
+         * @param string $msg
+         *
+         * @return void
+         */
+        public function sendMsgToChatwootAsPrivateNote(int $clientId, string $msg): void
+        {
+        }
+
+        public function sendMsgToChatwootAsPrivateNoteForUnregisteredClient(int $phoneNumber, string $msg, string $clientName, string $clientEmail, int $inboxId): void
+        {
+        }
     }
     /**
-     * Line items "type" and "domain".
+     * Holds methods that used to comunicate with the WhatsApp business API and
+     * cloud API.
      *
+     * @since 3.0.0
+     */
+    abstract class AbstractWhatsAppApi extends \Lkn\HookNotification\Domains\Shared\Abstracts\AbstractHttpRequest
+    {
+        /**
+         * Performs a request to WhatsApp API.
+         *
+         * @since 3.0.0
+         *
+         * @param string $method
+         * @param string $endpoint
+         * @param array  $body
+         * @param array  $headers
+         *
+         * @return false|null|array raw WhatsApp response converted to array or an empty array on failure.
+         */
+        final public function request(string $method, string $endpoint, array $body = [], array $headers = []): false|null|array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param string $method
+         * @param string $endpoint
+         * @param array  $body
+         * @param array  $headers
+         *
+         * @link https://developers.facebook.com/docs/whatsapp/cloud-api/get-started
+         *
+         * @return false|null|array
+         */
+        final public function apiCloud(string $method, string $endpoint, array $body = [], array $headers = []): false|null|array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param string $method
+         * @param string $endpoint
+         * @param array  $body
+         * @param array  $headers
+         *
+         * @link https://developers.facebook.com/docs/whatsapp/business-management-api
+         *
+         * @return false|null|array
+         */
+        final public function apiBusiness(string $method, string $endpoint, array $body = [], array $headers = [], string $queryParams = ''): false|null|array
+        {
+        }
+    }
+    /**
+     * @since 3.0.0
+     */
+    abstract class AbstractWhatsAppNotifcation extends \Lkn\HookNotification\Domains\Notifications\AbstractNotification
+    {
+        use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
+        /**
+         * The array of association between a message template and a notification.
+         *
+         * @since 3.0.0
+         * @var array
+         */
+        protected array $assoc = [];
+        /**
+         * The relation between a message template parameter position and a
+         * notification parameter.
+         *
+         * @since 3.0.0
+         * @var array
+         */
+        public array $parameters;
+        /**
+         * Instance for communicating with the WhatsApp API.
+         *
+         * @since 3.0.0
+         * @var \Lkn\HookNotification\Domains\Shared\Repositories\WhatsAppApiRepository
+         */
+        protected readonly \Lkn\HookNotification\Domains\Shared\Repositories\WhatsAppApiRepository $api;
+        /**
+         * Events instance for handling operations related to others platforms.
+         *
+         * A operation may be sending the message to Chatwoot.
+         *
+         * @since 3.0.0
+         * @var \Lkn\HookNotification\Domains\Platforms\WhatsApp\WhatsAppNotificationsEvents
+         */
+        protected readonly \Lkn\HookNotification\Domains\Platforms\WhatsApp\WhatsAppNotificationsEvents $eventsInstance;
+        /**
+         * Instance of the class that maps the $this->assoc into the WhatsApp API
+         * request body.
+         *
+         * @since 3.0.0
+         * @var \Lkn\HookNotification\Domains\Platforms\WhatsApp\MessageTemplateParser
+         */
+        protected readonly \Lkn\HookNotification\Domains\Platforms\WhatsApp\MessageTemplateParser $parser;
+        /**
+         * Keys of which evets for WhatsApp to run.
+         *
+         * cw_private_note is removed when the OpenTicket notification is being run
+         * for a client not registered.
+         *
+         * @since 3.2.0
+         * @var array
+         */
+        public array $events = ['cw_private_note'];
+
+        public function __construct()
+        {
+        }
+
+        /**
+         * Should set the parameters property.
+         *
+         * The array must follow the structure below:
+         *
+         * $this->parameters = [
+         *      'invoice_id' => [
+         *          'label' => 'ID da fatura',
+         *          'parser' => fn () => $this->hookParams['invoiceid'],
+         *      ]
+         * ];
+         *
+         * @since 3.0.0
+         *
+         * @return void
+         */
+        protected function defineParameters(): void
+        {
+        }
+
+        /**
+         * Responsible for getting all information related to the notification.
+         *
+         * Gets the client WhatsApp number and the association between the
+         * notification and message template.
+         *
+         * @since 3.0.0
+         *
+         * @return void
+         */
+        final public function init(): void
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param int $clientId
+         *
+         * @return void
+         */
+        protected function setClientId(int $clientId): void
+        {
+        }
+
+        /**
+         * Parses and sends the message.
+         *
+         * Useful for simple notification that does not require too much customizations.
+         *
+         * @since 3.0.0
+         *
+         * @param ?int $whatsappNumber
+         *
+         * @return array|false the WhatsApp API response.
+         */
+        final public function sendMessage(?int $whatsappNumber = null): array|false
+        {
+        }
+    }
+    /**
+     * Maps the association between a message template and a notification into
+     * the WhatsApp request body required to send the message to the API.
+     *
+     * Knows the rules of the API.
+     *
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages
+     *
+     * @since 1.0.0
+     */
+    final class MessageTemplateParser
+    {
+        /**
+         * @since 3.0.0
+         *
+         * @param array $components  the association between the notification
+         *                           parameters and the message template.
+         * @param array $notifParams the notification parameters, containing a
+         *                           callback for fetching the parameter value.
+         *
+         * @return array
+         */
+        final public function parse(array $components, array $notifParams): array
+        {
+        }
+    }
+}
+
+namespace Lkn\HookNotification\Domains\Notifications {
+    /**
+     * @since 3.0.0
+     */
+    abstract class Messenger
+    {
+        /**
+         * Runs the notification when its hook is called by WHMCS.
+         *
+         * @since 3.0.0
+         *
+         * @param string    $notificationNamespace ClassNotification::class
+         * @param ?callable $condition             Optional. Must return true or false. When true, the notification is run when false, the notification is not run.
+         *
+         * @return void
+         */
+        final public static function run(string $notificationNamespace, ?callable $condition = null): void
+        {
+        }
+
+        /**
+         * @since 3.2.0
+         *
+         * Does the required verifications then run the notification.
+         *
+         * @param string                                                        $notificationNamespace
+         * @param array                                                         $hookParams
+         * @param callable|null                                                 $condition
+         * @param AbstractWhatsAppNotifcation|AbstractChatwootNotification|null $instance
+         *
+         * @return bool
+         */
+        public static function runNow(string $notificationNamespace, array $hookParams = [], ?callable $condition = null, \Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation|\Lkn\HookNotification\Domains\Platforms\Chatwoot\AbstractChatwootNotification|null $instance = null): bool
+        {
+        }
+
+        /**
+         * @since 3.2.0
+         *
+         * @param string                                 $notifCode
+         * @param \Lkn\HookNotification\Config\Platforms $platform
+         * @param array                                  $hookParams
+         * @param callable|null                          $condition
+         *
+         * @return array [sent => true|false] or, when an error [sent => true|false, msg => string].
+         */
+        public static function runManually(string $notifCode, \Lkn\HookNotification\Config\Platforms $platform, array $hookParams, ?callable $condition = null): array
+        {
+        }
+    }
+    final class UnableToRunNotificationException extends \Exception
+    {
+        public readonly array $context;
+
+        public function __construct(string $message, array $context)
+        {
+        }
+
+        // custom string representation of object
+        public function __toString()
+        {
+        }
+    }
+}
+
+namespace Lkn\HookNotification\Helpers {
+    abstract class Logger
+    {
+        final public static function log(string $action, array|object|null $request, array|object|null $response = []): void
+        {
+        }
+
+        /**
+         * Creates a report of the message for displaying in the reports page, in
+         * the module reports page.
+         *
+         * @since 3.0.0
+         *
+         * @param string                                          $status
+         * @param \Lkn\HookNotification\Config\Platforms          $platform
+         * @param string                                          $notification
+         * @param ?int                                            $clientId
+         * @param ReportCategory                                  $object
+         * @param int                                             $objectId
+         * @param \Lkn\HookNotification\Config\Hooks|Hooks[]|null $hook
+         * @param string|null                                     $channel
+         *
+         * @return void
+         */
+        final public static function report(string $status, \Lkn\HookNotification\Config\Platforms $platform, string $notification, ?int $clientId, ?\Lkn\HookNotification\Config\ReportCategory $category, ?int $categoryId, \Lkn\HookNotification\Config\Hooks|array|null $hook = null, ?string $channel = null): void
+        {
+        }
+    }
+    final class ExtractHeaderDocBlockFromFile
+    {
+        public static function run(string $path): ?array
+        {
+        }
+    }
+    final class View
+    {
+        public static function baseRender(string $viewPath, array $vars = []): string
+        {
+        }
+
+        public static function render(string $view, array $vars = [], string $viewRootPath = ''): string
+        {
+        }
+
+        public static function addNotificationOption(string $notificationNamespace): string
+        {
+        }
+
+        public static function renderWithFeedback(string $view, string $type, string $msg, bool $blockPage = false): string
+        {
+        }
+
+        public static function error500(string $view, string $msg)
+        {
+        }
+
+        public static function error404(string $view, string $msg)
+        {
+        }
+
+        public static function withValidationErrors(string $view, array $errors = [], string $msg, bool $blockPage = false): string
+        {
+        }
+    }
+    /**
+     * Provides methods for fast access to the module settings.
+     *
+     * @since 3.0.0
+     */
+    abstract class Config
+    {
+        /**
+         * Use this method to get a module setting.
+         *
+         * @since 3.0.0
+         *
+         * @param \Lkn\HookNotification\Config\Platforms $platform
+         * @param \Lkn\HookNotification\Config\Settings  $setting
+         *
+         * @return mixed Returns a setting from the table mod_lkn_hook_notification_configs.
+         */
+        final public static function get(\Lkn\HookNotification\Config\Platforms $platform, \Lkn\HookNotification\Config\Settings $setting): mixed
+        {
+        }
+
+        final public static function set(\Lkn\HookNotification\Config\Platforms $platform, \Lkn\HookNotification\Config\Settings $setting, mixed $value): void
+        {
+        }
+
+        /**
+         * Checks if a report for a object can be show according to its setting.
+         *
+         * @since 3.0.0
+         *
+         * @param string $object
+         *
+         * @return bool
+         */
+        final public static function isReportPageActive(string $object): bool
+        {
+        }
+
+        final public static function getConstant(string $constant): mixed
+        {
+        }
+    }
+    final class Lang
+    {
+        /**
+         * Returns the array of translations for the current language.
+         *
+         * If the module has no language set, the default is of the WHMCS.
+         *
+         * If the default WHMCS language is not disponible, then the default language is english.
+         *
+         * @since 3.2.0
+         *
+         * @return object
+         */
+        public static function getModuleLangAsObject(): object
+        {
+        }
+
+        public static function text(string $key)
+        {
+        }
+
+        public static function getCurrentLanguageName(): string
+        {
+        }
+
+        public static function getNotificationLang(string $notifFolderPath, bool $asObject = false): array|\stdClass
+        {
+        }
+    }
+    /**
      * @since 2.0.0
-     *
-     * @param int $orderId
-     *
-     * @return string
      */
-    public static function getOrderItemsDescripByOrderId(int $orderId) : string
+    abstract class Link
     {
-    }
-    public static function getInvoiceItemsByInvoiceId(int $invoiceId) : string
-    {
-    }
-    public static function getInvoiceDueDateByInvoiceId(int $invoiceId) : string
-    {
-    }
-    public static function getServiceProductNameByProductId(int $productId) : string
-    {
-    }
-    public function getHostDomainByHostId(int $hostId) : string
-    {
-    }
-    public function getClientIdByInvoiceId(int $invoiceId) : int
-    {
-    }
-    public function getClientIdByTicketId(int $ticketId) : int
-    {
-    }
-}
-namespace Lkn\HookNotification\Domains\Platforms\Chatwoot;
+        /**
+         * @since 2.0.0
+         *
+         * @return string
+         */
+        final public static function systemUrl()
+        {
+        }
 
-/**
- * Provides the basic implementation a Chatwoot notification must have.
- *
- * @since 3.0.0
- */
-abstract class AbstractChatwootNotification extends \Lkn\HookNotification\Domains\Notifications\AbstractNotification
-{
-    use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
-    /**
-     * Notification's name.
-     *
-     * @since 3.0.0
-     * @var string
-     */
-    public string $name;
-    /**
-     * @since 3.0.0
-     * @var \Lkn\HookNotification\Domains\Shared\Repositories\ChatwootApiRepository
-     */
-    public readonly \Lkn\HookNotification\Domains\Shared\Repositories\ChatwootApiRepository $api;
-    /**
-     * @since 3.0.0
-     * @var int
-     */
-    public int $clientId;
-    public function __construct()
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param  int  $clientId
-     *
-     * @return void
-     */
-    public final function setClientId(int $clientId) : void
-    {
-    }
-    /**
-     * Creates a report of the message for displaying in the reports page, in
-     * the module reports page.
-     *
-     * @since 3.0.0
-     *
-     * @param  array|bool $apiResponse
-     * @param  string     $object
-     * @param  int        $objectId
-     *
-     * @return void
-     */
-    protected function report(array|bool $apiResponse, string $object, int $objectId) : void
-    {
-    }
-}
-namespace Lkn\HookNotification\Domains\Shared\Abstracts;
+        /**
+         * @since 2.0.0
+         *
+         * @return string
+         */
+        final public static function moduleUrl()
+        {
+        }
 
-/**
- * Provides a raw curl request method.
- *
- * @since 3.0.0
- */
-abstract class AbstractHttpRequest
-{
-    /**
-     * @since 3.0.0
-     *
-     * @param string $method
-     * @param string $baseUrl
-     * @param string $endpoint
-     * @param array  $body
-     * @param array  $headers
-     *
-     * @return false|null|array false may be returned also due to license problems.
-     */
-    protected function httpRequest(string $method, string $baseUrl, string $endpoint, array $body = [], array $headers = []) : false|null|array
-    {
+        final public static function make(string $controller, string $resource, array $params = []): string
+        {
+        }
     }
-}
-namespace Lkn\HookNotification\Domains\Platforms\Chatwoot;
+    abstract class Response
+    {
+        final public static function api(bool $success, array $data = []): void
+        {
+        }
 
-/**
- * Implements raw methods for communicating with the API.
- *
- * Must only contain http requests to the API. Should not process the responses.
- *
- * @link https://www.chatwoot.com/developers/api/
- *
- * @since 3.0.0
- */
-abstract class AbstractChatwootApi extends \Lkn\HookNotification\Domains\Shared\Abstracts\AbstractHttpRequest
-{
-    /**
-     * Provides a standardized way to return API responses to notifications.
-     *
-     * @since 3.0.0
-     *
-     * @param bool  $success
-     * @param array $data
-     *
-     * @return array
-     */
-    protected function response(bool $success, array $data = []) : array
-    {
+        final public static function redirect(string $controller, string $resource, array $params = []): void
+        {
+        }
     }
-    /**
-     * Performs a request to Chatwoot's API.
-     *
-     * @since 3.0.0
-     *
-     * @param string $method
-     * @param string $endpoint
-     * @param array  $body
-     * @param array  $headers
-     *
-     * @return array raw API response converted to array or an empty array on failure.
-     */
-    public final function request(string $method, string $endpoint, array $body = [], array $headers = []) : false|null|array
+    abstract class VersionUpgrade
     {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param int    $conversationId
-     * @param string $content
-     * @param string $contentType
-     * @param string $msgType        outgoing or incoming
-     * @param bool   $private
-     * @param array  $contentAttrs
-     *
-     * @link https://www.chatwoot.com/developers/api/#tag/Messages/operation/create-a-new-message-in-a-conversation
-     *
-     * @return array returns the message ID.
-     */
-    public final function sendMessageToConversation(int $conversationId, string $content, string $contentType = 'text', string $msgType = 'outgoing', bool $private = false, array $contentAttrs = []) : array
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @link https://www.chatwoot.com/developers/api/#tag/Contacts/operation/contactSearch
-     *
-     * @param string $searchQuery
-     *
-     * @return array
-     */
-    public final function searchContact(string $searchQuery) : array
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @link https://www.chatwoot.com/developers/api/#tag/Contacts/operation/contactConversations
-     *
-     * @param int $contactId
-     *
-     * @return array
-     */
-    public final function getContactConversations(int $contactId) : array
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param  int      $contactId
-     * @param  int|null $contactSourceId
-     * @param  int      $inboxId
-     *
-     * @return void
-     */
-    public final function createConversation(int $contactId, int|null $contactSourceId, int $inboxId)
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @link https://www.chatwoot.com/developers/api/#tag/Contacts/operation/contactCreate
-     *
-     * @param int    $inboxId
-     * @param string $name
-     * @param string $email
-     * @param string $phone
-     *
-     * @return array
-     */
-    public final function createContact(int $inboxId, string $name = '', string $email = '', string $phone = '') : array
-    {
-    }
-}
-namespace Lkn\HookNotification\Domains\Platforms\WhatsApp;
+        final public static function setLatestVersion(string $version): void
+        {
+        }
 
-/**
- * @since 3.0.0
- */
-final class WhatsAppNotificationsEvents
-{
-    use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
-    /**
-     * @since 3.0.0
-     */
-    public function __construct()
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param int    $clientId
-     * @param string $msg
-     *
-     * @return void
-     */
-    public function sendMsgToChatwootAsPrivateNote(int $clientId, string $msg) : void
-    {
-    }
-}
-/**
- * Holds methods that used to comunicate with the WhatsApp business API and
- * cloud API.
- *
- * @since 3.0.0
- */
-abstract class AbstractWhatsAppApi extends \Lkn\HookNotification\Domains\Shared\Abstracts\AbstractHttpRequest
-{
-    /**
-     * Performs a request to WhatsApp API.
-     *
-     * @since 3.0.0
-     *
-     * @param string $method
-     * @param string $endpoint
-     * @param array  $body
-     * @param array  $headers
-     *
-     * @return false|null|array raw WhatsApp response converted to array or an empty array on failure.
-     */
-    public final function request(string $method, string $endpoint, array $body = [], array $headers = []) : false|null|array
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param string $method
-     * @param string $endpoint
-     * @param array  $body
-     * @param array  $headers
-     *
-     * @link https://developers.facebook.com/docs/whatsapp/cloud-api/get-started
-     *
-     * @return false|null|array
-     */
-    public final function apiCloud(string $method, string $endpoint, array $body = [], array $headers = []) : false|null|array
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param string $method
-     * @param string $endpoint
-     * @param array  $body
-     * @param array  $headers
-     *
-     * @link https://developers.facebook.com/docs/whatsapp/business-management-api
-     *
-     * @return false|null|array
-     */
-    public final function apiBusiness(string $method, string $endpoint, array $body = [], array $headers = []) : false|null|array
-    {
-    }
-}
-/**
- * @since 3.0.0
- */
-abstract class AbstractWhatsAppNotifcation extends \Lkn\HookNotification\Domains\Notifications\AbstractNotification
-{
-    use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
-    /**
-     * Needed to fetch the client WhatsApp number.
-     *
-     * @since 3.0.0
-     * @var int
-     */
-    protected int $clientId;
-    /**
-     * The array of association between a message template and a notification.
-     *
-     * @since 3.0.0
-     * @var array
-     */
-    protected array $assoc = [];
-    /**
-     * The relation between a message template parameter position and a
-     * notification parameter.
-     *
-     * @since 3.0.0
-     * @var array
-     */
-    public array $parameters;
-    /**
-     * Instance for communicating with the WhatsApp API.
-     *
-     * @since 3.0.0
-     * @var \Lkn\HookNotification\Domains\Shared\Repositories\WhatsAppApiRepository
-     */
-    protected readonly \Lkn\HookNotification\Domains\Shared\Repositories\WhatsAppApiRepository $api;
-    /**
-     * Events instance for handling operations related to others platforms.
-     *
-     * A operation may be sending the message to Chatwoot.
-     *
-     * @since 3.0.0
-     * @var \Lkn\HookNotification\Domains\Platforms\WhatsApp\WhatsAppNotificationsEvents
-     */
-    protected readonly \Lkn\HookNotification\Domains\Platforms\WhatsApp\WhatsAppNotificationsEvents $events;
-    /**
-     * Instance of the class that maps the $this->assoc into the WhatsApp API
-     * request body.
-     *
-     * @since 3.0.0
-     * @var \Lkn\HookNotification\Domains\Platforms\WhatsApp\MessageTemplateParser
-     */
-    protected readonly \Lkn\HookNotification\Domains\Platforms\WhatsApp\MessageTemplateParser $parser;
-    public function __construct()
-    {
-    }
-    /**
-     * Should set the parameters property.
-     *
-     * The array must follow the structure below:
-     *
-     * $this->parameters = [
-     *      'invoice_id' => [
-     *          'label' => 'ID da fatura',
-     *          'parser' => fn () => $this->hookParams['invoiceid'],
-     *      ]
-     * ];
-     *
-     * @since 3.0.0
-     *
-     * @return void
-     */
-    protected function defineParameters() : void
-    {
-    }
-    /**
-     * Responsible for getting all information related to the notification.
-     *
-     * Gets the client WhatsApp number and the association between the
-     * notification and message template.
-     *
-     * @since 3.0.0
-     *
-     * @return void
-     */
-    public final function init() : void
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param int $clientId
-     *
-     * @return void
-     */
-    protected function setClientId(int $clientId) : void
-    {
-    }
-    /**
-     * Parses and sends the message.
-     *
-     * Useful for simple notification that does not require too much customiza-
-     * tions.
-     *
-     * @since 3.0.0
-     *
-     * @return array|false the WhatsApp API response.
-     */
-    public final function sendMessage() : array|false
-    {
-    }
-    /**
-     * Creates a report of the message for displaying in the reports page, in
-     * the module reports page.
-     *
-     * @since 3.0.0
-     *
-     * @param array|bool $apiResponse
-     * @param string     $object
-     * @param int        $objectId
-     *
-     * @return void
-     */
-    protected function report(array|bool $apiResponse, string $object, int $objectId) : void
-    {
-    }
-}
-/**
- * Maps the association between a message template and a notification into
- * the WhatsApp request body required to send the message to the API.
- *
- * Knows the rules of the API.
- *
- * @since 1.0.0
- */
-final class MessageTemplateParser
-{
-    /**
-     * @since 3.0.0
-     *
-     * @param array $components  the association between the notification
-     *                           parameters and the message template.
-     * @param array $notifParams the notification parameters, containing a
-     *                           callback for fetching the parameter value.
-     *
-     * @return array
-     */
-    public final function parse(array $components, array $notifParams) : array
-    {
-    }
-}
-namespace Lkn\HookNotification\Domains\Notifications;
+        final public static function setDismissOnAdminHome(bool $dismiss): void
+        {
+        }
 
-/**
- * @since 3.0.0
- */
-abstract class Messenger
-{
-    /**
-     * Does the required verifications then run the notification when it must be
-     * fired.
-     *
-     * @since 3.0.0
-     *
-     * @param string $notificationNamespace ClassNotification::class
-     *
-     * @return void
-     */
-    public static final function run(string $notificationNamespace) : void
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @return void
-     */
-    public static final function loadNotificationsHooksFile() : void
-    {
-    }
-}
-namespace Lkn\HookNotification\Helpers;
+        final public static function getNewVersion(): ?string
+        {
+        }
 
-abstract class Logger
-{
-    public static final function log(string $action, array|object|null $request, array|object|null $response = []) : void
-    {
-    }
-    public static final function report(string $status, \Lkn\HookNotification\Config\Platforms $platform, string $notification, int $clientId, string $object, int $objectId, ?\Lkn\HookNotification\Config\Hooks $hook = null, ?string $channel = null) : void
-    {
-    }
-}
-final class ExtractHeaderDocBlockFromFile
-{
-    public static function run(string $path) : ?array
-    {
-    }
-}
-final class View
-{
-    public static function render(string $view, array $vars = []) : string
-    {
-    }
-    public static function renderNotifResource(string $hook, array $notifsList) : string
-    {
-    }
-    public static function addNotificationOption(string $notificationNamespace) : string
-    {
-    }
-    public static function renderWithFeedback(string $view, string $type, string $msg, bool $blockPage = false) : string
-    {
-    }
-    public static function error500(string $view, string $msg)
-    {
-    }
-    public static function error404(string $view, string $msg)
-    {
-    }
-    public static function withValidationErrors(string $view, array $errors = [], string $msg, bool $blockPage = false) : string
-    {
-    }
-}
-/**
- * Provides methods for fast access to the module settings.
- *
- * @since 3.0.0
- */
-abstract class Config
-{
-    /**
-     * Returns a setting from the table mod_lkn_hook_notification_configs.
-     *
-     * @since 3.0.0
-     *
-     * @param \Lkn\HookNotification\Config\Platforms $platform
-     * @param \Lkn\HookNotification\Config\Settings  $setting
-     *
-     * @return mixed
-     */
-    public static final function get(\Lkn\HookNotification\Config\Platforms $platform, \Lkn\HookNotification\Config\Settings $setting) : mixed
-    {
-    }
-    /**
-     * Checks if a report for a object can be show according to its setting.
-     *
-     * @since 3.0.0
-     *
-     * @param string $object
-     *
-     * @return bool
-     */
-    public static final function isReportPageActive(string $object) : bool
-    {
-    }
-    public static final function getConstant(string $constant) : ?string
-    {
-    }
-}
-/**
- * @since 2.0.0
- */
-abstract class Link
-{
-    /**
-     * @since 2.0.0
-     *
-     * @return string
-     */
-    public static final function systemUrl()
-    {
-    }
-    /**
-     * @since 2.0.0
-     *
-     * @return string
-     */
-    public static final function moduleUrl()
-    {
-    }
-    public static final function make(string $controller, string $resource, array $params = []) : string
-    {
-    }
-}
-abstract class Response
-{
-    public static final function api(bool $success, array $data = []) : void
-    {
-    }
-    public static final function redirect(string $controller, string $resource, array $params = []) : void
-    {
-    }
-}
-abstract class VersionUpgrade
-{
-    public static final function setLatestVersion(string $version) : void
-    {
-    }
-    public static final function setDismissOnAdminHome(bool $dismiss) : void
-    {
-    }
-    public static final function getNewVersion() : ?string
-    {
-    }
-    public static final function getDismissNewVersionAlert() : ?bool
-    {
-    }
-    public static final function requestLatestVersion() : ?string
-    {
-    }
-}
-abstract class Formatter
-{
-    /**
-     * @since 2.0.0
-     * @see https://stackoverflow.com/a/40081879/16530764
-     *
-     * @param array $array
-     *
-     * @return array
-     */
-    public static final function stripTagsArray(array $array) : array
-    {
-    }
-    public static final function removeNonNumber(string $value) : string
-    {
-    }
-}
-namespace Lkn\HookNotification\Domains\Shared\Abstracts;
+        final public static function getDismissNewVersionAlert(): ?bool
+        {
+        }
 
-/**
- * Provides useful methods to the Requests classes that uses CakePHP for
- * validating the fields.
- *
- * @since 3.0.0
- */
-abstract class AbstractRequest
-{
-    /**
-     * @since 3.0.0
-     * @var array|false
-     */
-    public array|bool $errors = false;
-    /**
-     * @since 3.0.0
-     *
-     * @return array
-     */
-    protected function getRequestData() : array
-    {
+        final public static function requestLatestVersion(): ?string
+        {
+        }
     }
-    /**
-     * @since 3.0.0
-     *
-     * @param array $array
-     *
-     * @return array
-     */
-    protected function flattenErrorsArray(array $array) : array
+    abstract class Formatter
     {
-    }
-    /**
-     * @since 3.0.0
-     * @see https://stackoverflow.com/a/40081879/16530764
-     *
-     * @param array $array
-     *
-     * @return array
-     */
-    protected function stripTagsArray(array $array) : array
-    {
-    }
-}
-/**
- * @since 3.0.0
- */
-abstract class AbstractController
-{
-    /**
-     * Used be controllers to return the operation response as array.
-     *
-     * @since 3.0.0
-     *
-     * @param bool $success
-     * @param array  $body
-     *
-     * @return void
-     */
-    protected function response(bool $success, array $body = [])
-    {
-    }
-    /**
-     * Used for controllers method to return the response as JSON.
-     *
-     * @since 3.0.0
-     *
-     * @param bool $success
-     * @param array  $body
-     *
-     * @return void
-     */
-    protected function apiResponse(bool $success, array $body = []) : void
-    {
-    }
-    /**
-     * Gets the request data for the endpoint.
-     *
-     * @since 3.0.0
-     *
-     * @return array
-     */
-    protected static function request() : array
-    {
-    }
-}
-namespace Lkn\HookNotification\Domains\Shared\Repositories;
+        /**
+         * @since 2.0.0
+         * @see https://stackoverflow.com/a/40081879/16530764
+         *
+         * @param array $array
+         *
+         * @return array
+         */
+        final public static function stripTagsArray(array $array): array
+        {
+        }
 
-/**
- * Holds methods that used to comunicate with the Chatwoot API.
- *
- * @since 3.0.0
- */
-final class ChatwootApiRepository extends \Lkn\HookNotification\Domains\Platforms\Chatwoot\AbstractChatwootApi
-{
-    use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
-    /**
-     * Searchs by the client in Chatwoot and sends it the message.
-     *
-     * If necessary, the method creates a new contact and a new open conversation.
-     *
-     * @since 3.0.0
-     *
-     * @param int    $clientId
-     * @param int    $inboxId
-     * @param int    $searchBy
-     * @param string $message
-     * @param bool   $private
-     *
-     * @return array
-     */
-    public final function sendMessageToClient(int $clientId, int $inboxId, int $searchBy, string $message, bool $private = false) : array
-    {
+        final public static function removeNonNumber(string $value): string
+        {
+        }
+
+        final public static function normalizePersonName(string $name): string
+        {
+        }
     }
-    /**
-     * @since 3.0.0
-     *
-     * @param string $searchQuery
-     *
-     * @return array
-     */
-    public function searchContactAndGetItsIdAndItsInboxesSourceId(string $searchQuery) : array
+    final class WhmcsApi
     {
-    }
-    /**
-     * Search for an open conversation for the inbox ID of WhatsApp.
-     *
-     * @since 3.0.0
-     *
-     * @param int $contactId
-     * @param int $inboxId
-     *
-     * @return array
-     */
-    public final function searchForContactOpenConversationByInboxId(int $contactId, int $inboxId) : array
-    {
+        /**
+         * Returns the custom fields labels and their ids like [id => , label => ].
+         *
+         * @since 3.2.0
+         *
+         * @param bool $onlyForClients
+         *
+         * @return array
+         */
+        public static function getCustomFieldsLabels(bool $onlyForClients = true): array
+        {
+        }
+
+        /**
+         * @since 3.2.0
+         *
+         * @param string $resource the piece of url to append to the end of the URL. No need to add initial /.
+         *
+         * @return string
+         */
+        public static function getAdminRootUrl(string $resource = ''): string
+        {
+        }
     }
 }
-/**
- * Holds methods that used to comunicate with the WhatsApp business API.
- *
- * @since 3.0.0
- */
-final class WhatsAppApiRepository extends \Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppApi
-{
+
+namespace Lkn\HookNotification\Domains\Shared\Abstracts {
+    /**
+     * Provides useful methods to the Requests classes that uses CakePHP for
+     * validating the fields.
+     *
+     * @since 3.0.0
+     */
+    abstract class AbstractRequest
+    {
+        /**
+         * @since 3.0.0
+         * @var array|false
+         */
+        public array|bool $errors = false;
+
+        /**
+         * @since 3.0.0
+         *
+         * @return array
+         */
+        protected function getRequestData(): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param array $array
+         *
+         * @return array
+         */
+        protected function flattenErrorsArray(array $array): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         * @see https://stackoverflow.com/a/40081879/16530764
+         *
+         * @param array $array
+         *
+         * @return array
+         */
+        protected function stripTagsArray(array $array): array
+        {
+        }
+    }
     /**
      * @since 3.0.0
-     *
-     * @link https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/#retrieve-templates
-     *
-     * @return array
      */
-    public function getMessageTemplates() : array
+    abstract class AbstractController
     {
+        /**
+         * Used be controllers to return the operation response as array.
+         *
+         * @since 3.0.0
+         *
+         * @param bool  $success
+         * @param array $body
+         *
+         * @return void
+         */
+        protected function response(bool $success, array $body = [])
+        {
+        }
+
+        /**
+         * Used for controllers method to return the response as JSON.
+         *
+         * @since 3.0.0
+         *
+         * @param bool  $success
+         * @param array $body
+         *
+         * @return void
+         */
+        protected function apiResponse(bool $success, array $body = []): void
+        {
+        }
+
+        /**
+         * Gets the request data for the endpoint.
+         *
+         * @since 3.0.0
+         *
+         * @return array
+         */
+        protected static function request(): array
+        {
+        }
     }
 }
-/**
- * @since 3.0.0
- */
-abstract class AbstractRepository
-{
-    protected string $table;
+
+namespace Lkn\HookNotification\Domains\Shared\Repositories {
+    /**
+     * Holds methods that used to comunicate with the Chatwoot API.
+     *
+     * @since 3.0.0
+     */
+    final class ChatwootApiRepository extends \Lkn\HookNotification\Domains\Platforms\Chatwoot\AbstractChatwootApi
+    {
+        use \Lkn\HookNotification\Helpers\NotificationParamParseTrait;
+
+        /**
+         * Searchs by the client in Chatwoot and sends it the message.
+         *
+         * If necessary, the method creates a new contact and a new open conversation.
+         *
+         * @since 3.0.0
+         *
+         * @param int    $clientId
+         * @param int    $inboxId
+         * @param int    $searchBy
+         * @param string $message
+         * @param bool   $private
+         *
+         * @return array
+         */
+        final public function sendMessageToClient(int $clientId, int $inboxId, int $searchBy, string $message, bool $private = false): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param string $searchQuery
+         *
+         * @return array
+         */
+        public function searchContactAndGetItsIdAndItsInboxesSourceId(string $searchQuery): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param array $contactInboxes must be equal to the contact_inboxes
+         *                              returned by the API.
+         *
+         * @return array [{inbox_id} => {source_id}, ...]
+         */
+        public function getSourceIdsByInboxIds(array $contactInboxes): array
+        {
+        }
+
+        /**
+         * Search for an open conversation for the inbox ID of WhatsApp.
+         *
+         * @since 3.0.0
+         *
+         * @param int $contactId
+         * @param int $inboxId
+         *
+         * @return array
+         */
+        final public function searchForContactOpenConversationByInboxId(int $contactId, int $inboxId): array
+        {
+        }
+    }
+    /**
+     * Holds methods that used to comunicate with the WhatsApp business API.
+     *
+     * @since 3.0.0
+     */
+    final class WhatsAppApiRepository extends \Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppApi
+    {
+        /**
+         * @since 3.0.0
+         *
+         * @link https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/#retrieve-templates
+         *
+         * @return array
+         */
+        public function getMessageTemplates(string $params = ''): array
+        {
+        }
+
+        /**
+         * @since 3.1.0
+         *
+         * @param string $templateName
+         * @param string $params       default params are fields=name,components,status&status=APPROVED.
+         *
+         * @return array
+         */
+        public function getMessageTemplate(string $templateName, string $params = 'fields=name,components,status&status=APPROVED'): array
+        {
+        }
+    }
     /**
      * @since 3.0.0
-     *
-     * @return \Illuminate\Database\Query\Builder
      */
-    protected function query() : \Illuminate\Database\Query\Builder
+    abstract class AbstractRepository
     {
+        protected string $table;
+
+        /**
+         * @since 3.0.0
+         *
+         * @return \Illuminate\Database\Query\Builder
+         */
+        protected function query(): \Illuminate\Database\Query\Builder
+        {
+        }
+
+        protected function success(?array $data = null, string $msg = ''): array
+        {
+        }
+
+        protected function failure(string $msg = '', ?array $data = null): array
+        {
+        }
     }
-    protected function success(?array $data = null, string $msg = '') : array
+    /**
+     * Holds raw database operations for the table of the module settings:
+     * mod_lkn_hook_notification_configs.
+     *
+     * @since 3.0.0
+     */
+    abstract class AbstractSettingsRepository extends \Lkn\HookNotification\Domains\Shared\Repositories\AbstractRepository
     {
-    }
-    protected function failure(string $msg = '', ?array $data = null) : array
-    {
+        /**
+         * @since 3.0.0
+         * @var \Lkn\HookNotification\Config\Platforms
+         */
+        protected \Lkn\HookNotification\Config\Platforms $platform;
+        /**
+         * @since 3.0.0
+         * @var string
+         */
+        protected string $table = 'mod_lkn_hook_notification_configs';
+
+        /**
+         * @since 3.0.0
+         *
+         * @param array $value
+         *
+         * @return string
+         */
+        public function encodeJson(array $value): string
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param string $value
+         *
+         * @return array
+         */
+        public function decodeJson(string $value): array|bool|null
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param \Lkn\HookNotification\Config\Settings $setting
+         * @param string                                $value
+         *
+         * @return bool
+         */
+        public function update(\Lkn\HookNotification\Config\Settings $setting, string $value): bool
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param \Lkn\HookNotification\Config\Settings $setting
+         *
+         * @return string|null
+         */
+        public function getSetting(\Lkn\HookNotification\Config\Settings $setting): ?string
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param \Lkn\HookNotification\Config\Settings[] $settings
+         *
+         * @return array
+         */
+        protected function getSettings(array $settings): array
+        {
+        }
+
+        /**
+         * @since 3.0.0
+         *
+         * @param array $newValuesPerSetting [Settings => new_value, ...]
+         *
+         * @return bool
+         */
+        protected function updateSettings(array $newValuesPerSetting): bool
+        {
+        }
     }
 }
-/**
- * Holds raw database operations for the table of the module settings:
- * mod_lkn_hook_notification_configs.
- *
- * @since 3.0.0
- */
-abstract class AbstractSettingsRepository extends \Lkn\HookNotification\Domains\Shared\Repositories\AbstractRepository
-{
-    /**
-     * @since 3.0.0
-     * @var \Lkn\HookNotification\Config\Platforms
-     */
-    protected \Lkn\HookNotification\Config\Platforms $platform;
-    /**
-     * @since 3.0.0
-     * @var string
-     */
-    protected string $table = 'mod_lkn_hook_notification_configs';
-    /**
-     * @since 3.0.0
-     *
-     * @param array $value
-     *
-     * @return string
-     */
-    protected function encodeJson(array $value) : string
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param string $value
-     *
-     * @return array
-     */
-    protected function decodeJson(string $value) : array|bool|null
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param \Lkn\HookNotification\Config\Settings $setting
-     * @param string                                $value
-     *
-     * @return bool
-     */
-    protected function update(\Lkn\HookNotification\Config\Settings $setting, string $value) : bool
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param \Lkn\HookNotification\Config\Settings $setting
-     *
-     * @return string|null
-     */
-    protected function getSetting(\Lkn\HookNotification\Config\Settings $setting) : ?string
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param \Lkn\HookNotification\Config\Settings[] $settings
-     *
-     * @return array
-     */
-    protected function getSettings(array $settings) : array
-    {
-    }
-    /**
-     * @since 3.0.0
-     *
-     * @param array $newValuesPerSetting [Settings => new_value, ...]
-     *
-     * @return bool
-     */
-    protected function updateSettings(array $newValuesPerSetting) : bool
+
+namespace {
+    function lknhooknotification_run_wp_events(bool $wasNotificationSent, \Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation|\Lkn\HookNotification\Domains\Platforms\Chatwoot\AbstractChatwootNotification $instance)
     {
     }
 }
