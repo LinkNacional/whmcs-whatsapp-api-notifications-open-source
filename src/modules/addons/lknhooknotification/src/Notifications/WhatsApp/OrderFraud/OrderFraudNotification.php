@@ -1,46 +1,31 @@
 <?php
 
 /**
- * Code: OrderCreated
+ * Code: OrderFraud
  */
 
-namespace Lkn\HookNotification\Notifications\WhatsApp\OrderCreated;
+namespace Lkn\HookNotification\Notifications\WhatsApp\OrderFraud;
 
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
-use Lkn\HookNotification\Helpers\Logger;
 
-final class OrderCreatedNotification extends AbstractWhatsAppNotifcation
+final class OrderFraudNotification extends AbstractWhatsAppNotifcation
 {
-    public string $notificationCode = 'OrderCreated';
-    public Hooks|array|null $hook = Hooks::AFTER_SHOPPING_CART_CHECKOUT;
+    public string $notificationCode = 'OrderFraud';
+    public Hooks|array|null $hook = [Hooks::FRAUD_ORDER, Hooks::FRAUD_CHECK_FAILED];
 
     public function run(): bool
     {
-        $orderId = $this->hookParams['OrderID'];
+        $orderId = $this->hookParams['orderid'];
 
         // Setup properties for reporting purposes (not required).
         $this->setReportCategory(ReportCategory::ORDER);
         $this->setReportCategoryId($orderId);
 
         // Setup client ID for getting its WhatsApp number (required).
-        $this->setClientId($this->getClientIdByOrderId($this->hookParams['OrderID']));
-
-        $fraudCheckResponse = localAPI('OrderFraudCheck', ['orderid' => $orderId]);
-
-        if (isset($fraudCheckResponse['status']) && $fraudCheckResponse['status'] === 'Fail') {
-            Logger::log(
-                $this->getNotificationLogName(),
-                [
-                    'msg' => 'Abort for order was identified as fraud',
-                    'instance' => $this
-                ],
-                ['fraud_check' => $fraudCheckResponse]
-            );
-
-            return false;
-        }
+        $clientId = $this->getClientIdByOrderId($orderId);
+        $this->setClientId($clientId);
 
         // Send the message and get the raw response (converted to array) from WhatsApp API.
         $response = $this->sendMessage();
@@ -56,11 +41,11 @@ final class OrderCreatedNotification extends AbstractWhatsAppNotifcation
         $this->parameters = [
             'order_id' => [
                 'label' => $this->lang['order_id'],
-                'parser' => fn () => $this->hookParams['OrderID'],
+                'parser' => fn () => $this->reportCategoryId,
             ],
             'order_items_descrip' => [
                 'label' => $this->lang['order_items_descrip'],
-                'parser' => fn () => self::getOrderItemsDescripByOrderId($this->hookParams['OrderID'])
+                'parser' => fn () => self::getOrderItemsDescripByOrderId($this->reportCategoryId)
             ],
             'client_first_name' => [
                 'label' => $this->lang['client_first_name'],

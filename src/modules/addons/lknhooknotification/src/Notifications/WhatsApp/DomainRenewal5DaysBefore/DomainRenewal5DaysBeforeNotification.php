@@ -1,10 +1,9 @@
 <?php
-
 /**
- * Code: OrderPendingFor3Days
+ * Code: DomainRenewal5DaysBefore
  */
 
-namespace Lkn\HookNotification\Notifications\WhatsApp\OrderPendingFor3Days;
+namespace Lkn\HookNotification\Notifications\WhatsApp\DomainRenewal5DaysBefore;
 
 use DateTime;
 use Lkn\HookNotification\Config\Hooks;
@@ -18,41 +17,48 @@ use Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPriv
 use Throwable;
 use WHMCS\Database\Capsule;
 
-final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
+final class DomainRenewal5DaysBeforeNotification extends AbstractWhatsAppNotifcation
 {
-    public string $notificationCode = 'OrderPendingFor3Days';
+    public string $notificationCode = 'DomainRenewal5DaysBefore';
     public Hooks|array|null $hook = Hooks::DAILY_CRON_JOB;
 
     public function run(): bool
     {
-        $this->setReportCategory(ReportCategory::ORDER);
-
         // Disable the event of sending a private note to Chatwoot, which is by default for registered clients.
         $this->events = [];
         $this->enableAutoReport = false;
 
-        $threeDaysAgo = (new DateTime())->modify('-3 days');
+        // Setup properties for reporting purposes (not required).
+        $this->setReportCategory(ReportCategory::DOMAIN);
 
-        $orders = Capsule::table('tblorders')
-            ->where('status', 'Pending')
-            ->where('amount', '>', '0.00')
-            ->whereDate('date', $threeDaysAgo)
-            ->get(['id', 'userid'])
+        $threeDaysLater = (new DateTime())->modify('+3 days');
+
+        $domainsDueInThreeDays = Capsule::table('tbldomains')
+            ->where('nextduedate', $threeDaysLater->format('Y-m-d'))
+            ->get(['id', 'userid', 'domain'])
             ->toArray();
 
-        foreach ($orders as $order) {
-            $clientId = $order->userid;
-            $orderId = $order->id;
+        foreach ($domainsDueInThreeDays as $domain) {
+            $domainId = $domain->id;
+            $clientId = $domain->userid;
+            $domainUrl = $domain->domain;
+
+            $this->setReportCategoryId($domainId);
+
+            // Setup client ID for getting its WhatsApp number (required).
+            $this->setClientId($clientId);
+
+            $this->setHookParams([
+                'domain_id' => $domainId,
+                'domain_url' => $domainUrl,
+                'client_id' => $clientId
+            ]);
 
             try {
-                $this->setReportCategoryId($orderId);
-
-                $this->setClientId($clientId);
-
-                $this->setHookParams(['order_id' => $orderId]);
-
+                // Send the message and get the raw response (converted to array) from WhatsApp API.
                 $response = $this->sendMessage();
 
+                // Defines if response tells if the message was sent successfully.
                 $success = isset($response['messages'][0]['id']);
 
                 $this->report($success);
@@ -68,10 +74,10 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
                 $this->report(false);
 
                 Logger::log(
-                    "{$this->getNotificationLogName()} error for order {$orderId}",
+                    "{$this->getNotificationLogName()} error for domain {$domainId}",
                     [
-                        'msg' => 'Unable to send notification for this order.',
-                        'context' => ['order' => $order]
+                        'msg' => 'Unable to send notification for this domain.',
+                        'context' => ['order' => $domain]
                     ],
                     [
                         'response' => $response,
@@ -79,8 +85,6 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
                     ]
                 );
             }
-
-            exit;
         }
 
         return true;
@@ -89,13 +93,13 @@ final class OrderPendingFor3DaysNotification extends AbstractWhatsAppNotifcation
     public function defineParameters(): void
     {
         $this->parameters = [
-            'order_id' => [
-                'label' => $this->lang['order_id'],
-                'parser' => fn () => $this->hookParams['order_id'],
+            'domain_id' => [
+                'label' => $this->lang['domain_id'],
+                'parser' => fn () => $this->hookParams['domain_id']
             ],
-            'order_items_descrip' => [
-                'label' => $this->lang['order_items_descrip'],
-                'parser' => fn () => self::getOrderItemsDescripByOrderId($this->hookParams['order_id'])
+            'domain_url' => [
+                'label' => $this->lang['domain_url'],
+                'parser' => fn () => $this->hookParams['domain_url']
             ],
             'client_first_name' => [
                 'label' => $this->lang['client_first_name'],

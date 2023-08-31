@@ -37,6 +37,7 @@ return (new PhpCsFixer\Config())
         'lowercase_static_reference' => true,
         'native_function_casing' => true,
         'no_blank_lines_before_namespace' => false,
+        'blank_lines_before_namespace' => true,
         'no_empty_phpdoc' => true,
         'no_empty_statement' => true,
         'no_extra_blank_lines' => [
@@ -64,7 +65,7 @@ return (new PhpCsFixer\Config())
         'phpdoc_types' => true,
         'return_type_declaration' => true,
         'short_scalar_cast' => true,
-        'single_blank_line_before_namespace' => true,
+        'single_blank_line_before_namespace' => false,
         'ternary_operator_spaces' => true,
         'trailing_comma_in_multiline' => ['elements' => [], 'after_heredoc' => false],
         'single_trait_insert_per_statement' => true,
@@ -81,23 +82,12 @@ return (new PhpCsFixer\Config())
             'identical' => false,
             'always_move_variable' => false,
         ],
-        'fully_qualified_strict_types' => true,
-        'global_namespace_import' => [
-            'import_classes' => true,
-            'import_constants' => true,
-            'import_functions' => true,
-        ],
 
         // Risk
+        'modernize_types_casting' => true,
         'strict_comparison' => true,
         'declare_strict_types' => false,
-        'strict_param' => true,
-        'modernize_types_casting' => true,
-        'final_class' => true,
-        'final_internal_class' => true,
-        'final_public_method_for_abstract_class' => true,
-        'void_return' => true,
-        'logical_operators' => true,
+        'strict_param' => true
     ])
     ->setIndent('    ')
     ->setLineEnding("\n")
