@@ -251,7 +251,7 @@ namespace Lkn\HookNotification\Helpers {
         {
         }
 
-        public function getClientIdByTicketId(int $ticketId): int
+        public function getClientIdByTicketId(int $ticketId): ?int
         {
         }
 
@@ -771,7 +771,7 @@ namespace Lkn\HookNotification\Domains\Notifications {
 namespace Lkn\HookNotification\Helpers {
     abstract class Logger
     {
-        final public static function log(string $action, array|object|null $request, array|object|null $response = []): void
+        final public static function log(string $action, array|object|string|null $request, array|object|string|null $response = ''): void
         {
         }
 
