@@ -1,6 +1,8 @@
 # WHMCS WhatsApp API Notifications: custom hooks
 
-This is a repository dedicated to developers who want to collaborate in the growth of the module, [See more information about the module:](https://www.linknacional.com.br/whmcs/whatsapp/) 
+This is a repository dedicated to developers who want to collaborate in the growth of the module, [See more information about the module:](https://www.linknacional.com/whmcs/whatsapp/) 
+
+[Informações em Português:](https://www.linknacional.com.br/whmcs/whatsapp/).
 
 You can fork this repository, build your custom hooks, and then open a pull request to the dev branch. We will evaluate your code, ensure it runs on the latest version of the module, and add it to the main branch for others to use your features.
 
