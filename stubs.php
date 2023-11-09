@@ -278,6 +278,24 @@ namespace Lkn\HookNotification\Helpers {
         public function getTicketWhatsAppCfValue(int $ticketId): ?int
         {
         }
+
+        /**
+         * @since 2.0.0
+         *
+         * @return array An array of items like: (
+         *               [id] =>
+         *               [type] =>
+         *               [relid] =>
+         *               [description] =>
+         *               [amount] =>
+         *               [taxed] =>
+         *               [product_id] =>
+         *               )
+         *               Some items may not have a product_id since it must be a manually-added product or a taxe.
+         */
+        public function getInvoiceItems(int $invoiceId)
+        {
+        }
     }
 }
 
