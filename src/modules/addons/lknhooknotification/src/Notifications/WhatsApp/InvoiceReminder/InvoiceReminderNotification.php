@@ -38,6 +38,18 @@ final class InvoiceReminderNotification extends AbstractWhatsAppNotifcation
                 'label' => $this->lang['invoice_id'],
                 'parser' => fn () => $this->hookParams['invoiceId']
             ],
+            'invoice_balance' => [
+                'label' => $this->lang['invoice_balance'],
+                'parser' => fn (): string => self::getInvoiceBalance($this->hookParams['invoiceId'])
+            ],
+            'invoice_total' => [
+                'label' => $this->lang['invoice_total'],
+                'parser' => fn (): string => self::getInvoiceTotal($this->hookParams['invoiceId'])
+            ],
+            'invoice_subtotal' => [
+                'label' => $this->lang['invoice_subtotal'],
+                'parser' => fn (): string => self::getInvoiceSubtotal($this->hookParams['invoiceId'])
+            ],
             'invoice_items' => [
                 'label' => $this->lang['invoice_items'],
                 'parser' => fn () => self::getOrderItemsDescripByOrderId($this->hookParams['invoiceId'])

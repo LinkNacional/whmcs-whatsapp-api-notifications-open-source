@@ -187,6 +187,75 @@ namespace Lkn\HookNotification\Helpers {
         {
         }
 
+        /**
+         * Uses localAPI GetInvoice to get the invoice balance.
+         *
+         * @see https://developers.whmcs.com/api-reference/getinvoice/
+         *
+         * @param int  $invoiceId
+         * @param bool $formatFriendly
+         *
+         * @return float|null
+         */
+        public static function getInvoiceBalance(int $invoiceId, bool $formatFriendly = true): null|string|float
+        {
+        }
+
+        /**
+         * @param int  $invoiceId
+         * @param bool $formatFriendly
+         *
+         * @return null|string|float
+         */
+        public static function getInvoiceTotal(int $invoiceId, bool $formatFriendly = true): null|string|float
+        {
+        }
+
+        /**
+         * @param int  $invoiceId
+         * @param bool $formatFriendly
+         *
+         * @return null|string|float
+         */
+        public static function getInvoiceSubtotal(int $invoiceId, bool $formatFriendly = true): null|string|float
+        {
+        }
+
+        /**
+         * @param int   $invoiceId
+         * @param float $value
+         *
+         * @return string
+         */
+        public static function formatInvoiceValue(int $invoiceId, float $value): string
+        {
+        }
+
+        /**
+         * Gets the info from the tblcurrencies database table.
+         *
+         * @param int $invoiceId
+         */
+        public static function getInvoiceCurrency(int $invoiceId): \stdClass
+        {
+        }
+
+        /**
+         * WHMCS format id are related to the formats as follow:
+         *
+         * 1 - 1234.56
+         * 2 - 1,234.56
+         * 3 - 1.234,56
+         * 4 - 1,234
+         *
+         * @param int $formatId
+         *
+         * @return array an array as: [decimal => '', thousands => ''].
+         */
+        public static function getCurrencySeparatorsFromFormatId(int $formatId): array
+        {
+        }
+
         public static function getClientFullNameByClientId(int $id): string
         {
         }
@@ -248,6 +317,10 @@ namespace Lkn\HookNotification\Helpers {
         }
 
         public function getClientIdByOrderId(int $orderId): int
+        {
+        }
+
+        public function getOrderIdByInvoiceId(int $invoiceId): ?int
         {
         }
 

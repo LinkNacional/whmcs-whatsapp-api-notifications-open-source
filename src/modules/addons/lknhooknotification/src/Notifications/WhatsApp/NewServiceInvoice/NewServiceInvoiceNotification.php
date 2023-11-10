@@ -9,6 +9,7 @@ namespace Lkn\HookNotification\Notifications\WhatsApp\NewServiceInvoice;
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
+use Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPrivateNoteNotification;
 
 /**
  * Runs when a recurring existing service invoice is created.
@@ -72,39 +73,30 @@ final class NewServiceInvoiceNotification extends AbstractWhatsAppNotifcation
 
         $invoiceItems = self::getInvoiceItems($invoiceId);
 
-        echo '<pre>invoiceItems:';
-        print_r($invoiceItems);
-        echo '</pre><hr>';
+        $invoiceItemRelatedToProduct = array_filter(
+            $invoiceItems,
+            function (array $item): bool {
+                return !empty($item['product_id']);
+            }
+        );
 
-        $invoiceItem = array_filter($invoiceItems, function (array $item): bool {
-            return !empty($item['product_id']);
-        });
-
-        if (count($invoiceItem) === 0) {
+        if (count($invoiceItemRelatedToProduct) === 0) {
             return false;
         }
 
         // Loops over each item on the invoice to check if any item is a service with nextduedate for today.
-        foreach ($invoiceItem as $item) {
-            $productsInfo = localAPI('GetClientsProducts', [
+        foreach ($invoiceItemRelatedToProduct as $item) {
+            $clientProductInfo = localAPI('GetClientsProducts', [
                 'pid' => $item['product_id'],
                 'serviceid' => $item['relid'],
                 'clientid' => self::getClientIdByInvoiceId($invoiceId)
             ])['products']['product'];
 
-            $productsDueToday = array_filter($productsInfo, function (array $clientProduct): bool {
-                /**
-                 * Acordding to https://docs.whmcs.com/Billing_Logic
-                 * Next Due Date/Next Invoice Date is updated after WHMCS triggers InvoiceCreated hook.
-                 */
-                echo '<pre>clientProduct:';
-                print_r($clientProduct);
-                echo '</pre><hr>';
-                exit;
-                return $clientProduct['nextduedate'] === date('Y-m-d');
-            });
-
-            if (count($productsDueToday) > 0) {
+            /**
+             * Acordding to https://docs.whmcs.com/Billing_Logic
+             * Next Due Date/Next Invoice Date is updated after WHMCS triggers InvoiceCreated hook.
+             */
+            if ($clientProductInfo[0]['nextduedate'] === date('Y-m-d')) {
                 return true;
             }
         }
@@ -126,6 +118,22 @@ final class NewServiceInvoiceNotification extends AbstractWhatsAppNotifcation
             'invoice_due_date' => [
                 'label' => $this->lang['invoice_due_date'],
                 'parser' => fn () => self::getInvoiceDueDateByInvoiceId($this->reportCategoryId)
+            ],
+            'invoice_pdf_url' => [
+                'label' => $this->lang['invoice_pdf_url'],
+                'parser' => fn (): string => self::getInvoicePdfUrlByInvocieId($this->hookParams['invoiceid'])
+            ],
+            'invoice_balance' => [
+                'label' => $this->lang['invoice_balance'],
+                'parser' => fn (): string => self::getInvoiceBalance($this->hookParams['invoiceid'])
+            ],
+            'invoice_total' => [
+                'label' => $this->lang['invoice_total'],
+                'parser' => fn (): string => self::getInvoiceTotal($this->hookParams['invoiceid'])
+            ],
+            'invoice_subtotal' => [
+                'label' => $this->lang['invoice_subtotal'],
+                'parser' => fn (): string => self::getInvoiceSubtotal($this->hookParams['invoiceid'])
             ],
             'client_id' => [
                 'label' => $this->lang['client_id'],

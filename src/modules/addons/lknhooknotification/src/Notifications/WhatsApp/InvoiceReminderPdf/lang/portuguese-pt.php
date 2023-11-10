@@ -6,6 +6,9 @@ $lang['notification_description'] = 'Essa notificação consiste em disparo manu
 // Nomes dos parâmetros
 
 $lang['invoice_id'] = 'ID da fatura';
+$lang['invoice_balance'] = 'Balanço da fatura';
+$lang['invoice_total'] = 'Total da fatura';
+$lang['invoice_subtotal'] = 'Subtotal da fatura';
 $lang['invoice_pdf_url'] = 'URL do PDF da fatura';
 $lang['invoice_items'] = 'Items da fatura';
 $lang['invoice_due_date'] = 'Data de vencimento da fatura';

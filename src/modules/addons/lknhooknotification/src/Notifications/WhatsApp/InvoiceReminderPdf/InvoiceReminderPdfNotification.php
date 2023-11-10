@@ -51,6 +51,18 @@ final class InvoiceReminderPdfNotification extends AbstractWhatsAppNotifcation
                 'label' => $this->lang['invoice_pdf_url'],
                 'parser' => fn () => self::getInvoicePdfUrlByInvocieId($this->hookParams['invoiceId'])
             ],
+            'invoice_balance' => [
+                'label' => $this->lang['invoice_balance'],
+                'parser' => fn (): string => self::getInvoiceBalance($this->hookParams['invoiceid'])
+            ],
+            'invoice_total' => [
+                'label' => $this->lang['invoice_total'],
+                'parser' => fn (): string => self::getInvoiceTotal($this->hookParams['invoiceid'])
+            ],
+            'invoice_subtotal' => [
+                'label' => $this->lang['invoice_subtotal'],
+                'parser' => fn (): string => self::getInvoiceSubtotal($this->hookParams['invoiceid'])
+            ],
             'client_id' => [
                 'label' => $this->lang['client_id'],
                 'parser' => fn () => $this->clientId,
