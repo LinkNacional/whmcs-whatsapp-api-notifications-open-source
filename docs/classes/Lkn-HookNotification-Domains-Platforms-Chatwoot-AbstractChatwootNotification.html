@@ -237,6 +237,12 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_formatInvoiceValue">formatInvoiceValue()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientEmailByClientId">getClientEmailByClientId()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -275,7 +281,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientIdByTicketId">getClientIdByTicketId()</a>
     <span>
-                                &nbsp;: int    </span>
+                                &nbsp;: int|null    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -285,15 +291,42 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getCurrencySeparatorsFromFormatId">getCurrencySeparatorsFromFormatId()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>WHMCS format id are related to the formats as follow:</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getHostDomainByHostId">getHostDomainByHostId()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceBalance">getInvoiceBalance()</a>
+    <span>
+                                &nbsp;: float|null    </span>
+</dt>
+<dd>Uses localAPI GetInvoice to get the invoice balance.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceCurrency">getInvoiceCurrency()</a>
+    <span>
+                                &nbsp;: <abbr title="\stdClass">stdClass</abbr>    </span>
+</dt>
+<dd>Gets the info from the tblcurrencies database table.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceDueDateByInvoiceId">getInvoiceDueDateByInvoiceId()</a>
     <span>
                                 &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItems">getInvoiceItems()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -306,6 +339,24 @@
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoicePdfUrlByInvocieId">getInvoicePdfUrlByInvocieId()</a>
     <span>
                                 &nbsp;: string|null    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceSubtotal">getInvoiceSubtotal()</a>
+    <span>
+                                &nbsp;: null|string|float    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceTotal">getInvoiceTotal()</a>
+    <span>
+                                &nbsp;: null|string|float    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderIdByInvoiceId">getOrderIdByInvoiceId()</a>
+    <span>
+                                &nbsp;: int|null    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -610,6 +661,58 @@
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_formatInvoiceValue">
+        formatInvoiceValue()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_formatInvoiceValue" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">128</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">formatInvoiceValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_getClientEmailByClientId">
         getClientEmailByClientId()
         <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientEmailByClientId" class="headerlink"><i class="fas fa-link"></i></a>
@@ -618,7 +721,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
@@ -663,7 +766,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 
     </aside>
 
@@ -708,7 +811,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -753,7 +856,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">189</span>
 
     </aside>
 
@@ -798,7 +901,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
+    <span class="phpdocumentor-element-found-in__line">327</span>
 
     </aside>
 
@@ -843,7 +946,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
+    <span class="phpdocumentor-element-found-in__line">332</span>
 
     </aside>
 
@@ -888,14 +991,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
+    <span class="phpdocumentor-element-found-in__line">342</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getClientIdByTicketId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ticketId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">getClientIdByTicketId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ticketId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -915,7 +1018,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
+        <span class="phpdocumentor-signature__response_type">int|null</span>
             </section>
 
 </article>
@@ -933,7 +1036,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 
     </aside>
 
@@ -968,6 +1071,61 @@
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getCurrencySeparatorsFromFormatId">
+        getCurrencySeparatorsFromFormatId()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getCurrencySeparatorsFromFormatId" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">165</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">WHMCS format id are related to the formats as follow:</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCurrencySeparatorsFromFormatId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formatId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>1 - 1234.56
+2 - 1,234.56
+3 - 1.234,56
+4 - 1,234</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$formatId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>an array as: [decimal =&gt; '', thousands =&gt; ''].</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_getHostDomainByHostId">
@@ -978,7 +1136,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">191</span>
+    <span class="phpdocumentor-element-found-in__line">322</span>
 
     </aside>
 
@@ -1015,6 +1173,120 @@
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getInvoiceBalance">
+        getInvoiceBalance()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceBalance" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">71</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Uses localAPI GetInvoice to get the invoice balance.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInvoiceBalance</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formatFriendly</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$formatFriendly</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceBalance#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="https://developers.whmcs.com/api-reference/getinvoice/">https://developers.whmcs.com/api-reference/getinvoice/</a></span>
+                                        
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getInvoiceCurrency">
+        getInvoiceCurrency()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceCurrency" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">143</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Gets the info from the tblcurrencies database table.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInvoiceCurrency</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\stdClass">stdClass</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\stdClass">stdClass</abbr></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_getInvoiceDueDateByInvoiceId">
         getInvoiceDueDateByInvoiceId()
         <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceDueDateByInvoiceId" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1023,7 +1295,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">179</span>
+    <span class="phpdocumentor-element-found-in__line">310</span>
 
     </aside>
 
@@ -1058,6 +1330,79 @@
         class="phpdocumentor-element
             -method
             -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getInvoiceItems">
+        getInvoiceItems()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItems" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">403</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getInvoiceItems</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItems#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2.0.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array of items like: (
+[id] =&gt;
+[type] =&gt;
+[relid] =&gt;
+[description] =&gt;
+[amount] =&gt;
+[taxed] =&gt;
+[product_id] =&gt;
+)
+Some items may not have a product_id since it must be a manually-added product or a taxe.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                     -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_getInvoiceItemsDescriptionsByInvoiceId">
@@ -1068,7 +1413,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">301</span>
 
     </aside>
 
@@ -1132,7 +1477,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">233</span>
 
     </aside>
 
@@ -1176,6 +1521,155 @@
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getInvoiceSubtotal">
+        getInvoiceSubtotal()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceSubtotal" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">109</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInvoiceSubtotal</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formatFriendly</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|string|float</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$formatFriendly</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|string|float</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getInvoiceTotal">
+        getInvoiceTotal()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceTotal" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">90</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInvoiceTotal</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formatFriendly</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|string|float</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$formatFriendly</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|string|float</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getOrderIdByInvoiceId">
+        getOrderIdByInvoiceId()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderIdByInvoiceId" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">337</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getOrderIdByInvoiceId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_getOrderItemsDescripByOrderId">
         getOrderItemsDescripByOrderId()
         <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderItemsDescripByOrderId" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1184,7 +1678,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">266</span>
 
     </aside>
 
@@ -1245,7 +1739,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">317</span>
 
     </aside>
 
@@ -1290,7 +1784,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
+    <span class="phpdocumentor-element-found-in__line">347</span>
 
     </aside>
 
@@ -1342,7 +1836,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">226</span>
+    <span class="phpdocumentor-element-found-in__line">362</span>
 
     </aside>
 
@@ -1387,7 +1881,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">352</span>
 
     </aside>
 
@@ -1432,7 +1926,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">231</span>
+    <span class="phpdocumentor-element-found-in__line">367</span>
 
     </aside>
 
@@ -1477,7 +1971,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">221</span>
+    <span class="phpdocumentor-element-found-in__line">357</span>
 
     </aside>
 
@@ -1522,7 +2016,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">240</span>
+    <span class="phpdocumentor-element-found-in__line">376</span>
 
     </aside>
 
@@ -1733,6 +2227,7 @@
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li><a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootNotification.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_formatInvoiceValue">formatInvoiceValue()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientEmailByClientId">getClientEmailByClientId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientFirstNameByClientId">getClientFirstNameByClientId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientFirstTwoNamesByClientId">getClientFirstTwoNamesByClientId()</a></li>
@@ -1741,10 +2236,17 @@
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientIdByOrderId">getClientIdByOrderId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientIdByTicketId">getClientIdByTicketId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientWhatsAppNumber">getClientWhatsAppNumber()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getCurrencySeparatorsFromFormatId">getCurrencySeparatorsFromFormatId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getHostDomainByHostId">getHostDomainByHostId()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceBalance">getInvoiceBalance()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceCurrency">getInvoiceCurrency()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceDueDateByInvoiceId">getInvoiceDueDateByInvoiceId()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItems">getInvoiceItems()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsDescriptionsByInvoiceId">getInvoiceItemsDescriptionsByInvoiceId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoicePdfUrlByInvocieId">getInvoicePdfUrlByInvocieId()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceSubtotal">getInvoiceSubtotal()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceTotal">getInvoiceTotal()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderIdByInvoiceId">getOrderIdByInvoiceId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderItemsDescripByOrderId">getOrderItemsDescripByOrderId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getServiceProductNameByProductId">getServiceProductNameByProductId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getTicket">getTicket()</a></li>

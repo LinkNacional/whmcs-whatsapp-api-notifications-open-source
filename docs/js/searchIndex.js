@@ -2341,6 +2341,36 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientWhatsAppNumber"
         },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceBalance\u0028\u0029",
+            "name": "getInvoiceBalance",
+            "summary": "Uses\u0020localAPI\u0020GetInvoice\u0020to\u0020get\u0020the\u0020invoice\u0020balance.",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceBalance"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceTotal\u0028\u0029",
+            "name": "getInvoiceTotal",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceTotal"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceSubtotal\u0028\u0029",
+            "name": "getInvoiceSubtotal",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceSubtotal"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AformatInvoiceValue\u0028\u0029",
+            "name": "formatInvoiceValue",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_formatInvoiceValue"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceCurrency\u0028\u0029",
+            "name": "getInvoiceCurrency",
+            "summary": "Gets\u0020the\u0020info\u0020from\u0020the\u0020tblcurrencies\u0020database\u0020table.",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceCurrency"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetCurrencySeparatorsFromFormatId\u0028\u0029",
+            "name": "getCurrencySeparatorsFromFormatId",
+            "summary": "WHMCS\u0020format\u0020id\u0020are\u0020related\u0020to\u0020the\u0020formats\u0020as\u0020follow\u003A",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getCurrencySeparatorsFromFormatId"
+        },                {
             "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetClientFullNameByClientId\u0028\u0029",
             "name": "getClientFullNameByClientId",
             "summary": "",
@@ -2401,6 +2431,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientIdByOrderId"
         },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetOrderIdByInvoiceId\u0028\u0029",
+            "name": "getOrderIdByInvoiceId",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderIdByInvoiceId"
+        },                {
             "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetClientIdByTicketId\u0028\u0029",
             "name": "getClientIdByTicketId",
             "summary": "",
@@ -2435,6 +2470,11 @@ Search.appendIndex(
             "name": "getTicketWhatsAppCfValue",
             "summary": "",
             "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getTicketWhatsAppCfValue"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceItems\u0028\u0029",
+            "name": "getInvoiceItems",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItems"
         },                {
             "fqsen": "\\Lkn\\HookNotification\\Helpers\\Response",
             "name": "Response",
