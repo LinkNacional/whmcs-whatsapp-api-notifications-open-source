@@ -34,6 +34,7 @@ final class DomainRenewal5DaysBeforeNotification extends AbstractWhatsAppNotifca
         $threeDaysLater = (new DateTime())->modify('+3 days');
 
         $domainsDueInThreeDays = Capsule::table('tbldomains')
+            ->where('status', 'Active')
             ->where('nextduedate', $threeDaysLater->format('Y-m-d'))
             ->get(['id', 'userid', 'domain'])
             ->toArray();

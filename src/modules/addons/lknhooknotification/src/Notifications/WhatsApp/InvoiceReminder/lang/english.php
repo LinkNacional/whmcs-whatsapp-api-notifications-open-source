@@ -6,6 +6,9 @@ $lang['notification_description'] = 'This notification consists of manually trig
 // Parameters labels
 
 $lang['invoice_id'] = 'Invoice ID';
+$lang['invoice_balance'] = 'Invoice balance';
+$lang['invoice_total'] = 'Invoice total';
+$lang['invoice_subtotal'] = 'Invoice subtotal';
 $lang['invoice_items'] = 'Invoice items';
 $lang['invoice_due_date'] = 'Invoice due date';
 $lang['client_id'] = 'Client ID';
