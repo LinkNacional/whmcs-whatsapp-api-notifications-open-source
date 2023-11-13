@@ -104,6 +104,10 @@ final class Invoice6DaysLateNotification extends AbstractWhatsAppNotifcation
                 'label' => $this->lang['invoice_id_and_first_item'],
                 'parser' => fn () => $this->getInvoiceIdAndFirstItsFirstItem(),
             ],
+            'invoice_pdf_url' => [
+                'label' => $this->lang['invoice_pdf_url'],
+                'parser' => fn () => self::getInvoicePdfUrlByInvocieId($this->hookParams['invoice_id'])
+            ],
             'client_first_name' => [
                 'label' => $this->lang['client_first_name'],
                 'parser' => fn () => $this->getClientFirstNameByClientId($this->clientId),

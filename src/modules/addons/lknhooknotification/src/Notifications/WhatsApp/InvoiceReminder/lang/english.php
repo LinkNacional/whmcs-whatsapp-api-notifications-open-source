@@ -14,5 +14,6 @@ $lang['invoice_due_date'] = 'Invoice due date';
 $lang['client_id'] = 'Client ID';
 $lang['client_first_name'] = 'Client first name';
 $lang['client_full_name'] = 'Client full name';
+$lang['invoice_pdf_url'] = 'Invoice PDF URL';
 
 return $lang;
