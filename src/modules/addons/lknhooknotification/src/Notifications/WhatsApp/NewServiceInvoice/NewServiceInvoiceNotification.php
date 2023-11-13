@@ -79,25 +79,8 @@ final class NewServiceInvoiceNotification extends AbstractWhatsAppNotifcation
             }
         );
 
-        if (count($invoiceItemRelatedToProduct) === 0) {
-            return false;
-        }
-
-        // Loops over each item on the invoice to check if any item is a service with nextduedate for today.
-        foreach ($invoiceItemRelatedToProduct as $item) {
-            $clientProductInfo = localAPI('GetClientsProducts', [
-                'pid' => $item['product_id'],
-                'serviceid' => $item['relid'],
-                'clientid' => self::getClientIdByInvoiceId($invoiceId)
-            ])['products']['product'];
-
-            /**
-             * Acordding to https://docs.whmcs.com/Billing_Logic
-             * Next Due Date/Next Invoice Date is updated after WHMCS triggers InvoiceCreated hook.
-             */
-            if ($clientProductInfo[0]['nextduedate'] === date('Y-m-d')) {
-                return true;
-            }
+        if (count($invoiceItemRelatedToProduct) > 0) {
+            return true;
         }
 
         return false;
