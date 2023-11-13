@@ -19,7 +19,8 @@
                 "neilbrayfield.php-docblocker",
                 "dbaeumer.vscode-eslint",
                 "aswinkumar863.smarty-template-support",
-                "MehediDracula.php-namespace-resolver"
+                "MehediDracula.php-namespace-resolver",
+                "Natizyskunk.sftp"
             ],
             "settings": {
                 "[html]": {
