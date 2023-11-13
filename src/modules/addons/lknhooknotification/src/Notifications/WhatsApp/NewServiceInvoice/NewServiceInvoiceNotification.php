@@ -9,7 +9,6 @@ namespace Lkn\HookNotification\Notifications\WhatsApp\NewServiceInvoice;
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
-use Lkn\HookNotification\Notifications\Chatwoot\WhatsAppPrivateNote\WhatsAppPrivateNoteNotification;
 
 /**
  * Runs when a recurring existing service invoice is created.
