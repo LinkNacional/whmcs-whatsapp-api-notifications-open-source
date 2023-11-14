@@ -100,6 +100,10 @@ final class Invoice6DaysLateNotification extends AbstractWhatsAppNotifcation
                 'label' => $this->lang['invoice_subtotal'],
                 'parser' => fn (): string => self::getInvoiceSubtotal($this->hookParams['invoice_id'])
             ],
+            'invoice_due_date' => [
+                'label' => $this->lang['invoice_due_date'],
+                'parser' => fn () => self::getInvoiceDueDateByInvoiceId($this->hookParams['invoice_id'])
+            ],
             'invoice_id_and_first_item' => [
                 'label' => $this->lang['invoice_id_and_first_item'],
                 'parser' => fn () => $this->getInvoiceIdAndFirstItsFirstItem(),
