@@ -66,6 +66,10 @@ final class InvoiceReminderNotification extends AbstractWhatsAppNotifcation
                 'label' => $this->lang['client_id'],
                 'parser' => fn () => $this->clientId
             ],
+            'client_email' => [
+                'label' => $this->lang['client_email'],
+                'parser' => fn () => $this->getClientEmailByClientId($this->clientId)
+            ],
             'client_first_name' => [
                 'label' => $this->lang['client_first_name'],
                 'parser' => fn () => $this->getClientFirstNameByClientId($this->clientId)

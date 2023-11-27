@@ -125,6 +125,10 @@ final class NewServiceInvoiceNotification extends AbstractWhatsAppNotifcation
                 'label' => $this->lang['client_first_name'],
                 'parser' => fn () => $this->getClientFirstNameByClientId($this->clientId)
             ],
+            'client_email' => [
+                'label' => $this->lang['client_email'],
+                'parser' => fn () => $this->getClientEmailByClientId($this->clientId)
+            ],
             'client_full_name' => [
                 'label' => $this->lang['client_full_name'],
                 'parser' => fn () => $this->getClientFullNameByClientId($this->clientId)

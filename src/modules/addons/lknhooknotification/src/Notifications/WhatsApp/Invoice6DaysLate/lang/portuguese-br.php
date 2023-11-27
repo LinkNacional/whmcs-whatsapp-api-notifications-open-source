@@ -14,5 +14,6 @@ $lang['client_first_name'] = 'Nome do cliente';
 $lang['client_full_name'] = 'Nome completo do cliente';
 $lang['invoice_pdf_url'] = 'URL do PDF da fatura';
 $lang['invoice_due_date'] = 'Data de vencimento da fatura';
+$lang['client_email'] = 'E-mail do cliente';
 
 return $lang;
