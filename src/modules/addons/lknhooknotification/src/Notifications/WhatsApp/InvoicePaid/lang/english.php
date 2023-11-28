@@ -1,7 +1,7 @@
 <?php
 
 $lang['notification_title'] = 'Invoice paid';
-$lang['notification_description'] = 'This notification is sent just before the invoice payment confirmation e-mail is sent.';
+$lang['notification_description'] = 'This notification is sent just after the invoice payment confirmation e-mail is sent.';
 
 // Parameters labels
 

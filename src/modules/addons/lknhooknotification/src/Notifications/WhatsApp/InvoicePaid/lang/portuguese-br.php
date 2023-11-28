@@ -1,7 +1,7 @@
 <?php
 
 $lang['notification_title'] = 'Fatura paga';
-$lang['notification_description'] = 'Esta notificação é enviada logo antes do e-mail de confirmação de pagamento ser enviado.';
+$lang['notification_description'] = 'Esta notificação é enviada logo depois do e-mail de confirmação de pagamento ser enviado.';
 
 // Nomes dos parâmetros
 
