@@ -36,7 +36,7 @@ final class InvoiceReminderNotification extends AbstractWhatsAppNotifcation
         $invoicePayMethod = Capsule::table('tblinvoices')->where('id', $this->hookParams['invoiceId'])->first('paymentmethod')->paymentmethod;
 
         if ($invoicePayMethod !== 'cobrancaasaasmpay') {
-            return;
+            throw new Exception('Invoice does not belong to cobrancaasaasmpay gateway.');
         }
 
         $asaasPayBoletoUrl = Capsule::table('mod_cobrancaasaasmpay')->where('fatura_id', $this->hookParams['invoiceId'])->first('url_boleto')->url_boleto;
