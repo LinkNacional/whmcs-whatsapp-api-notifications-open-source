@@ -86,6 +86,23 @@ final class NewServiceInvoiceNotification extends AbstractWhatsAppNotifcation
         return false;
     }
 
+    private function getAsaasPayUrl()
+    {
+        $invoicePayMethod = Capsule::table('tblinvoices')->where('id', $this->reportCategoryId)->first('paymentmethod')->paymentmethod;
+
+        if ($invoicePayMethod !== 'cobrancaasaasmpay') {
+            return;
+        }
+
+        $asaasPayBoletoUrl = Capsule::table('mod_cobrancaasaasmpay')->where('fatura_id', $this->reportCategoryId)->first('url_boleto')->url_boleto;
+
+        if (empty($asaasPayBoletoUrl)) {
+            throw new Exception('Could not get Asaas URL.');
+        }
+
+        return str_replace('/b/pdf/', '/i/', $asaasPayBoletoUrl);
+    }
+
     public function defineParameters(): void
     {
         $this->parameters = [
@@ -104,6 +121,10 @@ final class NewServiceInvoiceNotification extends AbstractWhatsAppNotifcation
             'invoice_pdf_url' => [
                 'label' => $this->lang['invoice_pdf_url'],
                 'parser' => fn (): string => self::getInvoicePdfUrlByInvocieId($this->hookParams['invoiceid'])
+            ],
+            'invoice_pdf_url_asaas_pay' => [
+                'label' => $this->lang['invoice_pdf_url_asaas_pay'],
+                'parser' => fn () => $this->getAsaasPayUrl()
             ],
             'invoice_balance' => [
                 'label' => $this->lang['invoice_balance'],
