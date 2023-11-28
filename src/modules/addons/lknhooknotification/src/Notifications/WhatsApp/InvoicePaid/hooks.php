@@ -1,6 +1,6 @@
 <?php
 
 use Lkn\HookNotification\Domains\Notifications\Messenger;
-use Lkn\HookNotification\Notifications\WhatsApp\NewServiceInvoice\NewServiceInvoiceNotification;
+use Lkn\HookNotification\Notifications\WhatsApp\InvoicePaid\InvoicePaidNotification;
 
-Messenger::run(NewServiceInvoiceNotification::class);
+Messenger::run(InvoicePaidNotification::class);
