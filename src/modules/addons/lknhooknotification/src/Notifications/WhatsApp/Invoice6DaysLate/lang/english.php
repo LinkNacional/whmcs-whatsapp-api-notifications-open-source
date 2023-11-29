@@ -15,5 +15,6 @@ $lang['client_full_name'] = 'Client full name';
 $lang['invoice_pdf_url'] = 'Invoice PDF URL';
 $lang['invoice_due_date'] = 'Invoice due date';
 $lang['client_email'] = 'Client email';
+$lang['invoice_pdf_url_asaas_pay'] = 'Asaas payment URL';
 
 return $lang;
