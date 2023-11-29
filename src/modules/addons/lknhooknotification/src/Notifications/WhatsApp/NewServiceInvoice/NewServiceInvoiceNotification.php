@@ -6,9 +6,11 @@
 
 namespace Lkn\HookNotification\Notifications\WhatsApp\NewServiceInvoice;
 
+use Exception;
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
+use WHMCS\Database\Capsule;
 
 /**
  * Runs when a recurring existing service invoice is created.

@@ -5,8 +5,10 @@
 
 namespace Lkn\HookNotification\Notifications\WhatsApp\InvoiceReminder;
 
+use Exception;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
+use WHMCS\Database\Capsule;
 
 final class InvoiceReminderNotification extends AbstractWhatsAppNotifcation
 {
