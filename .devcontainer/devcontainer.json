@@ -20,7 +20,8 @@
                 "dbaeumer.vscode-eslint",
                 "aswinkumar863.smarty-template-support",
                 "MehediDracula.php-namespace-resolver",
-                "Natizyskunk.sftp"
+                "Natizyskunk.sftp",
+                "eamodio.gitlens"
             ],
             "settings": {
                 "[html]": {
