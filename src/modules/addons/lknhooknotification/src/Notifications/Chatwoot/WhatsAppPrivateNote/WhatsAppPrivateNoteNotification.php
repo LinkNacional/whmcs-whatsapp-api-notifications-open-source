@@ -81,7 +81,8 @@ final class WhatsAppPrivateNoteNotification extends AbstractChatwootNotification
             $whatsAppInboxId,
             $searchBy,
             $msg,
-            true
+            true,
+            $this->getSetting('private_note_mode') ?? 'open_new_conversation'
         );
 
         $success = $response['success'];
