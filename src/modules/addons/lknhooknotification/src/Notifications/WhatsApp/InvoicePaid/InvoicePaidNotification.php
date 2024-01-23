@@ -72,7 +72,7 @@ final class InvoicePaidNotification extends AbstractWhatsAppNotifcation
             ],
             'invoice_items' => [
                 'label' => $this->lang['invoice_items'],
-                'parser' => fn () => self::getOrderItemsDescripByOrderId(self::getOrderIdByInvoiceId($this->reportCategoryId))
+                'parser' => fn (): string => self::getItemsRelatedToInvoice($this->reportCategoryId)
             ],
             'invoice_due_date' => [
                 'label' => $this->lang['invoice_due_date'],
