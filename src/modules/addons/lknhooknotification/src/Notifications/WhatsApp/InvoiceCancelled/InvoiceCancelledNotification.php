@@ -10,6 +10,7 @@ use Exception;
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
+use Lkn\HookNotification\Helpers\Logger;
 use WHMCS\Database\Capsule;
 
 /**
@@ -30,13 +31,47 @@ final class InvoiceCancelledNotification extends AbstractWhatsAppNotifcation
     public function run(): bool
     {
         // Setup properties for reporting purposes (not required).
+        $invoiceId = $this->hookParams['invoiceid'];
         $this->setReportCategory(ReportCategory::INVOICE);
-        $this->setReportCategoryId($this->hookParams['invoiceid']);
+        $this->setReportCategoryId($invoiceId);
 
         // Setup client ID for getting its WhatsApp number (required).
-        $clientId = $this->getClientIdByInvoiceId($this->hookParams['invoiceid']);
+        $clientId = $this->getClientIdByInvoiceId($invoiceId);
 
         $this->setClientId($clientId);
+        $sendWhenOrderCancelled = $this->getSetting('send_when_order_cancelled');
+        $orderId = self::getOrderIdByInvoiceId($invoiceId);
+
+        if (!$sendWhenOrderCancelled) {
+            $wasAlreadySent = Capsule::table('mod_lkn_hook_notification_reports')
+                ->where('client_id', $clientId)
+                ->where('category_id', $orderId)
+                ->where('category', ReportCategory::ORDER->value)
+                ->where('platform', $this->platform->value)
+                ->where('notification', 'OrderCancelled')
+                ->exists();
+
+            Logger::log($this->notificationCode, ['wasAlreadySent' => $wasAlreadySent], [
+                'clientId' => $clientId,
+                'orderId' => $orderId,
+                'ReportCategory' => ReportCategory::ORDER->value,
+                'platform' => $this->platform->value,
+                'notif' => 'OrderCancelled'
+            ]);
+
+            if ($wasAlreadySent) {
+                Logger::log(
+                    "{$this->getNotificationLogName()} abort",
+                    [
+                        'msg' => 'Notification cancelled becouse an OrderCancelled notification was sent first.',
+                        'context' => ['instance' => $this]
+                    ]
+                );
+
+                return false;
+            }
+        }
+
         // Send the message and get the raw response (converted to array) from WhatsApp API.
         $response = $this->sendMessage();
 
@@ -127,7 +162,7 @@ final class InvoiceCancelledNotification extends AbstractWhatsAppNotifcation
             ];
         } else {
             $settings = [
-                'send_when_order_cancelled' => strip_tags($_POST['send_when_order_cancelled'])
+                'send_when_order_cancelled' => strip_tags($_POST['send_when_order_cancelled']) === 'on' ? true : false
             ];
 
             $this->saveSettings($settings);
