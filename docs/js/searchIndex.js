@@ -1946,6 +1946,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_createContact"
         },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\Chatwoot\\AbstractChatwootApi\u003A\u003AcloseConversation\u0028\u0029",
+            "name": "closeConversation",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_closeConversation"
+        },                {
             "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\Chatwoot\\AbstractChatwootNotification",
             "name": "AbstractChatwootNotification",
             "summary": "Provides\u0020the\u0020basic\u0020implementation\u0020a\u0020Chatwoot\u0020notification\u0020must\u0020have.",
@@ -1960,6 +1965,26 @@ Search.appendIndex(
             "name": "setClientId",
             "summary": "",
             "url": "classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootNotification.html#method_setClientId"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\Chatwoot\\AbstractChatwootNotification\u003A\u003Asettings\u0028\u0029",
+            "name": "settings",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootNotification.html#method_settings"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\Chatwoot\\AbstractChatwootNotification\u003A\u003AsaveSettings\u0028\u0029",
+            "name": "saveSettings",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootNotification.html#method_saveSettings"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\Chatwoot\\AbstractChatwootNotification\u003A\u003AgetSettings\u0028\u0029",
+            "name": "getSettings",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootNotification.html#method_getSettings"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\Chatwoot\\AbstractChatwootNotification\u003A\u003AgetSetting\u0028\u0029",
+            "name": "getSetting",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootNotification.html#method_getSetting"
         },                {
             "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\Chatwoot\\AbstractChatwootNotification\u003A\u003A\u0024name",
             "name": "name",
@@ -2030,6 +2055,21 @@ Search.appendIndex(
             "name": "sendMessage",
             "summary": "Parses\u0020and\u0020sends\u0020the\u0020message.",
             "url": "classes/Lkn-HookNotification-Domains-Platforms-WhatsApp-AbstractWhatsAppNotifcation.html#method_sendMessage"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\WhatsApp\\AbstractWhatsAppNotifcation\u003A\u003AsaveSettings\u0028\u0029",
+            "name": "saveSettings",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-WhatsApp-AbstractWhatsAppNotifcation.html#method_saveSettings"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\WhatsApp\\AbstractWhatsAppNotifcation\u003A\u003AgetSettings\u0028\u0029",
+            "name": "getSettings",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-WhatsApp-AbstractWhatsAppNotifcation.html#method_getSettings"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\WhatsApp\\AbstractWhatsAppNotifcation\u003A\u003AgetSetting\u0028\u0029",
+            "name": "getSetting",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Platforms-WhatsApp-AbstractWhatsAppNotifcation.html#method_getSetting"
         },                {
             "fqsen": "\\Lkn\\HookNotification\\Domains\\Platforms\\WhatsApp\\AbstractWhatsAppNotifcation\u003A\u003A\u0024assoc",
             "name": "assoc",
@@ -2200,6 +2240,11 @@ Search.appendIndex(
             "name": "searchForContactOpenConversationByInboxId",
             "summary": "Search\u0020for\u0020an\u0020open\u0020conversation\u0020for\u0020the\u0020inbox\u0020ID\u0020of\u0020WhatsApp.",
             "url": "classes/Lkn-HookNotification-Domains-Shared-Repositories-ChatwootApiRepository.html#method_searchForContactOpenConversationByInboxId"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Domains\\Shared\\Repositories\\ChatwootApiRepository\u003A\u003AgetContactLastConversation\u0028\u0029",
+            "name": "getContactLastConversation",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Domains-Shared-Repositories-ChatwootApiRepository.html#method_getContactLastConversation"
         },                {
             "fqsen": "\\Lkn\\HookNotification\\Domains\\Shared\\Repositories\\WhatsAppApiRepository",
             "name": "WhatsAppApiRepository",
@@ -2401,6 +2446,16 @@ Search.appendIndex(
             "summary": "Line\u0020items\u0020\u0022type\u0022\u0020and\u0020\u0022domain\u0022.",
             "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderItemsDescripByOrderId"
         },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceItemsByInvoiceId\u0028\u0029",
+            "name": "getInvoiceItemsByInvoiceId",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsByInvoiceId"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetItemsRelatedToInvoice\u0028\u0029",
+            "name": "getItemsRelatedToInvoice",
+            "summary": "Tries\u0020to\u0020get\u0020the\u0020items\u0020of\u0020the\u0020invoice\u0020first\u0020using\u0020getOrderItemsDescripByOrderId.",
+            "url": "classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getItemsRelatedToInvoice"
+        },                {
             "fqsen": "\\Lkn\\HookNotification\\Helpers\\NotificationParamParseTrait\u003A\u003AgetInvoiceItemsDescriptionsByInvoiceId\u0028\u0029",
             "name": "getInvoiceItemsDescriptionsByInvoiceId",
             "summary": "",
@@ -2490,6 +2545,16 @@ Search.appendIndex(
             "name": "redirect",
             "summary": "",
             "url": "classes/Lkn-HookNotification-Helpers-Response.html#method_redirect"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\Utils",
+            "name": "Utils",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-Utils.html"
+        },                {
+            "fqsen": "\\Lkn\\HookNotification\\Helpers\\Utils\u003A\u003AisChatwootNotifEnabled\u0028\u0029",
+            "name": "isChatwootNotifEnabled",
+            "summary": "",
+            "url": "classes/Lkn-HookNotification-Helpers-Utils.html#method_isChatwootNotifEnabled"
         },                {
             "fqsen": "\\Lkn\\HookNotification\\Helpers\\VersionUpgrade",
             "name": "VersionUpgrade",

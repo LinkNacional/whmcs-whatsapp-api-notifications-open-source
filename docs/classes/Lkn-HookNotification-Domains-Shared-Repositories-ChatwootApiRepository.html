@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-            <title>WhatsApp Notifications</title>
+            <title>WhatsApp and Chatwoot</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
@@ -25,7 +25,7 @@
     </head>
 <body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">WhatsApp Notifications</a></h1>
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">WhatsApp and Chatwoot</a></h1>
     <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
     <label class="phpdocumentor-header__menu-icon" for="menu-button">
         <i class="fas fa-bars"></i>
@@ -151,7 +151,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php"><a href="files/modules-addons-lknhooknotification-src-domains-shared-repositories-chatwootapirepository.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php">ChatwootApiRepository.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -198,6 +198,12 @@
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_closeConversation">closeConversation()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_createContact">createContact()</a>
     <span>
@@ -271,6 +277,12 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Domains-Shared-Repositories-ChatwootApiRepository.html#method_getContactLastConversation">getContactLastConversation()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getCurrencySeparatorsFromFormatId">getCurrencySeparatorsFromFormatId()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -310,6 +322,12 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsByInvoiceId">getInvoiceItemsByInvoiceId()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsDescriptionsByInvoiceId">getInvoiceItemsDescriptionsByInvoiceId()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -332,6 +350,13 @@
     <span>
                                 &nbsp;: null|string|float    </span>
 </dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getItemsRelatedToInvoice">getItemsRelatedToInvoice()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Tries to get the items of the invoice first using getOrderItemsDescripByOrderId.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderIdByInvoiceId">getOrderIdByInvoiceId()</a>
@@ -467,6 +492,37 @@
             -public
                                                 -final        "
 >
+    <h4 class="phpdocumentor-element__name" id="method_closeConversation">
+        closeConversation()
+        <a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_closeConversation" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Platforms/Chatwoot/AbstractChatwootApi.php"><a href="files/modules-addons-lknhooknotification-src-domains-platforms-chatwoot-abstractchatwootapi.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Platforms/Chatwoot/AbstractChatwootApi.php">AbstractChatwootApi.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">242</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">closeConversation</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                -final        "
+>
     <h4 class="phpdocumentor-element__name" id="method_createContact">
         createContact()
         <a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_createContact" class="headerlink"><i class="fas fa-link"></i></a>
@@ -475,7 +531,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Platforms/Chatwoot/AbstractChatwootApi.php"><a href="files/modules-addons-lknhooknotification-src-domains-platforms-chatwoot-abstractchatwootapi.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Platforms/Chatwoot/AbstractChatwootApi.php">AbstractChatwootApi.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 
     </aside>
 
@@ -563,14 +619,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Platforms/Chatwoot/AbstractChatwootApi.php"><a href="files/modules-addons-lknhooknotification-src-domains-platforms-chatwoot-abstractchatwootapi.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Platforms/Chatwoot/AbstractChatwootApi.php">AbstractChatwootApi.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">175</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">createConversation</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contactId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contactSourceId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inboxId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">createConversation</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contactId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contactSourceId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inboxId</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$status</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;open&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -598,6 +654,13 @@
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$status</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;open&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
             </dl>
 
     
@@ -613,6 +676,14 @@
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">3.0.0</span>
                                                                                 
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="https://www.chatwoot.com/developers/api/#tag/Conversations/operation/newConversation">https://www.chatwoot.com/developers/api/#tag/Conversations/operation/newConversation</a></span>
+                                        
                                              
                                     </dd>
                                             </dl>
@@ -865,7 +936,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">327</span>
+    <span class="phpdocumentor-element-found-in__line">365</span>
 
     </aside>
 
@@ -910,7 +981,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">332</span>
+    <span class="phpdocumentor-element-found-in__line">370</span>
 
     </aside>
 
@@ -955,7 +1026,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">342</span>
+    <span class="phpdocumentor-element-found-in__line">380</span>
 
     </aside>
 
@@ -1102,6 +1173,73 @@
         class="phpdocumentor-element
             -method
             -public
+                                                -final        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getContactLastConversation">
+        getContactLastConversation()
+        <a href="classes/Lkn-HookNotification-Domains-Shared-Repositories-ChatwootApiRepository.html#method_getContactLastConversation" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php"><a href="files/modules-addons-lknhooknotification-src-domains-shared-repositories-chatwootapirepository.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php">ChatwootApiRepository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">241</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">getContactLastConversation</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contactId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inboxId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$contactId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$inboxId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Lkn-HookNotification-Domains-Shared-Repositories-ChatwootApiRepository.html#method_getContactLastConversation#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.4.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                     -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_getCurrencySeparatorsFromFormatId">
@@ -1167,7 +1305,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">322</span>
+    <span class="phpdocumentor-element-found-in__line">360</span>
 
     </aside>
 
@@ -1326,7 +1464,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">310</span>
+    <span class="phpdocumentor-element-found-in__line">348</span>
 
     </aside>
 
@@ -1371,7 +1509,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">403</span>
+    <span class="phpdocumentor-element-found-in__line">441</span>
 
     </aside>
 
@@ -1436,6 +1574,51 @@ Some items may not have a product_id since it must be a manually-added product o
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getInvoiceItemsByInvoiceId">
+        getInvoiceItemsByInvoiceId()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsByInvoiceId" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">299</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInvoiceItemsByInvoiceId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_getInvoiceItemsDescriptionsByInvoiceId">
         getInvoiceItemsDescriptionsByInvoiceId()
         <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsDescriptionsByInvoiceId" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1444,7 +1627,7 @@ Some items may not have a product_id since it must be a manually-added product o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">301</span>
+    <span class="phpdocumentor-element-found-in__line">339</span>
 
     </aside>
 
@@ -1654,7 +1837,70 @@ Some items may not have a product_id since it must be a manually-added product o
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getItemsRelatedToInvoice">
+        getItemsRelatedToInvoice()
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getItemsRelatedToInvoice" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">319</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Tries to get the items of the invoice first using getOrderItemsDescripByOrderId.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getItemsRelatedToInvoice</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>If an empty string is returned, the uses getInvoiceItemsByInvoiceId.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$invoiceId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getItemsRelatedToInvoice#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.4.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_getOrderIdByInvoiceId">
         getOrderIdByInvoiceId()
@@ -1664,14 +1910,14 @@ Some items may not have a product_id since it must be a manually-added product o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">375</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getOrderIdByInvoiceId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getOrderIdByInvoiceId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$invoiceId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1770,7 +2016,7 @@ Some items may not have a product_id since it must be a manually-added product o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">317</span>
+    <span class="phpdocumentor-element-found-in__line">355</span>
 
     </aside>
 
@@ -1815,7 +2061,7 @@ Some items may not have a product_id since it must be a manually-added product o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php"><a href="files/modules-addons-lknhooknotification-src-domains-shared-repositories-chatwootapirepository.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php">ChatwootApiRepository.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">176</span>
 
     </aside>
 
@@ -1882,7 +2128,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">347</span>
+    <span class="phpdocumentor-element-found-in__line">385</span>
 
     </aside>
 
@@ -1934,7 +2180,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">362</span>
+    <span class="phpdocumentor-element-found-in__line">400</span>
 
     </aside>
 
@@ -1979,7 +2225,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">352</span>
+    <span class="phpdocumentor-element-found-in__line">390</span>
 
     </aside>
 
@@ -2024,7 +2270,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">367</span>
+    <span class="phpdocumentor-element-found-in__line">405</span>
 
     </aside>
 
@@ -2069,7 +2315,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">357</span>
+    <span class="phpdocumentor-element-found-in__line">395</span>
 
     </aside>
 
@@ -2114,7 +2360,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php"><a href="files/modules-addons-lknhooknotification-src-helpers-notificationparamparsetrait.html"><abbr title="modules/addons/lknhooknotification/src/Helpers/NotificationParamParseTrait.php">NotificationParamParseTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">376</span>
+    <span class="phpdocumentor-element-found-in__line">414</span>
 
     </aside>
 
@@ -2312,7 +2558,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php"><a href="files/modules-addons-lknhooknotification-src-domains-shared-repositories-chatwootapirepository.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php">ChatwootApiRepository.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">139</span>
 
     </aside>
 
@@ -2372,7 +2618,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php"><a href="files/modules-addons-lknhooknotification-src-domains-shared-repositories-chatwootapirepository.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php">ChatwootApiRepository.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">176</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
@@ -2440,7 +2686,7 @@ returned by the API.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php"><a href="files/modules-addons-lknhooknotification-src-domains-shared-repositories-chatwootapirepository.html"><abbr title="modules/addons/lknhooknotification/src/Domains/Shared/Repositories/ChatwootApiRepository.php">ChatwootApiRepository.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -2448,7 +2694,7 @@ returned by the API.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">sendMessageToClient</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$clientId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inboxId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$searchBy</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$private</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">sendMessageToClient</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$clientId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inboxId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$searchBy</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$private</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$settingPrivateNoteMode</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;open_new_conversation&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2489,6 +2735,13 @@ returned by the API.</p>
                 <span class="phpdocumentor-signature__argument__name">$private</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$settingPrivateNoteMode</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;open_new_conversation&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -2898,6 +3151,7 @@ returned by the API.</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_closeConversation">closeConversation()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_createContact">createContact()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_createConversation">createConversation()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_formatInvoiceValue">formatInvoiceValue()</a></li>
@@ -2910,16 +3164,19 @@ returned by the API.</p>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientIdByTicketId">getClientIdByTicketId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getClientWhatsAppNumber">getClientWhatsAppNumber()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Domains-Platforms-Chatwoot-AbstractChatwootApi.html#method_getContactConversations">getContactConversations()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Domains-Shared-Repositories-ChatwootApiRepository.html#method_getContactLastConversation">getContactLastConversation()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getCurrencySeparatorsFromFormatId">getCurrencySeparatorsFromFormatId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getHostDomainByHostId">getHostDomainByHostId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceBalance">getInvoiceBalance()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceCurrency">getInvoiceCurrency()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceDueDateByInvoiceId">getInvoiceDueDateByInvoiceId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItems">getInvoiceItems()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsByInvoiceId">getInvoiceItemsByInvoiceId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceItemsDescriptionsByInvoiceId">getInvoiceItemsDescriptionsByInvoiceId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoicePdfUrlByInvocieId">getInvoicePdfUrlByInvocieId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceSubtotal">getInvoiceSubtotal()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getInvoiceTotal">getInvoiceTotal()</a></li>
+                                            <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getItemsRelatedToInvoice">getItemsRelatedToInvoice()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderIdByInvoiceId">getOrderIdByInvoiceId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getOrderItemsDescripByOrderId">getOrderItemsDescripByOrderId()</a></li>
                                             <li><a href="classes/Lkn-HookNotification-Helpers-NotificationParamParseTrait.html#method_getServiceProductNameByProductId">getServiceProductNameByProductId()</a></li>
