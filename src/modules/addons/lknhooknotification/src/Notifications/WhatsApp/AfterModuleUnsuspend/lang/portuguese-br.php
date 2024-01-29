@@ -1,7 +1,7 @@
 <?php
 
-$lang['notification_title'] = 'Serviço devolta para aberto';
-$lang['notification_description'] = 'Executada quando o serviço de um cliente é sai de suspenso.';
+$lang['notification_title'] = 'Serviço de volta para aberto';
+$lang['notification_description'] = 'Executada quando o serviço de um cliente sai de suspenso.';
 
 // Nomes dos parâmetros
 
