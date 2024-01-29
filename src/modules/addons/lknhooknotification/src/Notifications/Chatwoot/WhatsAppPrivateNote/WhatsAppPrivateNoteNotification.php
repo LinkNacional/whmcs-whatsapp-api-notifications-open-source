@@ -12,6 +12,7 @@ use Lkn\HookNotification\Config\Settings;
 use Lkn\HookNotification\Domains\Platforms\Chatwoot\AbstractChatwootNotification;
 use Lkn\HookNotification\Helpers\Config;
 use Lkn\HookNotification\Helpers\Lang;
+use Lkn\HookNotification\Helpers\Utils;
 use Lkn\HookNotification\Helpers\WhmcsApi;
 
 final class WhatsAppPrivateNoteNotification extends AbstractChatwootNotification
@@ -31,6 +32,12 @@ final class WhatsAppPrivateNoteNotification extends AbstractChatwootNotification
 
     public function run(): bool
     {
+        if (!Utils::isChatwootNotifEnabled($this->notificationCode)) {
+            $this->enableAutoReport = false;
+
+            return false;
+        }
+
         return $this->sendMessage();
     }
 
@@ -74,7 +81,8 @@ final class WhatsAppPrivateNoteNotification extends AbstractChatwootNotification
             $whatsAppInboxId,
             $searchBy,
             $msg,
-            true
+            true,
+            $this->getSetting('private_note_mode') ?? 'open_new_conversation'
         );
 
         $success = $response['success'];
@@ -101,5 +109,42 @@ final class WhatsAppPrivateNoteNotification extends AbstractChatwootNotification
         $objectUrlPath = str_replace(':clientId', $clientId, $objectUrlPath);
 
         return WhmcsApi::getAdminRootUrl($objectUrlPath);
+    }
+
+    public function settings(): array
+    {
+        if (empty($_POST)) {
+            $savedSettings = $this->getSettings();
+
+            $settings = [
+                'private_note_mode' => $savedSettings['private_note_mode'] ?? 'open_new_conversation'
+            ];
+        } else {
+            $settings = [
+                'private_note_mode' => strip_tags($_POST['private_note_mode'])
+            ];
+
+            $this->saveSettings($settings);
+        }
+
+        return [
+            [
+                'id' => 'private_note_mode',
+                'label' => $this->lang['settings']['private_note_mode']['label'],
+                'descrip' => $this->lang['settings']['private_note_mode']['descrip'],
+                'type' => 'select',
+                'value' => $settings['private_note_mode'],
+                'options' => [
+                    [
+                        'label' => $this->lang['settings']['private_note_mode']['options'][0],
+                        'value' => 'open_new_conversation'
+                    ],
+                    [
+                        'label' => $this->lang['settings']['private_note_mode']['options'][1],
+                        'value' => 'send_to_latest_conversation'
+                    ]
+                ]
+            ]
+        ];
     }
 }

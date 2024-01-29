@@ -24,6 +24,7 @@ final class InvoiceReminderNotification extends AbstractWhatsAppNotifcation
         $clientId = $this->getClientIdByInvoiceId($this->hookParams['invoiceId']);
 
         $this->setClientId($clientId);
+
         // Send the message and get the raw response (converted to array) from WhatsApp API.
         $response = $this->sendMessage();
 
@@ -71,7 +72,7 @@ final class InvoiceReminderNotification extends AbstractWhatsAppNotifcation
             ],
             'invoice_items' => [
                 'label' => $this->lang['invoice_items'],
-                'parser' => fn () => self::getOrderItemsDescripByOrderId($this->hookParams['invoiceId'])
+                'parser' => fn (): string => self::getItemsRelatedToInvoice($this->hookParams['invoiceId'])
             ],
             'invoice_due_date' => [
                 'label' => $this->lang['invoice_due_date'],
