@@ -17,5 +17,11 @@ $lang['client_full_name'] = 'Nome completo do cliente';
 $lang['invoice_pdf_url'] = 'URL do PDF da fatura';
 $lang['client_email'] = 'E-mail do cliente';
 $lang['invoice_pdf_url_asaas_pay'] = 'URL de pagamento Asaas';
+$lang['settings'] = [
+    'send_when_order_cancelled' => [
+        'label' => 'Enviar mesmo quando o pedido for cancelado',
+        'descrip' => 'Válido apenas quando a notificação de pedido cancelado estiver ativada.'
+    ]
+];
 
 return $lang;
