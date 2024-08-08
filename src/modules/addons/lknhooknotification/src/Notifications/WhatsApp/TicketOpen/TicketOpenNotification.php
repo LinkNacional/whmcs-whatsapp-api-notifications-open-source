@@ -26,7 +26,7 @@ final class TicketOpenNotification extends AbstractWhatsAppNotifcation
         $useTicketWhatsAppCf = Config::get(Platforms::WHATSAPP, Settings::WP_USE_TICKET_WHATSAPP_CF_WHEN_SET);
 
         if ($useTicketWhatsAppCf === 'disabled') {
-            $this->sendMessageForRegisteredClient();
+            return $this->sendMessageForRegisteredClient();
         } else {
             if ($this->getTicketWhatsAppCfValue($this->hookParams['ticketid']) === null) {
                 return $this->sendMessageForRegisteredClient();
