@@ -1462,9 +1462,9 @@ namespace Lkn\HookNotification\Config {
         case DOMAIN = 'domain';
     }
 
-     /**
-     * @since 1.0.0
-     */
+    /**
+    * @since 1.0.0
+    */
     enum Platforms: string
     {
         case WHATSAPP = 'wp';
