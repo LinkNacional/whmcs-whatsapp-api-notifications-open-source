@@ -9,7 +9,6 @@ namespace Lkn\HookNotification\Notifications\WhatsApp\AfterModuleUnsuspend;
 use Lkn\HookNotification\Config\Hooks;
 use Lkn\HookNotification\Config\ReportCategory;
 use Lkn\HookNotification\Domains\Platforms\WhatsApp\AbstractWhatsAppNotifcation;
-use Lkn\HookNotification\Helpers\Logger;
 
 final class AfterModuleUnsuspendNotification extends AbstractWhatsAppNotifcation
 {
@@ -21,9 +20,6 @@ final class AfterModuleUnsuspendNotification extends AbstractWhatsAppNotifcation
         $this->events = [];
         $this->enableAutoReport = false;
 
-        Logger::log($this->notificationCode, ['params' => $this->hookParams]);
-
-        return true;
         // Setup properties for reporting purposes (not required).
         $this->setReportCategory(ReportCategory::SERVICE);
         $this->setReportCategoryId($this->hookParams['params']['serviceid']);
