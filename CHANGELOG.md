@@ -1,3 +1,6 @@
+# 3.3.2 - 06/11/2024
+* Fixed invoice notifications with non existing parameter for asaas url.
+
 # 3.3.1 - 09/08/2024
 * Fixed unsuspended order notification;
 * Fixed ticket open notification;
