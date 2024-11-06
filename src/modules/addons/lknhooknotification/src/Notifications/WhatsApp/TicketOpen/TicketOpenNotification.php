@@ -94,6 +94,10 @@ final class TicketOpenNotification extends AbstractWhatsAppNotifcation
                 'label' => $this->lang['ticket_subject'],
                 'parser' => fn () => $this->hookParams['subject']
             ],
+            'ticket_status' => [
+                'label' => $this->lang['ticket_status'],
+                'parser' => fn () => $this->hookParams['status']
+            ],
             'client_first_name' => [
                 'label' => $this->lang['client_first_name'],
                 'parser' => fn () => empty($this->clientId) ? $this->getTicketNameColumn($this->hookParams['ticketid']) : $this->getClientFirstNameByClientId($this->clientId)

@@ -340,6 +340,10 @@ namespace Lkn\HookNotification\Helpers {
         {
         }
 
+        public function getTicketStatus(int $ticketId): string
+        {
+        }
+
         public function getTicketEmail(int $ticketId): string
         {
         }
