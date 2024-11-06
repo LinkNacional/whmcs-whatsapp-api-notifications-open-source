@@ -102,6 +102,15 @@ final class Invoice15DaysLateNotification extends AbstractWhatsAppNotifcation
 
     public function defineParameters(): void
     {
+        $asaasTable = Capsule::schema()->hasTable('mod_cobrancaasaasmpay');
+
+        if ($asaasTable) {
+            $this->parameters = ['invoice_pdf_url_asaas_pay' => [
+                'label' => $this->lang['invoice_pdf_url_asaas_pay'],
+                'parser' => fn () => $this->getAsaasPayUrl()
+            ]];
+        }
+
         $this->parameters = [
             'invoice_id' => [
                 'label' => $this->lang['invoice_id'],
@@ -134,10 +143,6 @@ final class Invoice15DaysLateNotification extends AbstractWhatsAppNotifcation
             'invoice_pdf_url' => [
                 'label' => $this->lang['invoice_pdf_url'],
                 'parser' => fn () => self::getInvoicePdfUrlByInvocieId($this->hookParams['invoice_id'])
-            ],
-            'invoice_pdf_url_asaas_pay' => [
-                'label' => $this->lang['invoice_pdf_url_asaas_pay'],
-                'parser' => fn () => $this->getAsaasPayUrl()
             ],
             'client_first_name' => [
                 'label' => $this->lang['client_first_name'],
