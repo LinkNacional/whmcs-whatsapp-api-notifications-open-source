@@ -1,6 +1,6 @@
 # WHMCS WhatsApp API Notifications: custom hooks
 
-This is a repository dedicated to developers who want to collaborate in the growth of the [WHMCS WhatsApp Cloud API module - Download WHMCS Addon](https://cliente.linknacional.com.br/dl.php?type=d&id=34), [See more information about the module:](https://www.linknacional.com/whmcs/whatsapp/) 
+This is a repository dedicated to developers who want to collaborate in the growth of the [WHMCS WhatsApp Cloud API module - WHMCS Addon](https://www.linknacional.com/whmcs/whatsapp/), [Download]([https://www.linknacional.com/whmcs/whatsapp/](https://cliente.linknacional.com.br/dl.php?type=d&id=34)) 
 
 [Informações em Português:](https://www.linknacional.com.br/whmcs/whatsapp/).
 
