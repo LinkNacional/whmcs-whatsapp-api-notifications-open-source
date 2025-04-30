@@ -1,2 +1,4 @@
 node_modules
 .vscode/sftp.json
+/vendor/
+docs

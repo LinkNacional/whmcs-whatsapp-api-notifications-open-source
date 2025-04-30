@@ -1,0 +1,13 @@
+# yhttps://phpstan.org/config-reference
+parameters:
+    phpVersion: 80131
+    level: max
+    reportUnmatchedIgnoredErrors: false
+    paths:
+        - ./src/
+    excludePaths:
+        - */vendor/*
+    parallel:
+        maximumNumberOfProcesses: 2
+    scanDirectories:
+        - /home/www-data/whmcs

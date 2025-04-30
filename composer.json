@@ -1,0 +1,29 @@
+{
+    "name": "linknacional/hooknotification",
+    "type": "project",
+    "license": "proprietary",
+    "description": "Notificações",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "phan/phan": "^5.4"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpstan/phpstan": "^2.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "8.1"
+        }
+    },
+    "authors": [
+        {
+            "name": "Link Nacional",
+            "email": "ticket@linknacinal.com"
+        }
+    ]
+}
