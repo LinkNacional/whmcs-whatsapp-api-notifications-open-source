@@ -1,0 +1,55 @@
+{
+  "intelephense.environment.includePaths": [
+    "stubs.php",
+    "whmcs-common-stubs.php",
+  ],
+  "[html]": {
+    "editor.rulers": [
+      120
+    ],
+    "editor.tabSize": 4
+  },
+  "[javascript]": {
+    "editor.rulers": [
+      80,
+      120
+    ]
+  },
+  "[php]": {
+    "editor.defaultFormatter": "valeryanm.vscode-phpsab",
+    "editor.rulers": [
+      80,
+      120
+    ]
+  },
+  "editor.tabSize": 4,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "html.format.wrapAttributes": "force-expand-multiline",
+  "html.format.wrapAttributesIndentSize": 4,
+  "html.format.wrapLineLength": 120,
+  "intelephense.environment.phpVersion": "8.1",
+  "intelephense.files.associations": [
+    "*.php"
+  ],
+  "namespaceResolver.showMessageOnStatusBar": true,
+  "namespaceResolver.sortAlphabetically": true,
+  "namespaceResolver.sortNatural": true,
+  "namespaceResolver.sortOnSave": true,
+  "editor.insertSpaces": true,
+  "php-docblocker.alignParams": true,
+  "php-docblocker.alignReturn": true,
+  "php-docblocker.useShortNames": true,
+  "php.suggest.basic": false,
+  "php.validate.enable": false,
+  "phpsab.executablePathCBF": "vendor/bin/phpcbf",
+  "phpsab.executablePathCS": "vendor/bin/phpcs",
+  "phpsab.standard": "phpcs.xml.dist",
+  "phpsab.fixerEnable": true,
+  "phpsab.debug": true,
+  "phpsab.snifferMode": "onType",
+}
