@@ -2,10 +2,10 @@
 
 namespace Lkn\HookNotification\Notifications;
 
+use Lkn\HookNotification\Core\NotificationReport\Domain\NotificationReportCategory;
 use Lkn\HookNotification\Core\Notification\Domain\AbstractManualNotification;
 use Lkn\HookNotification\Core\Notification\Domain\NotificationParameter;
 use Lkn\HookNotification\Core\Notification\Domain\NotificationParameterCollection;
-use Lkn\HookNotification\Core\NotificationReport\Domain\NotificationReportCategory;
 use Lkn\HookNotification\Core\Shared\Infrastructure\Hooks;
 
 final class InvoiceReminderPdfNotification extends AbstractManualNotification
@@ -36,6 +36,11 @@ final class InvoiceReminderPdfNotification extends AbstractManualNotification
                     'invoice_pdf_url',
                     lkn_hn_lang('Invoice PDF URL'),
                     fn (): string => getInvoicePdfUrlByInvocieId($this->whmcsHookParams['invoiceid'])
+                ),
+                new NotificationParameter(
+                    'invoice_img_url',
+                    lkn_hn_lang('Invoice image URL'),
+                    fn (): string => getInvoiceImgUrlByInvoiceId($this->whmcsHookParams['invoiceid'])
                 ),
                 new NotificationParameter(
                     'invoice_balance',
