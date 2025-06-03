@@ -65,6 +65,7 @@ final class ServiceSuspendedFor45DaysNotification extends AbstractCronNotificati
         $suspendedServices = Capsule::table('tblhosting')
             ->leftJoin('tblproducts', 'tblproducts.id', '=', 'tblhosting.packageid')
             ->where('tblhosting.nextduedate', $formattedDate)
+            ->where('tblhosting.domainstatus', 'Suspended')
             ->whereIn('tblproducts.type', ['hostingaccount', 'other'])
             ->get(['tblhosting.id as serviceId', 'tblhosting.userid as clientId']);
 
