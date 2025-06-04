@@ -68,7 +68,7 @@ final class ServiceSuspendedFor45DaysNotification extends AbstractCronNotificati
             ->where('tblhosting.domainstatus', 'Suspended')
             ->whereIn('tblproducts.type', ['hostingaccount', 'other'])
             ->get(['tblhosting.id as serviceId', 'tblhosting.userid as clientId']);
-
+            
         $payloads = [];
 
         foreach ($suspendedServices as $service) {

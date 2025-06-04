@@ -3,13 +3,6 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-    "mounts": [
-        {
-            "source": "/Users/brunoferreira/work/lkn/whmcs-stubs",
-            "target": "/home/www-data/whmcs",
-            "type": "bind"
-        }
-    ],
     "postCreateCommand": "composer install --ignore-platform-reqs",
     "customizations": {
         "vscode": {
