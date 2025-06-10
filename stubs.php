@@ -5620,3 +5620,4 @@ enum Settings: string
 
     case BULK_ENABLE = 'bulk_enable';
 }
+}
