@@ -2,3 +2,4 @@ node_modules
 .vscode/sftp.json
 /vendor/
 docs
+src/modules/addons/lknhooknotification/tests2.php
