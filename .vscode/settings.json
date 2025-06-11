@@ -2,6 +2,7 @@
   "intelephense.environment.includePaths": [
     "stubs.php",
     "whmcs-common-stubs.php",
+    "/home/www-data/whmcs"
   ],
   "[html]": {
     "editor.rulers": [
