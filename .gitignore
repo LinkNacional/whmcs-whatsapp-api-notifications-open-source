@@ -3,3 +3,4 @@ node_modules
 /vendor/
 docs
 src/modules/addons/lknhooknotification/tests2.php
+.DS_Store
