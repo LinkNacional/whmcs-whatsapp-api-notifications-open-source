@@ -1,18 +1,13 @@
 <?php
 
 /**
- * ServiceCheckAfter3Months 
+ * Code: ServiceCheckAfter3Months
  */
 
-namespace Lkn\HookNotification\Notifications\Custom;
-
-use DateTime;
-use Lkn\HookNotification\Core\NotificationReport\Domain\NotificationReportCategory;
 use Lkn\HookNotification\Core\Notification\Domain\AbstractCronNotification;
 use Lkn\HookNotification\Core\Notification\Domain\NotificationParameter;
 use Lkn\HookNotification\Core\Notification\Domain\NotificationParameterCollection;
 use Lkn\HookNotification\Core\Shared\Infrastructure\Hooks;
-use WHMCS\Database\Capsule;
 
 final class ServiceCheckAfter3Months extends AbstractCronNotification
 {
@@ -20,34 +15,41 @@ final class ServiceCheckAfter3Months extends AbstractCronNotification
     {
         parent::__construct(
             'ServiceCheckAfter3Months',
-            NotificationReportCategory::SERVICE,
+            null,
             Hooks::DAILY_CRON_JOB,
             new NotificationParameterCollection([
                 new NotificationParameter(
+                    'service_id',
+                    lkn_hn_lang('service_id'),
+                    fn (): int => $this->whmcsHookParams['service_id']
+                ),
+                new NotificationParameter(
                     'client_id',
-                    lkn_hn_lang('client id'),
-                    fn(): int => $this->whmcsHookParams['client_id']
+                    lkn_hn_lang('Client ID'),
+                    fn (): int => $this->client->id
+                ),
+                new NotificationParameter(
+                    'client_email',
+                    lkn_hn_lang('Client email'),
+                    fn (): string => getClientEmailByClientId($this->client->id)
                 ),
                 new NotificationParameter(
                     'client_first_name',
-                    lkn_hn_lang('client first name'),
-                    fn(): string => $this->whmcsHookParams['client_first_name']
+                    lkn_hn_lang('Client first name'),
+                    fn (): string => getClientFirstNameByClientId($this->client->id)
                 ),
                 new NotificationParameter(
                     'client_full_name',
-                    lkn_hn_lang('client full name'),
-                    fn(): string => $this->whmcsHookParams['client_full_name']
-                )
-                ]),
+                    lkn_hn_lang('Client full name'),
+                    fn (): string => getClientFullNameByClientId($this->client->id)
+                ),
+            ]),
             fn() => $this->whmcsHookParams['client_id']
         );
-    }
+    } 
+
     public function getPayload(): array
     {
-        $currentDate = new DateTime;
-        $currentDate = $currentDate->format(Capsule::table('tblconfiguration')
-            ->where('setting', 'DateFormat')->value());
- 
-        return [];
-    } 
+        return[];
+    }
 }
