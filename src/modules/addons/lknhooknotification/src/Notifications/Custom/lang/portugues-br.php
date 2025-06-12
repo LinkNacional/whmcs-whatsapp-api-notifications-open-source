@@ -2,6 +2,5 @@
 
 /**@var array<string, string> $_ADDONLANG */
 
-use WHMCS\Database\Capsule;
-
-Capsule::table('')->whereRaw()
+$_ADDONLANG['UserPasswordChangeConfirmed'] = 'Confirmação de alteração de senha do usuario';
+$_ADDONLANG['ClientPasswordChangeConfirmed'] = 'Confirmação de alteração de senha do cliente';
