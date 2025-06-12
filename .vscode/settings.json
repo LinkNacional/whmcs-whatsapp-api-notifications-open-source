@@ -16,19 +16,26 @@
     ]
   },
   "[php]": {
-    "editor.defaultFormatter": "valeryanm.vscode-phpsab",
+    "editor.defaultFormatter": "junstyle.php-cs-fixer",
+    "editor.formatOnSave": true,
     "editor.rulers": [
       80,
       120
     ]
   },
   "editor.tabSize": 4,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
   "editor.formatOnSave": true,
   "files.encoding": "utf8",
   "files.eol": "\n",
+  "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar", // ou outro caminho se for diferente
+  "php-cs-fixer.rules": "@PSR12", // pode personalizar para ["@PSR12", "strict_param"]
+  "php-cs-fixer.onsave": true,
+  /*"editor.tabSize": 4,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.encoding": "utf8",
+  "files.eol": "\n",*/
   "html.format.wrapAttributes": "force-expand-multiline",
   "html.format.wrapAttributesIndentSize": 4,
   "html.format.wrapLineLength": 120,
