@@ -28,8 +28,8 @@ final class UserLoginNotification extends AbstractNotification
                     fn(): string => $this->whmcsHookParams['user']->fisrt_name
                 ),
                 new NotificationParameter(
-                    'client_full_name',
-                    lkn_hn_lang('client full name'),
+                    'client_last_name',
+                    lkn_hn_lang('client last name'),
                     fn(): string => $this->whmcsHookParams['user']->last_name
                 )
                 ]),
