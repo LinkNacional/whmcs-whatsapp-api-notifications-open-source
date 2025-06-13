@@ -4269,3 +4269,4 @@ namespace Lkn\HookNotification\Core\Shared\Infrastructure\Config {
         }
     }
 }
+}

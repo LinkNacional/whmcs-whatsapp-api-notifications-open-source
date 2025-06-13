@@ -56,7 +56,7 @@ final class ServiceSuspendedFor45DaysNotification extends AbstractCronNotificati
     }
 
     public function getPayload(): array
-    {
+    {      
         $currentDate = new DateTime();
         $currentDate->sub(new DateInterval('P45D'));
         $formattedDate = $currentDate->format('Y-m-d');
