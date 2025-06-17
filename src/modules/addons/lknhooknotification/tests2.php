@@ -8,17 +8,13 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 try {
-    $notification = NotificationFactory::getInstance()->makeByCode('BirthdayClientNotification');
-
+    $notification = NotificationFactory::getInstance()->makeByCode('QuoteStatusChange');
+    echo 'tests2 <br>';
     NotificationSender::getInstance()->dispatchNotification(
         $notification,
         [
-            'invoiceid' => 21,
-            'client_id' => 1,
-            'service_id' => 24,
-            'report_category_id' => 24,
-            'ticket_id'=> 6,
-            'ticketid'=> 6,
+            'quoteid' => 1,
+            'status' => 'Lost'
         ]
     );
 } catch (Throwable $th) {
