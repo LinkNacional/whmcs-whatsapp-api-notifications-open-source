@@ -13,3 +13,4 @@ $_ADDONLANG['QuoteDeliveredCreated15days'] = 'Orçamento entregue criado a 15 di
 $_ADDONLANG['QuoteDeliveredCreated10days'] = 'Orçamento entregue criado a 10 dias';
 $_ADDONLANG['QuoteDeliveredCreated4days'] = 'Orçamento entregue criado a 4 dias';
 $_ADDONLANG['QuoteDeliveredExpiresIn2days'] = 'Orçamento entregue a 2 dias de vencer';
+$_ADDONLANG['NewQuoteCreated'] = 'Novo orçamento';
