@@ -56,7 +56,7 @@ final class ServiceSuspendedFor45DaysNotification extends AbstractCronNotificati
     }
 
     public function getPayload(): array
-    {
+    {      
         $currentDate = new DateTime();
         $currentDate->sub(new DateInterval('P45D'));
         $formattedDate = $currentDate->format('Y-m-d');
@@ -65,9 +65,10 @@ final class ServiceSuspendedFor45DaysNotification extends AbstractCronNotificati
         $suspendedServices = Capsule::table('tblhosting')
             ->leftJoin('tblproducts', 'tblproducts.id', '=', 'tblhosting.packageid')
             ->where('tblhosting.nextduedate', $formattedDate)
+            ->wherein('tblhosting.domainstatus', ['Suspended','Cancelled'])
             ->whereIn('tblproducts.type', ['hostingaccount', 'other'])
             ->get(['tblhosting.id as serviceId', 'tblhosting.userid as clientId']);
-
+            
         $payloads = [];
 
         foreach ($suspendedServices as $service) {
