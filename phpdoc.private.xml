@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpdocumentor
+    configVersion="3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://www.phpdoc.org"
+>
+    <title>WhatsApp and Chatwoot</title>
+
+    <paths>
+        <output>docs/private</output>
+        <cache>docs/.cache</cache>
+    </paths>
+
+    <template name="default" />
+
+    <version number="latest">
+        <api format="php">
+            <source dsn=".">
+                <path>src/modules/addons/lknhooknotification</path>
+            </source>
+
+            <ignore>
+                <path>**/vendor</path>
+            </ignore>
+        </api>
+    </version>
+
+    <setting name="template.color" value="lime"/>
+
+</phpdocumentor>

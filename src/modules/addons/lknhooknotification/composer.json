@@ -1,7 +1,24 @@
 {
     "name": "linknacional/hooknotification",
-    "version": "3.3.2",
+    "type": "project",
     "license": "proprietary",
+    "description": "Notificações",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": false,
+        "htaccess-protect": true,
+        "secure-http": true,
+        "vendor-dir": "./vendor",
+        "cache-dir": "./composer-cache",
+        "data-dir": "./composer-data",
+        "archive-dir": "./composer-archive",
+        "bin-dir": "./vendor/bin",
+        "platform-check": "php-only",
+        "platform": {
+            "php": "8.1"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Lkn\\HookNotification\\": "src"
@@ -12,5 +29,10 @@
             "name": "Link Nacional",
             "email": "ticket@linknacinal.com"
         }
-    ]
+    ],
+    "require": {
+        "setasign/fpdi": "2.6.2",
+        "setasign/fpdf": "1.8.6",
+        "spatie/pdf-to-image": "^3.1"
+    }
 }

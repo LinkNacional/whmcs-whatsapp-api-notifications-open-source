@@ -4,10 +4,9 @@ parameters:
     level: max
     reportUnmatchedIgnoredErrors: false
     paths:
-        - ./src/
+        - src/
     excludePaths:
-        - */vendor/*
-    parallel:
-        maximumNumberOfProcesses: 2
-    scanDirectories:
-        - /home/www-data/whmcs
+        - src/modules/addons/lknhooknotification/src/Core/Notification/Application/built_in_notifications_recipes.php
+        - src/modules/addons/lknhooknotification/src/Core/AdminUI/Application/Services/license_func.php
+    scanFiles:
+        - docs/whmcs-common-stubs.php

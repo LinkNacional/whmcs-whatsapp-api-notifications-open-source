@@ -1,0 +1,30 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-addons",
+    "name": "lknhooknotification",
+    "license": "proprietary",
+    "category": "utilities",
+    "description": {
+        "name": "Notificações via WhatsApp API",
+        "tagline": "Dispara mensagens para plataformas de mensagem como o WhatsApp quando hooks são executados.",
+        "long": "Possibilita o disparo manual e automático de mensagens através da API do WhatsApp e Chatwoot.",
+        "features": [
+            "Envio de messages templates pela API do WhatsApp (texto e documento)",
+            "Envio de mensagens para a API do Chatwoot"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https://linknacional.com.br",
+        "email": "ticket@linknacional.com",
+        "support_url": "https://linknacional.com.br/"
+    },
+    "authors": [
+        {
+            "name": "Link Nacional",
+            "homepage": "https://linknacional.com.br/"
+        }
+    ]
+}

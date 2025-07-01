@@ -1,6 +1,11 @@
-node_modules
 .vscode/sftp.json
-/vendor/
+.vscode/settings.json
+.devcontainer/devcontainer.json
+vendor
+composer-cache
+node_modules
+stubs.php
 docs
-src/modules/addons/lknhooknotification/tests2.php
+.php-cs-fixer.cache
 .DS_Store
+tests.php
