@@ -8,7 +8,7 @@ Passo 3: Acesse a raiz de instalação do seu WHMCS
 
 Passo 4: Arraste e solte a pasta "modules" da pasta descompactada para a raiz do seu WHMCS.
 
-Passo 5: Acesse o seu WHMCS e ative o módulo "Multibanco SIBS Checkout"
+Passo 5: Acesse o seu WHMCS e ative o módulo "WhatsApp and Chatwoot"
 
 # Installation tutorial in english
 
@@ -20,4 +20,4 @@ Step 3: Access your WHMCS installation root
 
 Step 4: Drag and drop the "modules" folder from the unzipped folder to the root of your WHMCS.
 
-Step 5: Go to your WHMCS admin and activate the module "Multibanco SIBS Checkout".
+Step 5: Go to your WHMCS admin and activate the module "WhatsApp and Chatwoot".
