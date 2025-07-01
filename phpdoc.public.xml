@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpdocumentor
+    configVersion="3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://www.phpdoc.org"
+>
+    <title>WhatsApp and Chatwoot</title>
+
+    <paths>
+        <output>docs/public</output>
+        <cache>docs/.cache</cache>
+    </paths>
+
+
+    <version number="latest">
+        <api>
+            <source dsn="./src">
+                <path>modules/addons/lknhooknotification/src/Core/Platforms/Baileys</path>
+                <path>modules/addons/lknhooknotification/src/Core/Platforms/Chatwoot</path>
+                <path>modules/addons/lknhooknotification/src/Core/Platforms/EvolutionApi</path>
+                <path>modules/addons/lknhooknotification/src/Core/Platforms/Common</path>
+                <path>modules/addons/lknhooknotification/src/Core/Platforms/MetaWhatsApp</path>
+                <path>modules/addons/lknhooknotification/src/Core/Notification</path>
+                <path>modules/addons/lknhooknotification/src/Core/Shared</path>
+            </source>
+            <visibility>public</visibility>
+            <visibility>protected</visibility>
+            <markers>
+                <marker>NONE</marker>
+            </markers>
+        </api>
+    </version>
+
+    <setting name="template.color" value="lime"/>
+
+</phpdocumentor>

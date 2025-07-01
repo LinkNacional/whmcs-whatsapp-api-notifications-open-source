@@ -1,0 +1,23 @@
+# Tutorial de instalação em português
+
+Passo 1: Descompacte o arquivo whmcs-whatsapp-api-notifications.zip
+
+Passo 2: Acesse a pasta whmcs-whatsapp-api-notifications, resultante da descompactação, dentro dela terá uma pasta "modules".
+
+Passo 3: Acesse a raiz de instalação do seu WHMCS
+
+Passo 4: Arraste e solte a pasta "modules" da pasta descompactada para a raiz do seu WHMCS.
+
+Passo 5: Acesse o seu WHMCS e ative o módulo "WhatsApp and Chatwoot"
+
+# Installation tutorial in english
+
+Step 1: Unzip the whmcs-whatsapp-api-notifications.zip file
+
+Step 2: access the whmcs-whatsapp-api-notifications folder, resulting from the unziping, inside it will have a "modules" folder.
+
+Step 3: Access your WHMCS installation root
+
+Step 4: Drag and drop the "modules" folder from the unzipped folder to the root of your WHMCS.
+
+Step 5: Go to your WHMCS admin and activate the module "WhatsApp and Chatwoot".

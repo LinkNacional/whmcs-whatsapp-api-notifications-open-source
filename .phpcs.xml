@@ -12,11 +12,13 @@
 	-->
 
 	<file>./src</file>
-	<file>/home/www-data/whmcs</file>
-	<file>.phan/stubs/whmcs-common-stubs.php</file>
+	<!-- <file>/home/www-data/whmcs</file> -->
 	<!-- Exclude the Node Modules directory. -->
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>docs/whmcs-common-stubs.php</exclude-pattern>
+	<exclude-pattern>stubs.php</exclude-pattern>
+    <exclude-pattern>src/modules/addons/lknhooknotification/lang/*</exclude-pattern>
 
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
@@ -51,13 +53,14 @@
     <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInClosureUse"/>
     <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration"/>
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
-
     <rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
     <rule ref="Squiz.NamingConventions.ValidVariableName" />
 
-    <rule ref="Squiz.Commenting.FunctionComment" />
+    <rule ref="Squiz.Commenting.FunctionComment">
+        <type>warning</type>
+    </rule>
     <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
-    <rule ref="Squiz.Commenting.ClassComment" />
+    <!-- <rule ref="Squiz.Commenting.ClassComment" /> -->
     <rule ref="Squiz.Commenting.DocCommentAlignment" />
     <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace" />
     <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing" />

@@ -1,4 +1,11 @@
-node_modules
 .vscode/sftp.json
-/vendor/
+.vscode/settings.json
+.devcontainer/devcontainer.json
+vendor
+composer-cache
+node_modules
+stubs.php
 docs
+.php-cs-fixer.cache
+.DS_Store
+tests.php
