@@ -1,3 +1,7 @@
+# 4.3.2 - 14/07/25
+
+- Correção em action.
+
 # 4.3.1 - 30/06/25
 
 - Correção em criação de tabela

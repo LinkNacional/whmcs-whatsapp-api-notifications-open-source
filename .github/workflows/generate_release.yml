@@ -17,7 +17,7 @@ jobs:
 
       - name: Make plugin root directory
         working-directory: ${{env.WORK_DIR}}
-        run: "mkdir $RELEASE_NAME && mv -t ./$RELEASE_NAME ./modules/addons/lknhooknotification/src/Notifications && ls -lah"
+        run: "mkdir $RELEASE_NAME && mv * $RELEASE_NAME && ls -lah $RELEASE_NAME"
 
       - name: Generate release .zip
         uses: thedoctor0/zip-release@master
