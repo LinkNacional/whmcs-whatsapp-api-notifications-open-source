@@ -15,17 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Make plugin root directory
-        working-directory: ${{env.WORK_DIR}}
-        run: "mkdir $RELEASE_NAME && find . -mindepth 1 -maxdepth 1 ! -name $RELEASE_NAME -exec mv -t $RELEASE_NAME {} + && ls -lah $RELEASE_NAME"
-
       - name: Generate release .zip
         uses: thedoctor0/zip-release@master
         with:
           type: "zip"
-          path: ${{ env.RELEASE_NAME }}
-          directory: ${{env.WORK_DIR}}
+          path: "."  # Zipar os arquivos diretamente da pasta WORK_DIR
+          directory: ${{ env.WORK_DIR }}
           filename: ${{ env.RELEASE_NAME }}.zip
+          exclusions: "*.git* .github"
 
       - name: Bump version and push tag
         id: tag_version
