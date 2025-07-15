@@ -91,7 +91,7 @@ return [
                 ],
                 [
                     'icon' => 'glyphicon glyphicon-download',
-                    'label' => 'v4.3.2',
+                    'label' => 'v4.3.3',
                     'external' => true,
                     'url' => 'https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases'
                 ]

@@ -4,8 +4,10 @@ on:
     types: [closed]
     branches: [main]
 env:
-  RELEASE_NAME: notifications
+  PLUGIN_NAME: whmcs-whatsapp-api-notifications
   WORK_DIR: src
+  COMPOSER_JSON_PATH: modules/addons/lknhooknotification
+  PHP_VERSION: "8.1"
 
 jobs:
   encode-build:
@@ -15,26 +17,51 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Generate release .zip
+      # Add plugin files to a root directory
+      - name: Make plugin root directory
+        working-directory: ${{env.WORK_DIR}}
+        run: "mkdir $PLUGIN_NAME && mv -t ./$PLUGIN_NAME ./modules && ls -lah"
+
+      # To avoid encoding /vendor, Composer steps must run after encoding
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: Composer install
+        uses: php-actions/composer@v6
+        with:
+          php_version: ${{ env.PHP_VERSION }}
+          working_dir: ${{ env.WORK_DIR }}/${{ env.PLUGIN_NAME }}/${{ env.COMPOSER_JSON_PATH }}
+          args: --ignore-platform-reqs
+          command: install
+          dev: no
+
+      # Compact plugin as .zip
+      - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
           type: "zip"
-          path: "."  # Zipar os arquivos diretamente da pasta WORK_DIR
+          path: ${{ env.PLUGIN_NAME }}
           directory: ${{ env.WORK_DIR }}
-          filename: ${{ env.RELEASE_NAME }}.zip
-          exclusions: "*.git* .github"
+          filename: ${{ env.PLUGIN_NAME }}.zip
 
+      # Update version tag
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: "4.3.3" # // TODO caso necessário definir a tag da release manualmente
 
-      - name: Finish release
+      # Generate new release
+      - name: Generate new Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{env.WORK_DIR}}/${{ env.RELEASE_NAME }}.zip
+          artifacts: ${{ env.WORK_DIR }}/${{ env.PLUGIN_NAME }}.zip
           token: ${{ secrets.GITHUB_TOKEN }}
           commit: "main"
+          draft: true
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
