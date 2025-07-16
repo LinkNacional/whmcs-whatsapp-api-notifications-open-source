@@ -17,7 +17,7 @@ jobs:
 
       - name: Install Composer dependencies
         working-directory: ${{ env.WORK_DIR }}/modules/addons/lknhooknotification
-        run: composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+        run: composer install --ignore-platform-reqs
 
       - name: Generate release .zip
         uses: thedoctor0/zip-release@master
