@@ -34,7 +34,7 @@ Free Addon for WhatsApp [WHMCS](https://www.linknacional.com.br/whmcs/) Notifica
 2. Access the WHMCS admin panel and deactivate the module.
 3. Go to this [link](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases) and download the .zip file of the latest module release.
 4. In the cPanel File Manager, go to modules/addons and delete the old lknhooknotification folder.
-5. Follow the same installation steps starting from step 3 (compress the new folder, upload, extract, and activate).
+5. Follow the same installation steps starting from step 2 (compress the new folder, upload, extract, and activate).
 
 ## Usage and Configuration
 
@@ -45,6 +45,13 @@ Free Addon for WhatsApp [WHMCS](https://www.linknacional.com.br/whmcs/) Notifica
 5. Fill in the necessary information for the basic operation of the module:
    1. Add your credentials for the WhatsApp and Chatwoot APIs.
    2. Configure the notifications.
+
+## Uninstalling the module
+
+1. Go to your WHMCS admin panel, navigate to Options > Addon Modules, find the WhatsApp and Chatwoot module and deactivate it.
+2. Access your cPanel, go to the File Manager and enter your WHMCS folder: whmcs/modules/addons.
+3. Inside the Addons folder, locate and delete the lknhooknotification folder (if you want to permanently delete it, you can go to "View Trash" and delete the file again).
+4. If you want to completely remove the module data, you can delete the table created by the module in your database; look for tables with names similar to the module, such as: mod_lkn_hook_notification\*.
 
 ## Documentation
 
