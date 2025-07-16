@@ -59,7 +59,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # custom_tag: "4.3.3"
+          # custom_tag: "4.3.2"
 
       # Gera release com o artefato .zip
       - name: Generate GitHub Release
