@@ -101,7 +101,7 @@ final class HomepageController extends BaseController
 
         $newVersion = VersionUpgradeWarningService::getNewVersion();
 
-        $currentVersion = '4.3.2'; // CHANGE MANUALLY ON RELEASE
+        $currentVersion = '4.3.3'; // CHANGE MANUALLY ON RELEASE
 
         if (version_compare($newVersion, $currentVersion, '>')) {
             return $this->view->view(

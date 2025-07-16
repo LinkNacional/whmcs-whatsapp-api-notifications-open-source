@@ -1,76 +1,78 @@
 # FREE Addon WHMCS WhatsApp Notifications for Meta, Evolution API, Baileys
+
 Free Addon for WhatsApp [WHMCS](https://www.linknacional.com.br/whmcs/) Notification Module for Meta, Evolution API and Baileys. Send Free WhatsApp Message Automatic by Hook, Manual or Custom.
-## Requisitos
+
+## Requirements
 
 - PHP: 8.1+;
 - WHMCS: 8.6+
 - IonCube: 12+
-- Banco de Dados SQL com permissões
-    - ALTER
-    - CREATE
-    - DELETE
-    - INDEX
-    - LOCK TABLES
-    - SELECT
-    - DROP
-    - INSERT
-    - REFERENCES
-    - UPDATE
+- Data Base SQL with permissions
+  - ALTER
+  - CREATE
+  - DELETE
+  - INDEX
+  - LOCK TABLES
+  - SELECT
+  - DROP
+  - INSERT
+  - REFERENCES
+  - UPDATE
 
-## Modo de instalação
+## Installation Mode
 
-1. Baixar o .zip do módulo.
-2. Descompacte e envie os arquivos da nova versão para o seu WHMCS para a pasta /modules/addons/.
-3. Os Arquivos devem ficar na pasta modules/addons/lknhooknotification
-4. Faça o download da última release das notificações em: https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases
-5. Descompacte e envie os arquivos de notificação para o seu WHMCS, pasta: /modules/addons/lknhooknotification/src/Notifications/ (duas pastas Chatwoot e WhatsApp)
+1. Download the module .zip file [here](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases).
+2. After downloading, extract the .zip and locate the lknhooknotification folder at: notifications/modules/addons/lknhooknotification.
+3. Compress only the lknhooknotification folder into a new .zip by right-clicking and then clicking "Compress".
+4. Access cPanel, then go to the File Manager and enter your WHMCS folder: whmcs/modules/addons/.
+5. Upload the .zip of the lknhooknotification folder and, after uploading, extract the contents and remove the remaining .zip.
+6. Go to the WHMCS admin panel, select Options > Addon Modules, find the module and, once found, click "Activate".
 
-## Modo de atualização
+## Update Mode
 
-1. Faça backups dos arquivos e principalmente das notificações personalizadas.
-2. Baixar o .zip do módulo.
-3. Exclua a pasta modules/addons/lknhooknotification
-4. Descompacte e envie os arquivos da nova versão para o seu WHMCS para a pasta /modules/addons/.
-5. Faça o download da última release das notificações [aqui](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases).
-6. Descompacte e envie os arquivos de notificação para o seu WHMCS, pasta: `/modules/addons/lknhooknotification/src/Notifications`
+1. Before starting, save a copy of your site files and database — this ensures safety in case something goes wrong.
+2. Access the WHMCS admin panel and deactivate the module.
+3. Go to this [link](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases) and download the .zip file of the latest module release.
+4. In the cPanel File Manager, go to modules/addons and delete the old lknhooknotification folder.
+5. Follow the same installation steps starting from step 3 (compress the new folder, upload, extract, and activate).
 
-## Modo de uso e configuração
+## Usage and Configuration
 
-1. Acessa a página de lista de módulos addons do WHMCS.
-2. Procure e ative o módulo "WhatsApp e Chatwoot"
-3. Conceda controle de acesso aos grupos que terão acesso as configurações.
-4. Acessa a página "Notificação WhatsApp e Chatwoot" no item "Addon" do menu do WHMCS.
-2. Preencha as informações necessárias para o funcionamento básico do módulo:
-    1. Adicionar as suas credenciais para a API do WhatsApp e do Chatwoot.
-    2. Configurar as notificações.
+1. Go to the WHMCS addon modules list page.
+2. Find and activate the "WhatsApp and Chatwoot" module.
+3. Grant access control to the groups that should have permission to configure the module.
+4. Go to the "WhatsApp and Chatwoot Notification" page under the "Addon" menu in WHMCS.
+5. Fill in the necessary information for the basic operation of the module:
+   1. Add your credentials for the WhatsApp and Chatwoot APIs.
+   2. Configure the notifications.
 
-## Documentação
+## Documentation
 
-Para documentação de tipos, seguir https://phpstan.org/writing-php-code/phpdoc-types.
+For types documentation, follow https://phpstan.org/writing-php-code/phpdoc-types.
 
-### Processo de Lançamento de Nova Versão
+### New Version Release Process
 
-1. Gerar stubs
-2. Atualizar versão atual hardcoded
-3. Gerar documentação
+1. Generate stubs
+2. Update the hardcoded current version
+3. Generate documentation
 
-### Geração manual de stubs
+### Manual Stub Generation
 
-É necessário rodar `php stubs_generator.php` para gerar os stubs do código e copiar o conteúdo de `stubs.php` e colar no [stubs.php](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/blob/refactor-3.0.0/stubs.php) do repositório de notificações.
+You need to run php stubs_generator.php to generate the code stubs, then copy the contents of `stubs.php` and paste them into the [stubs.php](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/blob/refactor-3.0.0/stubs.php) file in the notifications repository.
 
-Além disso, a dependência que gera stubs não suporta gerar para Enums, então é necessário copiar os conteúdos dos arquivos sob /Config e colocar em `stubs.php` manualmente.
+Additionally, the dependency used to generate stubs does not support Enums, so it's necessary to manually copy the contents of the files under the /Config directory and paste them into `stubs.php`.
 
-### Geração de documentação
+### Documentation Generation
 
-Rodando o comoando abaixo, são geradas as documentações internas e públicas.
+By running the command below, both internal and public documentation will be generated:
 
-```php phpDocumentor.phar --config=phpdoc.private.xml && php phpDocumentor.phar --config=phpdoc.public.xml```
+`php phpDocumentor.phar --config=phpdoc.private.xml && php phpDocumentor.phar --config=phpdoc.public.xml`
 
-É necessário enviar a pasta /docs/public ao repositório de notificações, na branch main.
+You need to push the /docs/public folder to the notifications repository on the main branch.
 
-Para visualizar a página da documentação interna, basta acessar o index.html em /docs/public pelo navegador.
+To view the internal documentation page, simply open the index.html file in /docs/public in your browser.
 
-## Documentações para o desenvolvimento
+## Documentation for Development
 
 - WHMCS Addon Modules: https://developers.whmcs.com/addon-modules/
 - WHMCS Hook Index: https://developers.whmcs.com/hooks/hook-index/
@@ -79,25 +81,25 @@ Para visualizar a página da documentação interna, basta acessar o index.html 
 - Bootstrap 3.4: https://getbootstrap.com/docs/3.4/javascript/
 - FontAwesome 5: https://fontawesome.com/v5/search
 
-### Integrações com as plataformas
+### Integrations with the Platforms
 
 #### WhatsApp API
 
 - [Graph API WhatsApp](https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account/message_templates)
-- [Entender classe MessageTemplateParser](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages)
-- [Entender a requisição para a API do WhatsApp](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages)
-- [Enviar message template](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates#text-based)
-- [Listar message templates](https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/#retrieve-templates)
+- [Understanding the MessageTemplateParser class](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages)
+- [Understanding the Request to the WhatsApp API](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages)
+- [Send message template](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates#text-based)
+- [List message template](https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/#retrieve-templates)
 
 #### Chatwoot
 
-**Como testar a integração**
+**How to test the integration**
 
-- Criar conta gratuita de teste em. Ver: https://www.chatwoot.com/docs/user-guide/setup-your-account/create-an-account/#i-am-using-the-cloud-version
+- Create a free test account here. Look: https://www.chatwoot.com/docs/user-guide/setup-your-account/create-an-account/#i-am-using-the-cloud-version
 - https://www.chatwoot.com/docs/product/channels/api/send-messages/
-- Sobre as APIs do Chatwoot: https://www.chatwoot.com/docs/contributing-guide/chatwoot-apis
+- About the Chatwoot APIs: https://www.chatwoot.com/docs/contributing-guide/chatwoot-apis
 
-A utlizada pelo módulo para enviar mensagens é a Application API.
+The one used by the module to send messages is the Application API.
 
 ##### Live Chat
 
@@ -105,54 +107,54 @@ A utlizada pelo módulo para enviar mensagens é a Application API.
 - https://www.chatwoot.com/hc/user-guide/articles/1677580558-website-live-chat-settings-explained
 - https://www.chatwoot.com/hc/user-guide/articles/1677502327-how-to-create-and-use-custom-attributes
 
-### Tipos de notificações
+### Notification Types
 
-#### Disparo automático
+#### Automatic Trigger
 
-São as notificações que são executadas automaticamente junto com um hook do WHMCS.
+These are the notifications that are automatically executed along with a WHMCS hook.
 
-#### Disparo manual
+#### Manual Trigger
 
-Notificações de disparo manual necessitam de uma ação do administrador para serem executados.
-Geralmente, utilizam um hook de terminado em Output do WHMCS para exibir um botão que, ao ser clicado, dispara a notificação.
+Manual trigger notifications require an administrator action to be executed.
+They typically use a WHMCS hook ending in Output to display a button that, when clicked, triggers the notification.
 
-Nesse caso, o módulo apenas disponibiliza uma forma de integrar notificações que utilizam um mesmo hook de output.
-Atualmente, existe apenas duas notificações desse tipo: as de InvoiceReminder, que usam o hook AdminInvoicesControlsOutput.
+In this case, the module simply provides a way to integrate notifications that use the same output hook.
+Currently, there are only two notifications of this type: the InvoiceReminder notifications, which use the AdminInvoicesControlsOutput hook.
 
-#### Notificações custom
+#### Custom Notifications
 
-São colocadas aqui: `/modules/addons/lknhooknotification/src/Notifications/Custom`
+They are placed here: `/modules/addons/lknhooknotification/src/Notifications/Custom`
 
 #### Notificações que rodam nos hooks de cron
 
-Herdam a classe `AbstractCronNotification`.
+They inherit the class. `AbstractCronNotification`.
 
-## Testando integrações
+## Testing the Integrations
 
 ### Evolution API
 
 [Evolution API Docs](https://doc.evolution-api.com/v2/api-reference/get-information)
 
-Para testar, basta fazer o setup localmente e utilizar o ngrok:
+To test, just set up locally and use ngrok:
 
 ```bash
 docker run --net=host -it -e NGROK_AUTHTOKEN={NGROK_AUTHTOKEN} ngrok/ngrok:latest http 8080
 ```
 
-Copiar a URL dada e colocar na configuração do Evolution API, no módulo.
+Copy the given URL and place it in the Evolution API configuration in the module.
 
 ### Baileys API
 
 - https://github.com/WhiskeySockets/Baileys
 - https://baileys.wiki/docs/intro/
 
-Para testar, basta fazer o setup localmente e utilizar o ngrok:
+To test, just set up locally and use ngrok:
 
 ```bash
 docker run --net=host -it -e NGROK_AUTHTOKEN={NGROK_AUTHTOKEN} ngrok/ngrok:latest http 8080
 ```
 
-Copiar a URL dada e colocar na configuração do Baileys, no módulo.
+Copy the given URL and place it in the Baileys API in the module.
 
 [Using ngrok with Docker](https://ngrok.com/docs/using-ngrok-with/docker/)
 ping
