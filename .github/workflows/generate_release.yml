@@ -3,6 +3,7 @@ on:
   pull_request:
     types: [closed]
     branches: [main]
+
 env:
   PLUGIN_NAME: whmcs-whatsapp-api-notifications
   WORK_DIR: src
@@ -10,25 +11,29 @@ env:
   PHP_VERSION: "8.1"
 
 jobs:
-  encode-build:
+  build-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v3
 
-      # Add plugin files to a root directory
-      - name: Make plugin root directory
-        working-directory: ${{env.WORK_DIR}}
-        run: "mkdir $PLUGIN_NAME && mv -t ./$PLUGIN_NAME ./modules && ls -lah"
+      # Cria estrutura correta do plugin
+      - name: Organize plugin files
+        working-directory: ${{ env.WORK_DIR }}
+        run: |
+          mkdir -p $PLUGIN_NAME
+          mv modules $PLUGIN_NAME/
+          ls -lah $PLUGIN_NAME
 
-      # To avoid encoding /vendor, Composer steps must run after encoding
+      # Cache do Composer
       - name: Cache Composer dependencies
         uses: actions/cache@v3
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
+      # Instala dependências via Composer no caminho correto
       - name: Composer install
         uses: php-actions/composer@v6
         with:
@@ -38,25 +43,26 @@ jobs:
           command: install
           dev: no
 
-      # Compact plugin as .zip
-      - name: Archive Release
+      # Compacta plugin
+      - name: Archive plugin
         uses: thedoctor0/zip-release@master
         with:
           type: "zip"
           path: ${{ env.PLUGIN_NAME }}
           directory: ${{ env.WORK_DIR }}
           filename: ${{ env.PLUGIN_NAME }}.zip
+          exclusions: "*.git* .github"
 
-      # Update version tag
+      # Define a versão e cria uma nova tag (opcional: definir custom_tag)
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: "4.3.3" # // TODO caso necessário definir a tag da release manualmente
+          # custom_tag: "4.3.3"
 
-      # Generate new release
-      - name: Generate new Release
+      # Gera release com o artefato .zip
+      - name: Generate GitHub Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: ${{ env.WORK_DIR }}/${{ env.PLUGIN_NAME }}.zip
