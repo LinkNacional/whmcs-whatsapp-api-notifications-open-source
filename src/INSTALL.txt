@@ -1,7 +1,1 @@
-# Tutorial de instalação em português
-
-1. Siga as instruções descritas no README.md: https://github.com/LinkNacional/WHMCS-WhatsApp-API-Notifications-open-source
-
-# Installation tutorial in english
-
-1. Follow the instructions described in the README.md: https://github.com/LinkNacional/WHMCS-WhatsApp-API-Notifications-open-source
+README AT: https://github.com/LinkNacional/WHMCS-WhatsApp-API-Notifications-open-source#free-addon-whmcs-whatsapp-notifications-for-meta-evolution-api-baileys
