@@ -29,7 +29,7 @@
 
 ### 📥 Download
 
-1. Download the module notifications.zip file [here](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases).
+1. Download the module `notifications.zip` file [here](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases).
 2. Make sure to keep the file intact until you're ready to upload it to your WHMCS installation.
 
 ### 📤 Upload
