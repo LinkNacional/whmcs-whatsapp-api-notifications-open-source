@@ -1,8 +1,14 @@
-# FREE Addon WHMCS WhatsApp Notifications for Meta, Evolution API, Baileys
+<h1 align="center">FREE Addon WHMCS WhatsApp Notifications for Meta, Evolution API, Baileys</h1>
 
-Free Addon for WhatsApp [WHMCS](https://www.linknacional.com.br/whmcs/) Notification Module for Meta, Evolution API and Baileys. Send Free WhatsApp Message Automatic by Hook, Manual or Custom.
+<p align="center">Free Addon for WhatsApp <a href="https://www.linknacional.com.br/whmcs/">WHMCS</a> Notification Module for Meta, Evolution API and Baileys. Send Free WhatsApp Message Automatic by Hook, Manual or Custom.</p>
 
-## Requirements
+![Static Badge](https://img.shields.io/badge/version-v4.3.3-blue)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+![Static Badge](https://img.shields.io/badge/made_with-PHP-purple)
+![Static Badge](https://img.shields.io/badge/made_with-smarty-yellow)
+
+
+## ✅ Requirements
 
 - PHP: 8.1+;
 - WHMCS: 8.6+
@@ -19,41 +25,52 @@ Free Addon for WhatsApp [WHMCS](https://www.linknacional.com.br/whmcs/) Notifica
   - REFERENCES
   - UPDATE
 
-## Installation Mode
+## 💻 Installation Mode
 
-1. Download the module .zip file [here](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases).
-2. After downloading, extract the .zip and locate the lknhooknotification folder at: notifications/modules/addons/lknhooknotification.
-3. Compress only the lknhooknotification folder into a new .zip by right-clicking and then clicking "Compress".
-4. Access cPanel, then go to the File Manager and enter your WHMCS folder: whmcs/modules/addons/.
-5. Upload the .zip of the lknhooknotification folder and, after uploading, extract the contents and remove the remaining .zip.
+### 📥 Download
+
+1. Download the module notifications.zip file [here](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases).
+2. Make sure to keep the file intact until you're ready to upload it to your WHMCS installation.
+
+### 📤 Upload
+
+1. Upload the file `notifications.zip` to the root installation directory of your WHMCS.
+    - For example, if WHMCS is installed in `public_html`, upload the file `notifications.zip` to `public_html`.
+2. Extract the file `notifications.zip`.
+    -  it will add a folder in WHMCS/modules/addons.
+3. Remove the remaining .zip.
+4. Go to the WHMCS admin panel, select Options > Addon Modules, find the module and, once found, click "Activate".
+
+> 🔎 Tip: For more information on how to install Addon Modules in WHMCS, see: https://docs.whmcs.com/8-13/addon-modules/addon-modules/
+
+## 🔁 Update Mode
+
+1. Before starting, backup your WHMCS and database — this ensures safety in case something goes wrong.
+2. Access the WHMCS admin panel and deactivate the module, it not going to erase your database or module configuration, but will make sure that the module do not run and you area updating.
+3. Go to this [link](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases) and download the `notifications.zip` file of the latest module release.
+4. Extract the file `notifications.zip`.
+    -  it will add a folder in WHMCS/modules/addons.
+5. Remove the remaining .zip.
 6. Go to the WHMCS admin panel, select Options > Addon Modules, find the module and, once found, click "Activate".
 
-## Update Mode
+## 📖 Usage and Configuration
 
-1. Before starting, save a copy of your site files and database — this ensures safety in case something goes wrong.
-2. Access the WHMCS admin panel and deactivate the module.
-3. Go to this [link](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases) and download the .zip file of the latest module release.
-4. In the cPanel File Manager, go to modules/addons and delete the old lknhooknotification folder.
-5. Follow the same installation steps starting from step 2 (compress the new folder, upload, extract, and activate).
+1. Access this [link](https://github.com/LinkNacional/WHMCS-WhatsApp-API-Notifications-open-source/wiki) for more information on how to use and configure the notifications.
 
-## Usage and Configuration
 
-1. Go to the WHMCS addon modules list page.
-2. Find and activate the "WhatsApp and Chatwoot" module.
-3. Grant access control to the groups that should have permission to configure the module.
-4. Go to the "WhatsApp and Chatwoot Notification" page under the "Addon" menu in WHMCS.
-5. Fill in the necessary information for the basic operation of the module:
-   1. Add your credentials for the WhatsApp and Chatwoot APIs.
-   2. Configure the notifications.
-
-## Uninstalling the module
+## ❌ Uninstalling the module
 
 1. Go to your WHMCS admin panel, navigate to Options > Addon Modules, find the WhatsApp and Chatwoot module and deactivate it.
-2. Access your cPanel, go to the File Manager and enter your WHMCS folder: whmcs/modules/addons.
-3. Inside the Addons folder, locate and delete the lknhooknotification folder (if you want to permanently delete it, you can go to "View Trash" and delete the file again).
-4. If you want to completely remove the module data, you can delete the table created by the module in your database; look for tables with names similar to the module, such as: mod_lkn_hook_notification\*.
+2. Access the root directory of your WHMCS, and go to the folder: /modules/addons.
+3. Inside the Addons folder, locate and delete the lknhooknotification folder.
+4. Delete the table created by the module in your WHMCS database; look for tables with names similar to the module, such as: mod_lkn_hook_notification\*.
+    - SQL: Run SQL commands like this:
 
-## Documentation
+``` bash
+DROP TABLE IF EXISTS `mod_lkn_hook_notification_config`;
+```
+
+## 📁 Documentation
 
 For types documentation, follow https://phpstan.org/writing-php-code/phpdoc-types.
 
