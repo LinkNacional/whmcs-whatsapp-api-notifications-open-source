@@ -25,6 +25,8 @@
   - REFERENCES
   - UPDATE
 
+
+
 ## 💻 Installation Mode
 
 ### 📥 Download
@@ -32,16 +34,18 @@
 1. Download the module `notifications.zip` file [here](https://github.com/LinkNacional/whmcs-whatsapp-api-notifications-open-source/releases).
 2. Make sure to keep the file intact until you're ready to upload it to your WHMCS installation.
 
+
 ### 📤 Upload
 
 1. Upload the file `notifications.zip` to the root installation directory of your WHMCS.
     - For example, if WHMCS is installed in `public_html`, upload the file `notifications.zip` to `public_html`.
 2. Extract the file `notifications.zip`.
-    -  it will add a folder in WHMCS/modules/addons.
-3. Remove the remaining .zip.
+    -  it will add a folder in WHMCS/modules/addons/lknhooknotification.
+3. Remove the remaining notifications.zip.
 4. Go to the WHMCS admin panel, select Options > Addon Modules, find the module and, once found, click "Activate".
 
 > 🔎 Tip: For more information on how to install Addon Modules in WHMCS, see: https://docs.whmcs.com/8-13/addon-modules/addon-modules/
+
 
 ## 🔁 Update Mode
 
@@ -64,13 +68,18 @@
 2. Access the root directory of your WHMCS, and go to the folder: /modules/addons.
 3. Inside the Addons folder, locate and delete the lknhooknotification folder.
 4. Delete the table created by the module in your WHMCS database; look for tables with names similar to the module, such as: mod_lkn_hook_notification\*.
-    - SQL: Run SQL commands like this:
+    - SQL: BE CAREFULL. Run SQL commands:
 
 ``` bash
+DROP TABLE IF EXISTS `mod_lkn_hook_notification_bulks`;
+DROP TABLE IF EXISTS `mod_lkn_hook_notification_localized_tpls`;
+DROP TABLE IF EXISTS `mod_lkn_hook_notification_notif_queue`;
+DROP TABLE IF EXISTS `mod_lkn_hook_notification_reports`;
+DROP TABLE IF EXISTS `mod_lkn_hook_notification_configs`;
 DROP TABLE IF EXISTS `mod_lkn_hook_notification_config`;
 ```
 
-## 📁 Documentation
+## 📁 Documentation For Developers
 
 For types documentation, follow https://phpstan.org/writing-php-code/phpdoc-types.
 
@@ -96,7 +105,7 @@ You need to push the /docs/public folder to the notifications repository on the 
 
 To view the internal documentation page, simply open the index.html file in /docs/public in your browser.
 
-## Documentation for Development
+## More Documentation for Development
 
 - WHMCS Addon Modules: https://developers.whmcs.com/addon-modules/
 - WHMCS Hook Index: https://developers.whmcs.com/hooks/hook-index/
@@ -159,7 +168,7 @@ They inherit the class. `AbstractCronNotification`.
 
 [Evolution API Docs](https://doc.evolution-api.com/v2/api-reference/get-information)
 
-To test, just set up locally and use ngrok:
+To test, just set up locally or use ngrok:
 
 ```bash
 docker run --net=host -it -e NGROK_AUTHTOKEN={NGROK_AUTHTOKEN} ngrok/ngrok:latest http 8080
@@ -172,7 +181,7 @@ Copy the given URL and place it in the Evolution API configuration in the module
 - https://github.com/WhiskeySockets/Baileys
 - https://baileys.wiki/docs/intro/
 
-To test, just set up locally and use ngrok:
+To test, just set up locally or use ngrok:
 
 ```bash
 docker run --net=host -it -e NGROK_AUTHTOKEN={NGROK_AUTHTOKEN} ngrok/ngrok:latest http 8080
@@ -189,18 +198,18 @@ ping
         "messagename": "Password Reset Validation",
         "relid": 1,
         "mergefields": {
-            "user_first_name": "Bruno",
-            "user_last_name": "Ferreira",
-            "user_email": "ferreira.bruno@linknacional.com",
-            "reset_password_url": "https://whmcs.linknacional.com/index.php?rp=/password/reset/redeem/c96b9b7e2248870f4e8933009399232ce5d06a5e649cba2c6e6fd9c56f402c7f",
+            "user_first_name": "Jorge",
+            "user_last_name": "Mendes",
+            "user_email": "xxxxx@linknacional.com",
+            "reset_password_url": "https://www.WHMCSDOMAIN.com/index.php?rp=/password/reset/redeem/c96b9b7e2248870f4e8933009399232ce5d06a5e649cba2c6e6fd9c56f402c7f",
             "company_name": "Link Nacional",
             "companyname": "Link Nacional",
-            "company_domain": "http://whmcs.linknacional.com",
+            "company_domain": "https://www.WHMCSDOMAIN.com",
             "company_logo_url": "",
             "company_tax_code": null,
-            "whmcs_url": "https://whmcs.linknacional.com/",
-            "whmcs_link": "<a href=\"https://whmcs.linknacional.com/\">https://whmcs.linknacional.com/</a>",
-            "signature": "---<br />\r\nLink Nacional<br />\r\nhttp://whmcs.linknacional.com",
+            "whmcs_url": "https://www.WHMCSDOMAIN.com/",
+            "whmcs_link": "<a href=\"https://www.WHMCSDOMAIN.com/\">https://www.WHMCSDOMAIN.com/</a>",
+            "signature": "---<br />\r\nLink Nacional<br />\r\nhttp://www.WHMCSDOMAIN.com",
             "date": "Tuesday, 20th May 2025",
             "time": "10:22am",
             "charset": "utf-8"
